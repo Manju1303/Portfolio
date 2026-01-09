@@ -1,3 +1,36 @@
+// Initialize Lucide icons
+lucide.createIcons();
+
+// Mobile Menu Toggle
+const mobileBtn = document.querySelector('.mobile-menu-btn');
+const mobileNav = document.querySelector('.mobile-nav');
+
+if (mobileBtn && mobileNav) {
+    mobileBtn.addEventListener('click', () => {
+        mobileNav.classList.toggle('active');
+        const icon = mobileNav.classList.contains('active') ? 'x' : 'menu';
+        mobileBtn.innerHTML = `<i data-lucide="${icon}"></i>`;
+        lucide.createIcons();
+    });
+}
+
+// Scroll Reveal Animation
+const revealElements = document.querySelectorAll('.reveal');
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    });
+}, {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+});
+
+revealElements.forEach(el => revealObserver.observe(el));
+
+// Contact Form Handler
 document.getElementById('contactForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
