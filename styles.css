@@ -23,10 +23,13 @@ body {
     font-family: var(--font-main);
     background-color: var(--bg-dark);
     color: var(--text-primary);
+    font-size: 1rem;
+    /* Standardized sizing */
     line-height: 1.6;
     overflow-x: hidden;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.02em;
 }
 
 a {
