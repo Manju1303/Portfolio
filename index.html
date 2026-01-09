@@ -11,6 +11,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap"
     rel="stylesheet">
+  <!-- Devicon -->
+  <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
   <!-- Icons (Lucide via UNPKG for static) -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Styles -->
@@ -75,26 +77,21 @@
 
     <div class="container hero-grid relative">
       <div class="hero-content reveal active">
-        <div class="status-badge">
-          <div class="ping-dot"></div>
-          Available for Projects
-        </div>
+        <div class="hero-role">AI ENGINEER & VIBE CODER</div>
 
-        <h1>Hi, I'm <br><span class="gradient-text"
-            style="font-family: var(--font-neon); font-weight: 700; letter-spacing: 2px;">Manjunath</span></h1>
+        <h1 class="hero-title">Manjunath</h1>
 
-        <h2 class="hero-subtitle">
-          Building intelligent <span style="color: white; font-weight: 500">AI Agents</span>.
-        </h2>
-
-        <p style="color: var(--text-secondary); margin-bottom: 2.5rem; max-width: 500px;">
-          A Vibe Coder and Data Science Engineer blending technical precision with creative development.
-          Focused on LLMs and Agentic Workflows.
+        <p class="hero-bio">
+          I build practical, scalable AI systems—including LLM-powered applications
+          and distributed sensor networks—by blending applied engineering with
+          rapid, intuitive Vibe Coding. My focus is on creating intelligent products that
+          simplify complex technical workflows and deliver seamless user
+          experiences.
         </p>
 
         <div class="hero-buttons">
-          <a href="#projects" class="btn btn-primary">View Work</a>
-          <a href="#contact" class="btn btn-secondary">Contact Me</a>
+          <a href="#projects" class="btn btn-primary">VIEW MY WORK</a>
+          <a href="#contact" class="btn btn-secondary">CONTACT ME</a>
         </div>
       </div>
 
@@ -122,31 +119,127 @@
 
   <section id="about" class="section-padding">
     <div class="container">
-      <div style="text-align: center; margin-bottom: 4rem;" class="reveal">
+      <!-- About Section -->
+      <div style="text-align: left; margin-bottom: 3rem;" class="reveal">
         <h2
-          style="font-size: 3rem; font-weight: 700; margin-bottom: 1rem; text-align: center; font-family: var(--font-neon); letter-spacing: 1px;">
-          About <span class="gradient-text">Me</span></h2>
-        <div
-          style="color: var(--text-secondary); text-align: left; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+          style="font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem; font-family: var(--font-neon); letter-spacing: 1px; text-transform: uppercase;">
+          About <span style="color: var(--primary);">Me.</span></h2>
+
+        <h3 style="color: #fbbf24; font-size: 1.5rem; font-weight: 600; margin-bottom: 2rem;">& AI & Data Science
+          Engineer</h3>
+
+        <div style="color: var(--text-secondary); line-height: 1.8; max-width: 100%;">
           <p style="margin-bottom: 1.5rem;">
-            I am Manjunath, a B.Tech graduate in Artificial Intelligence and Data Science and a passionate builder of
-            intelligent systems. As a fresher, I focus on transforming real-world problems into practical AI solutions
-            by combining software engineering, workflow automation, and large language model integration. I develop
-            autonomous AI agents using platforms like n8n, design chatbot training pipelines, and work with structured
-            datasets to enhance model intelligence.
+            I am Manjunath, a B.Tech graduate in Artificial Intelligence and Data Science, and an aspiring AI engineer
+            passionate about building intelligent, practical, and user-focused systems. As a fresher, I transform
+            real-world problems into AI-powered solutions by blending machine learning, software engineering, automation
+            workflows, and LLM integration.
           </p>
           <p style="margin-bottom: 1.5rem;">
-            I work primarily on Ubuntu and use a modern development stack including Python, React, Node.js, GitHub, and
-            Docker to build scalable web and AI applications. I have a strong foundation in cloud and networking
-            concepts such as VPC, subnets, DNS, and SSH.
+            I develop autonomous AI agents using platforms like n8n, build chatbot training pipelines, integrate
+            JSON-based datasets, and work with structured and unstructured data to improve model intelligence and
+            decision-making. My project experience includes problem analysis, system design, model implementation,
+            testing, deployment, and technical documentation.
           </p>
           <p style="margin-bottom: 1.5rem;">
-            My mission is to build AI-driven products that simplify complex technology, accelerate learning, and
-            automate everyday digital workflows. I identify myself as a <strong>Vibe Coder</strong>, blending technical
-            precision with creative, intuitive, and user-focused development to create practical and accessible
-            intelligent products.
+            My development stack includes Python, React, Node.js, GitHub, and Docker, with exposure to containerized
+            deployments and scalable web/AI applications. I understand essential cloud and networking concepts such as
+            VPC, subnets, DNS, and SSH, and apply secure remote-access practices in my projects.
+          </p>
+          <p style="margin-bottom: 1.5rem;">
+            My mission is to create AI-driven products that simplify technology, accelerate learning, and automate
+            digital workflows, converting complexity into guided and accessible intelligent experiences. I follow the
+            Vibe Coding approach—combining technical accuracy with creative, intuitive, and user-centric development to
+            deliver practical and accessible intelligent systems.
           </p>
         </div>
+      </div>
+
+      <!-- Education Block (In Flow) -->
+      <div class="education-block reveal" style="margin-bottom: 4rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+          <span style="font-size: 1.5rem;">🎓</span>
+          <h2 style="font-size: 1.5rem; font-weight: 700;">Education</h2>
+        </div>
+        <div class="education-card">
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">B.Tech Artificial Intelligence and
+            Data Science</h3>
+          <p style="color: var(--text-secondary); font-weight: 500;">JKKMCT</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">2023 - Present</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-bottom: 2rem;">
+        <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem; font-family: var(--font-neon);">Tools Known
+        </h2>
+      </div>
+
+      <!-- Skills Grid (Tools) -->
+      <div class="reveal" style="margin-bottom: 4rem;">
+        <div class="tools-grid">
+          <!-- Python -->
+          <div class="tool-card">
+            <i class="devicon-python-plain"></i>
+            <span>Python</span>
+          </div>
+          <!-- Git -->
+          <div class="tool-card">
+            <i class="devicon-git-plain"></i>
+            <span>Git</span>
+          </div>
+          <!-- VS Code -->
+          <div class="tool-card">
+            <i class="devicon-vscode-plain"></i>
+            <span>VS Code</span>
+          </div>
+          <!-- Ubuntu -->
+          <div class="tool-card">
+            <i class="devicon-ubuntu-plain"></i>
+            <span>Ubuntu</span>
+          </div>
+          <!-- React -->
+          <div class="tool-card">
+            <i class="devicon-react-original"></i>
+            <span>React</span>
+          </div>
+          <!-- Node.js -->
+          <div class="tool-card">
+            <i class="devicon-nodejs-plain"></i>
+            <span>Node.js</span>
+          </div>
+          <!-- Docker -->
+          <div class="tool-card">
+            <i class="devicon-docker-plain"></i>
+            <span>Docker</span>
+          </div>
+          <!-- Docker Compose -->
+          <div class="tool-card">
+            <i class="devicon-docker-plain-wordmark"></i>
+            <span>Compose</span>
+          </div>
+          <!-- Terminal -->
+          <div class="tool-card">
+            <i data-lucide="terminal-square"></i>
+            <span>Terminal</span>
+          </div>
+          <!-- API Tools -->
+          <div class="tool-card">
+            <i data-lucide="settings"></i>
+            <span>API Tools</span>
+          </div>
+          <!-- AI Agents -->
+          <div class="tool-card">
+            <i data-lucide="bot"></i>
+            <span>AI Agents</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-bottom: 2rem;">
+        <h2
+          style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem; font-family: var(--font-neon); text-transform: uppercase;">
+          Experienced in <span style="color: var(--primary);">Field</span>
+        </h2>
       </div>
 
       <div class="skill-grid" style="margin-bottom: 4rem;">
@@ -174,92 +267,8 @@
   </section>
 
   <!-- Skills Section -->
-  <section id="skills" class="section-padding" style="background: rgba(0,0,0,0.3);">
-    <div class="container">
-      <div style="margin-bottom: 4rem;" class="reveal">
-        <h2
-          style="font-size: 3rem; font-weight: 700; margin-bottom: 1rem; font-family: var(--font-neon); letter-spacing: 1px;">
-          Technical <span class="gradient-text">Arsenal</span></h2>
-        <p style="color: var(--text-secondary);">Tools and technologies I use to bring ideas to life.</p>
-      </div>
+  <!-- Skills & Education Section -->
 
-      <div class="skill-grid">
-        <!-- Frontend & Dev -->
-        <div class="glass-panel" style="padding: 2rem;" class="reveal">
-          <div
-            style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
-            <i data-lucide="layout" style="color: var(--secondary);"></i>
-            <h3 style="font-size: 1.25rem; font-weight: 700;">Frontend & Dev</h3>
-          </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-            <span class="skill-tag"><i data-lucide="code-2" style="width: 14px; margin-right: 4px;"></i> React.js</span>
-            <span class="skill-tag"><i data-lucide="palette" style="width: 14px; margin-right: 4px;"></i>
-              TailwindCSS</span>
-            <span class="skill-tag">PostCSS</span>
-            <span class="skill-tag">Autoprefixer</span>
-            <span class="skill-tag">Javascript</span>
-            <span class="skill-tag">HTML5/CSS3</span>
-          </div>
-        </div>
-
-        <!-- Data & AI -->
-        <div class="glass-panel" style="padding: 2rem;" class="reveal">
-          <div
-            style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
-            <i data-lucide="brain" style="color: var(--primary);"></i>
-            <h3 style="font-size: 1.25rem; font-weight: 700;">Data & AI</h3>
-          </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-            <span class="skill-tag"><i data-lucide="file-code" style="width: 14px; margin-right: 4px;"></i>
-              Python</span>
-            <span class="skill-tag">Pandas</span>
-            <span class="skill-tag">NumPy</span>
-            <span class="skill-tag">Matplotlib</span>
-            <span class="skill-tag"><i data-lucide="workflow" style="width: 14px; margin-right: 4px;"></i> n8n</span>
-            <span class="skill-tag">JSON Processor</span>
-          </div>
-        </div>
-
-        <!-- Tools & Workflow -->
-        <div class="glass-panel" style="padding: 2rem;" class="reveal">
-          <div
-            style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
-            <i data-lucide="wrench" style="color: #fbbf24;"></i>
-            <h3 style="font-size: 1.25rem; font-weight: 700;">Tools & Workflow</h3>
-          </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-            <span class="skill-tag"><i data-lucide="git-branch" style="width: 14px; margin-right: 4px;"></i> Git</span>
-            <span class="skill-tag"><i data-lucide="github" style="width: 14px; margin-right: 4px;"></i> GitHub</span>
-            <span class="skill-tag">VS Code</span>
-            <span class="skill-tag">Postman</span>
-            <span class="skill-tag">Chrome DevTools</span>
-            <span class="skill-tag">npm/npx</span>
-            <span class="skill-tag">Package Managers</span>
-          </div>
-        </div>
-
-        <!-- System & Cloud -->
-        <div class="glass-panel" style="padding: 2rem;" class="reveal">
-          <div
-            style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
-            <i data-lucide="server" style="color: var(--accent);"></i>
-            <h3 style="font-size: 1.25rem; font-weight: 700;">System & Cloud</h3>
-          </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-            <span class="skill-tag"><i data-lucide="container" style="width: 14px; margin-right: 4px;"></i>
-              Docker</span>
-            <span class="skill-tag">Ubuntu</span>
-            <span class="skill-tag">SSH Client</span>
-            <span class="skill-tag"><i data-lucide="terminal-square" style="width: 14px; margin-right: 4px;"></i>
-              Bash</span>
-            <span class="skill-tag">Linux Commands</span>
-            <span class="skill-tag">REST APIs</span>
-            <span class="skill-tag">Env Config</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Projects Section -->
   <section id="projects" class="section-padding">
@@ -360,51 +369,63 @@
     </div>
 
     <div class="container contact-grid relative">
+      <!-- Left Column: Info -->
       <div class="reveal">
-        <h2
-          style="font-size: 3rem; font-weight: 700; margin-bottom: 1.5rem; font-family: var(--font-neon); letter-spacing: 1px;">
-          Let's <span class="gradient-text">Connect</span></h2>
-        <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 400px;">
-          Whether you have a project in mind, want to discuss AI Agents, or just want to say hi, feel free to reach out.
+        <h2 class="contact-title">
+          LET'S WORK<br>
+          <span class="neon-purple">TOGETHER !</span>
+        </h2>
+
+        <p style="color: var(--text-secondary); margin-bottom: 2.5rem; max-width: 400px; line-height: 1.6;">
+          Have a project in mind? detailed question? or just want to
+          say hi? I'm always open to discussing new projects and
+          creative ideas.
         </p>
 
-        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-          <div style="display: flex; align-items: center; gap: 1rem;">
-            <div style="background: rgba(255,255,255,0.05); padding: 0.75rem; border-radius: 50%;"><i data-lucide="mail"
-                style="color: var(--primary);"></i></div>
-            <span style="font-size: 1.1rem;">manjunathkaids23@jkkmct.edu.in</span>
+        <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem;">
+          <div class="contact-item">
+            <i data-lucide="mail"></i>
+            <span>manjunathkaids23@jkkmct.edu.in</span>
           </div>
-          <div style="display: flex; align-items: center; gap: 1rem;">
-            <div style="background: rgba(255,255,255,0.05); padding: 0.75rem; border-radius: 50%;"><i
-                data-lucide="phone" style="color: var(--secondary);"></i></div>
-            <span style="font-size: 1.1rem;">+91 91599 26553</span>
+          <div class="contact-item">
+            <i data-lucide="phone"></i>
+            <span>+91 9159926553</span>
           </div>
-          <div style="display: flex; align-items: center; gap: 1rem;">
-            <div style="background: rgba(255,255,255,0.05); padding: 0.75rem; border-radius: 50%;"><i
-                data-lucide="map-pin" style="color: var(--accent);"></i></div>
-            <span style="font-size: 1.1rem;">India (IST +05:30)</span>
+          <div class="contact-item">
+            <i data-lucide="map-pin"></i>
+            <span>Kallakurichi</span>
           </div>
+        </div>
+
+        <div class="social-links">
+          <a href="https://github.com/Manju1303" target="_blank"><i data-lucide="github"></i></a>
+          <a href="https://www.linkedin.com/in/manjunath-manjunath-248594352" target="_blank"><i
+              data-lucide="linkedin"></i></a>
+          <a href="https://www.instagram.com/mjx_1303" target="_blank"><i data-lucide="instagram"></i></a>
         </div>
       </div>
 
-      <form class="glass-panel" style="padding: 2rem;" class="reveal" action="https://formspree.io/f/YOUR_FORM_ID"
-        method="POST">
-        <div class="form-group">
-          <label class="form-label">Name</label>
-          <input type="text" name="name" class="form-input" placeholder="Your Name" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email</label>
-          <input type="email" name="email" class="form-input" placeholder="you@company.com" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Message</label>
-          <textarea rows="4" name="message" class="form-textarea" placeholder="Tell me about your project..."
-            required></textarea>
-        </div>
-        <p id="form-status" style="margin-bottom: 1rem; text-align: center; font-weight: 500; min-height: 1.5rem;"></p>
-        <button type="submit" class="btn-submit">Send Message</button>
-      </form>
+      <!-- Right Column: Form -->
+      <div class="reveal">
+        <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea rows="5" name="message" class="form-textarea" required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit-neon">SEND MESSAGE</button>
+        </form>
+      </div>
     </div>
   </section>
 

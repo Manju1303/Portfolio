@@ -1,7 +1,9 @@
 :root {
     --bg-dark: #050505;
     --bg-card: #121212;
-    --primary: #6366f1;
+    --primary: #06b6d4;
+    /* Cyan */
+    --primary-glow: rgba(6, 182, 212, 0.5);
     --secondary: #ec4899;
     --accent: #8b5cf6;
     --text-primary: #ffffff;
@@ -376,37 +378,46 @@ nav.scrolled {
     }
 }
 
-h1 {
-    font-size: 4rem;
-    line-height: 1.1;
+.hero-role {
+    color: var(--primary);
+    font-family: var(--font-neon);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+.hero-title {
+    font-size: 5rem;
     font-weight: 800;
     margin-bottom: 1.5rem;
+    font-family: var(--font-main);
 }
 
-@media (max-width: 768px) {
-    h1 {
-        font-size: 3rem;
-    }
-}
-
-.hero-subtitle {
-    font-size: 1.5rem;
+.hero-bio {
     color: var(--text-secondary);
-    font-weight: 300;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    font-size: 1.1rem;
+    line-height: 1.8;
 }
 
 .hero-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .btn {
-    padding: 0.8rem 2rem;
+    padding: 1rem 2.5rem;
     border-radius: 50px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
 }
 
 .btn:active {
@@ -414,22 +425,26 @@ h1 {
 }
 
 .btn-primary {
-    background: white;
-    color: black;
-    border: none;
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
 }
 
 .btn-primary:hover {
-    background: #dadada;
+    background: var(--primary);
+    color: #000;
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.6);
 }
 
 .btn-secondary {
     background: transparent;
     color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .btn-secondary:hover {
+    border-color: white;
     background: rgba(255, 255, 255, 0.05);
 }
 
@@ -464,27 +479,78 @@ h1 {
 }
 
 /* Skills */
-.skill-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+/* Education */
+.education-card {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-left: 4px solid var(--primary);
+    padding: 2rem;
+    border-radius: 8px;
+    width: 100%;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.skill-tag {
-    display: inline-block;
-    padding: 0.4rem 0.8rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin: 0.25rem;
+/* Tools Grid */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 1.5rem;
+}
+
+.tool-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
     cursor: default;
 }
 
-.skill-tag:hover {
+.tool-card i {
+    font-size: 3rem;
+    color: #ccc;
+    transition: color 0.3s;
+}
+
+/* Devicon overrides if needed */
+.tool-card i[class^="devicon-"] {
+    font-size: 3rem;
+}
+
+/* Lucide icons in tool card */
+.tool-card [data-lucide] {
+    width: 48px;
+    height: 48px;
+    color: #ccc;
+}
+
+
+.tool-card span {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.tool-card:hover {
+    border-color: var(--primary);
+    background: rgba(6, 182, 212, 0.05);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.3);
+}
+
+.tool-card:hover i,
+.tool-card:hover [data-lucide] {
     color: white;
-    border-color: rgba(99, 102, 241, 0.5);
+}
+
+.tool-card:hover span {
+    color: white;
 }
 
 /* Projects */
@@ -507,6 +573,63 @@ h1 {
     }
 }
 
+/* Contact New Styles */
+.contact-title {
+    font-size: 4rem;
+    font-family: var(--font-neon);
+    font-weight: 900;
+    line-height: 1.1;
+    color: white;
+    text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+    margin-bottom: 2rem;
+}
+
+.neon-purple {
+    color: #d946ef;
+    /* Purple-Pink */
+    text-shadow: 0 0 10px rgba(217, 70, 239, 0.5);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+    font-weight: 500;
+}
+
+.contact-item i {
+    color: #d946ef;
+    width: 20px;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    color: white;
+    transition: all 0.3s;
+}
+
+.social-links a:hover {
+    background: #d946ef;
+    transform: translateY(-3px);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+}
+
 .form-group {
     margin-bottom: 1.5rem;
 }
@@ -514,7 +637,7 @@ h1 {
 .form-label {
     display: block;
     margin-bottom: 0.5rem;
-    color: var(--text-secondary);
+    color: #666;
     font-size: 0.9rem;
 }
 
@@ -522,26 +645,39 @@ h1 {
 .form-textarea {
     width: 100%;
     padding: 1rem;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 6px;
     color: white;
     font-family: inherit;
     outline: none;
+    transition: border-color 0.3s;
 }
 
 .form-input:focus,
 .form-textarea:focus {
-    border-color: var(--primary);
+    border-color: #333;
 }
 
-.btn-submit {
+.btn-submit-neon {
     width: 100%;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-    color: white;
-    border: none;
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
     padding: 1rem;
-    border-radius: 8px;
-    font-weight: 700;
+    border-radius: 50px;
+    font-weight: 800;
+    font-family: var(--font-neon);
+    letter-spacing: 1px;
+    text-transform: uppercase;
     cursor: pointer;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.2), inset 0 0 10px rgba(6, 182, 212, 0.1);
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.btn-submit-neon:hover {
+    background: var(--primary);
+    color: black;
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.6);
 }
