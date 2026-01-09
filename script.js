@@ -21,6 +21,7 @@ const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
+            revealObserver.unobserve(entry.target); // Stop observing once revealed
         }
     });
 }, {
@@ -29,6 +30,15 @@ const revealObserver = new IntersectionObserver((entries) => {
 });
 
 revealElements.forEach(el => revealObserver.observe(el));
+
+// Safety Fallback: Reveal all elements after 1 second if they haven't been revealed
+setTimeout(() => {
+    revealElements.forEach(el => {
+        if (!el.classList.contains('active')) {
+            el.classList.add('active');
+        }
+    });
+}, 1000);
 
 // Contact Form Handler
 document.getElementById('contactForm').addEventListener('submit', async function (e) {
