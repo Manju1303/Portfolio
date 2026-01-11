@@ -414,10 +414,6 @@ nav.scrolled {
         gap: 2rem;
     }
 
-    .hero-visual {
-        display: none;
-    }
-
     .hero-buttons {
         justify-content: center;
     }
@@ -607,6 +603,38 @@ nav.scrolled {
     width: 400px;
     height: 400px;
     margin: 0 auto;
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+    .hero-image-container {
+        width: 350px;
+        height: 350px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .hero-image-container {
+        width: 280px;
+        height: 280px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .hero-image-container {
+        width: 240px;
+        height: 240px;
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 360px) {
+    .hero-image-container {
+        width: 200px;
+        height: 200px;
+    }
 }
 
 .hero-image-wrapper {
