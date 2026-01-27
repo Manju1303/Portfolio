@@ -40,39 +40,48 @@ setTimeout(() => {
     });
 }, 1000);
 
-// Contact Form Handler
+// Contact Form Handler - Formspree AJAX Submit
 document.getElementById('contactForm').addEventListener('submit', async function (e) {
     e.preventDefault();
-
-    const formData = {
-        name: this.name.value,
-        email: this.email.value,
-        message: this.message.value
-    };
 
     const btn = this.querySelector('button');
     const originalText = btn.textContent;
     btn.textContent = 'SENDING...';
+    btn.disabled = true;
 
     try {
-        const response = await fetch('http://localhost:3000/send', {
+        const response = await fetch(this.action, {
             method: 'POST',
+            body: new FormData(this),
             headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
+                'Accept': 'application/json'
+            }
         });
 
         if (response.ok) {
-            alert('Message sent successfully!');
+            btn.textContent = '✓ SENT!';
+            btn.style.background = '#10b981';
+            btn.style.borderColor = '#10b981';
             this.reset();
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+                btn.style.borderColor = '';
+                btn.disabled = false;
+            }, 3000);
         } else {
-            alert('Failed to send message.');
+            throw new Error('Failed to send');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred. Check if the server is running.');
-    } finally {
-        btn.textContent = originalText;
+        btn.textContent = '✗ FAILED';
+        btn.style.background = '#ef4444';
+        btn.style.borderColor = '#ef4444';
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = '';
+            btn.style.borderColor = '';
+            btn.disabled = false;
+        }, 3000);
     }
 });

@@ -382,7 +382,11 @@
 
       <!-- Right Column: Form -->
       <div class="reveal">
-        <form class="contact-form" id="contactForm">
+        <!-- Formspree Form - Free & Permanent Email Service -->
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/xgvenndj" method="POST">
+          <input type="hidden" name="_subject" value="New Portfolio Contact!">
+          <input type="text" name="_gotcha" style="display:none">
+
           <div class="form-group">
             <label class="form-label">Name</label>
             <input type="text" name="name" class="form-input" required>
