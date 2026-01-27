@@ -417,11 +417,11 @@ nav.scrolled {
     .hero-buttons {
         justify-content: center;
     }
-    
+
     .hero-title {
         font-size: 3rem;
     }
-    
+
     .hero-bio {
         font-size: 1rem;
     }
@@ -432,7 +432,7 @@ nav.scrolled {
     .hero-title {
         font-size: 2.5rem;
     }
-    
+
     .hero-bio {
         font-size: 0.95rem;
     }
@@ -672,6 +672,7 @@ nav.scrolled {
         gap: 1rem;
     }
 }
+
 /* Education */
 .education-card {
     background: #0a0a0a;
@@ -947,4 +948,181 @@ nav.scrolled {
     background: var(--primary);
     color: black;
     box-shadow: 0 0 30px rgba(6, 182, 212, 0.6);
+}
+
+/* ========================================
+   ABOUT SECTION - RESPONSIVE STYLES
+======================================== */
+
+/* About Section Title */
+.about-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-neon);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* About Section Subtitle */
+.about-subtitle {
+    color: #fbbf24;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+/* About Section Body Text */
+.about-body {
+    color: #ffffff;
+    line-height: 1.8;
+    max-width: 100%;
+    font-size: 1.05rem;
+    text-align: justify;
+}
+
+.about-body p {
+    margin-bottom: 1.5rem;
+}
+
+/* About Section Wrapper */
+.about-content {
+    text-align: left;
+    margin-bottom: 3rem;
+}
+
+/* Education Section Title */
+.education-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-family: var(--font-neon);
+}
+
+/* Skill Grid Responsive */
+.skill-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+/* ========================================
+   MOBILE RESPONSIVE - ABOUT SECTION
+======================================== */
+
+@media (max-width: 768px) {
+
+    /* About Title - Mobile */
+    .about-title {
+        font-size: 1.75rem;
+        text-align: center;
+        letter-spacing: 0.5px;
+    }
+
+    /* About Subtitle - Mobile */
+    .about-subtitle {
+        font-size: 1.15rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    /* About Body Text - Mobile */
+    .about-body {
+        font-size: 0.95rem;
+        text-align: left;
+        line-height: 1.7;
+    }
+
+    .about-body p {
+        margin-bottom: 1.25rem;
+    }
+
+    /* About Content Wrapper - Mobile */
+    .about-content {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    /* Education Section - Mobile */
+    .education-block {
+        margin-bottom: 2rem;
+    }
+
+    .education-title {
+        font-size: 1.25rem;
+    }
+
+    .education-card h3 {
+        font-size: 1.1rem;
+    }
+
+    /* Section Titles - Mobile */
+    .section-title {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    /* Tools Grid - Mobile */
+    .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+    .tool-card {
+        padding: 0.75rem;
+    }
+
+    .tool-card i {
+        font-size: 2rem;
+    }
+
+    .tool-card span {
+        font-size: 0.75rem;
+    }
+
+    /* Skill Grid - Mobile */
+    .skill-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    /* Section Padding - Mobile */
+    .section-padding {
+        padding: 4rem 0;
+    }
+
+    /* Projects Grid - Mobile */
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tablet Responsive */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .about-title {
+        font-size: 2rem;
+    }
+
+    .about-subtitle {
+        font-size: 1.35rem;
+    }
+
+    .about-body {
+        font-size: 1rem;
+    }
+
+    .skill-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tools-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
