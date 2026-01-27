@@ -13,7 +13,7 @@ const About = () => {
             icon: <Code className="text-secondary" size={32} />,
             title: "Vibe Coder",
             desc: "Blending technical precision with intuitive, premium user-focused product design."
-        }
+        },
         {
             icon: <Globe className="text-green-400" size={32} />,
             title: "Distributed Systems",
