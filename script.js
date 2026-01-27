@@ -40,7 +40,9 @@ setTimeout(() => {
     });
 }, 1000);
 
-// Contact Form Handler - Web3Forms AJAX Submit
+// Contact Form Handler - Google Sheets Submit
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzRxQ9shgi44Ao1ORhQfKJylW5V7ySG-JxhKPFA_kHKU9j0OQL6zfi58oBOSecjm_QS8A/exec';
+
 document.getElementById('contactForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
@@ -49,28 +51,34 @@ document.getElementById('contactForm').addEventListener('submit', async function
     btn.textContent = 'SENDING...';
     btn.disabled = true;
 
+    const formData = {
+        name: this.querySelector('[name="name"]').value,
+        email: this.querySelector('[name="email"]').value,
+        message: this.querySelector('[name="message"]').value
+    };
+
     try {
-        const response = await fetch('https://api.web3forms.com/submit', {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
-            body: new FormData(this)
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
         });
 
-        const result = await response.json();
+        // With no-cors, we can't read response, so assume success
+        btn.textContent = '✓ SENT!';
+        btn.style.background = '#10b981';
+        btn.style.borderColor = '#10b981';
+        this.reset();
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = '';
+            btn.style.borderColor = '';
+            btn.disabled = false;
+        }, 3000);
 
-        if (result.success) {
-            btn.textContent = '✓ SENT!';
-            btn.style.background = '#10b981';
-            btn.style.borderColor = '#10b981';
-            this.reset();
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = '';
-                btn.style.borderColor = '';
-                btn.disabled = false;
-            }, 3000);
-        } else {
-            throw new Error(result.message || 'Failed to send');
-        }
     } catch (error) {
         console.error('Error:', error);
         btn.textContent = '✗ FAILED';
