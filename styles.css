@@ -958,37 +958,46 @@ nav.scrolled {
 .about-title {
     font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     font-family: var(--font-neon);
     letter-spacing: 1px;
     text-transform: uppercase;
+    line-height: 1.2;
 }
 
 /* About Section Subtitle */
 .about-subtitle {
     color: #fbbf24;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 600;
     margin-bottom: 2rem;
+    line-height: 1.4;
 }
 
 /* About Section Body Text */
 .about-body {
-    color: #ffffff;
-    line-height: 1.8;
+    color: #e5e5e5;
+    line-height: 1.9;
     max-width: 100%;
-    font-size: 1.05rem;
-    text-align: justify;
+    font-size: 1rem;
+    text-align: left;
+    letter-spacing: 0.01em;
 }
 
 .about-body p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
+    text-indent: 0;
+}
+
+.about-body p:last-child {
+    margin-bottom: 0;
 }
 
 /* About Section Wrapper */
 .about-content {
     text-align: left;
     margin-bottom: 3rem;
+    padding: 0;
 }
 
 /* Education Section Title */
@@ -1001,8 +1010,10 @@ nav.scrolled {
 .section-title {
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     font-family: var(--font-neon);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* Skill Grid Responsive */

@@ -40,7 +40,7 @@ setTimeout(() => {
     });
 }, 1000);
 
-// Contact Form Handler - Formspree AJAX Submit
+// Contact Form Handler - Web3Forms AJAX Submit
 document.getElementById('contactForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
@@ -50,15 +50,14 @@ document.getElementById('contactForm').addEventListener('submit', async function
     btn.disabled = true;
 
     try {
-        const response = await fetch(this.action, {
+        const response = await fetch('https://api.web3forms.com/submit', {
             method: 'POST',
-            body: new FormData(this),
-            headers: {
-                'Accept': 'application/json'
-            }
+            body: new FormData(this)
         });
 
-        if (response.ok) {
+        const result = await response.json();
+
+        if (result.success) {
             btn.textContent = '✓ SENT!';
             btn.style.background = '#10b981';
             btn.style.borderColor = '#10b981';
@@ -70,7 +69,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
                 btn.disabled = false;
             }, 3000);
         } else {
-            throw new Error('Failed to send');
+            throw new Error(result.message || 'Failed to send');
         }
     } catch (error) {
         console.error('Error:', error);
