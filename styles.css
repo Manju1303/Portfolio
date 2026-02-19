@@ -13,6 +13,40 @@
     --radius: 12px;
 }
 
+/* Scroll Text */
+.scroll-container {
+    width: 100%;
+    background: var(--primary);
+    color: #000;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    padding: 8px 0;
+    position: relative;
+    z-index: 2000;
+}
+
+.scroll-text {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+    font-family: var(--font-neon);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
 * {
     margin: 0;
     padding: 0;
