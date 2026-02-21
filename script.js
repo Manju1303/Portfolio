@@ -93,7 +93,6 @@ document.getElementById('contactForm').addEventListener('submit', async function
     }
 });
 
-
 // ========================================
 //   SCROLL STACK ANIMATION ENGINE
 // ========================================
@@ -113,6 +112,28 @@ document.getElementById('contactForm').addEventListener('submit', async function
 
     if (!cards.length || !endElement) return;
 
+    // ---- Bounce Card: trigger animation on viewport entry ----
+    const bounceCards = document.querySelectorAll('.bounce-card');
+    bounceCards.forEach(card => {
+        // Prevent CSS animation from running on load
+        card.style.animationPlayState = 'paused';
+    });
+
+    const bounceObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+                bounceObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -30px 0px'
+    });
+
+    bounceCards.forEach(card => bounceObserver.observe(card));
+
+    // ---- Scroll Stack Logic ----
     const lastTransforms = new Map();
     let ticking = false;
 
