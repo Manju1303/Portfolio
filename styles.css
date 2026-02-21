@@ -1171,3 +1171,296 @@ nav.scrolled {
         grid-template-columns: repeat(4, 1fr);
     }
 }
+
+
+/* ========================================
+   SCROLL STACK - CARD STACKING ANIMATION
+======================================== */
+
+.scroll-stack-scroller {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+}
+
+.scroll-stack-inner {
+    padding-bottom: 20rem;
+    min-height: 50vh;
+}
+
+.scroll-stack-card {
+    transform-origin: top center;
+    will-change: transform, filter;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.3);
+    min-height: 18rem;
+    width: 100%;
+    margin-bottom: 80px;
+    padding: 0;
+    border-radius: 24px;
+    box-sizing: border-box;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.scroll-stack-end {
+    width: 100%;
+    height: 1px;
+}
+
+/* Project Card Gradient Backgrounds */
+.project-card-gradient-1 {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #312e81 100%);
+}
+
+.project-card-gradient-2 {
+    background: linear-gradient(135deg, #0f172a 0%, #1a1a2e 40%, #16213e 100%);
+}
+
+.project-card-gradient-3 {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 40%, #0d1117 100%);
+}
+
+/* Project Card Content Layout */
+.project-card-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2.5rem;
+    height: 100%;
+    position: relative;
+}
+
+.project-card-icon {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.project-card-gradient-1 .project-card-icon {
+    color: var(--secondary);
+}
+
+.project-card-gradient-2 .project-card-icon {
+    color: var(--accent);
+}
+
+.project-card-gradient-3 .project-card-icon {
+    color: var(--primary);
+}
+
+.project-card-icon i,
+.project-card-icon [data-lucide] {
+    width: 28px;
+    height: 28px;
+}
+
+.project-card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.project-card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: #fff;
+    font-family: var(--font-main);
+}
+
+.project-card-tech {
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.project-card-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.project-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.project-card-link {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.project-card-link:hover {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+}
+
+/* Skill Tag (used in project cards) */
+.skill-tag {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    color: var(--primary);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+/* Scroll Stack Card Hover */
+.scroll-stack-card:hover {
+    box-shadow: 0 8px 60px rgba(6, 182, 212, 0.15);
+}
+
+.scroll-stack-card:hover .project-card-icon {
+    background: rgba(6, 182, 212, 0.12);
+    border-color: rgba(6, 182, 212, 0.3);
+    transform: scale(1.05);
+}
+
+/* ========================================
+   SCROLL STACK RESPONSIVE
+======================================== */
+
+@media (max-width: 768px) {
+    .scroll-stack-card {
+        min-height: auto;
+        border-radius: 18px;
+        margin-bottom: 60px;
+    }
+
+    .scroll-stack-inner {
+        padding-bottom: 12rem;
+    }
+
+    .project-card-content {
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+
+    .project-card-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+    }
+
+    .project-card-icon i,
+    .project-card-icon [data-lucide] {
+        width: 22px;
+        height: 22px;
+    }
+
+    .project-card-title {
+        font-size: 1.2rem;
+    }
+
+    .project-card-desc {
+        font-size: 0.85rem;
+    }
+
+    .project-card-link {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: 0.5rem;
+        width: fit-content;
+    }
+
+    .project-card-tags {
+        gap: 0.4rem;
+    }
+
+    .skill-tag {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .scroll-stack-card {
+        border-radius: 14px;
+        margin-bottom: 40px;
+    }
+
+    .project-card-content {
+        padding: 1.25rem;
+    }
+
+    .project-card-title {
+        font-size: 1.1rem;
+    }
+
+    .project-card-tech {
+        font-size: 0.75rem;
+    }
+
+    .project-card-desc {
+        font-size: 0.8rem;
+        line-height: 1.6;
+    }
+}
+
+/* ========================================
+   ABOUT SECTION - IMPROVED ALIGNMENT
+======================================== */
+
+/* Center the about title on all screen sizes */
+.about-title {
+    text-align: center;
+}
+
+.about-subtitle {
+    text-align: center;
+}
+
+/* Improve body text readability */
+.about-body {
+    text-align: justify;
+    text-justify: inter-word;
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    line-height: 1.9;
+}
+
+.about-body p {
+    margin-bottom: 1.5rem;
+}
+
+/* About Content center */
+.about-content {
+    text-align: center;
+}
