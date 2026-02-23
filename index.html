@@ -107,7 +107,7 @@
         <div class="hero-image-container">
           <div class="hero-image-glow"></div>
           <div class="hero-image-wrapper">
-            <img src="hero-photo.png" alt="Manjunath - AI Engineer & Vibe Coder" class="hero-profile-img">
+            <img src="hero-photo.jpg" alt="Manjunath - AI Engineer & Vibe Coder" class="hero-profile-img">
             <div class="hero-image-overlay">
               <div class="hero-image-name">Manjunath</div>
               <div class="hero-image-role">Vibe Coder</div>
@@ -142,16 +142,37 @@
       <div class="about-grid">
         <!-- Left Side: Image -->
         <div class="about-image-side anim-fade-right">
-          <div class="about-image-container">
-            <div class="about-image-accent"></div>
-            <div class="about-image-wrapper">
-              <img src="about-photo.png" alt="Manjunath - AI & Data Science Engineer" class="about-profile-img">
-            </div>
-            <div class="about-image-dots"></div>
-            <!-- Experience badge -->
-            <div class="about-experience-badge">
-              <div class="exp-number">B.Tech</div>
-              <div class="exp-text">AI & Data Science</div>
+          <!-- Holographic Profile Card -->
+          <div class="pc-card-wrapper" id="profileCard">
+            <div class="pc-behind"></div>
+            <div class="pc-card-shell" id="profileCardShell">
+              <section class="pc-card">
+                <div class="pc-inside">
+                  <div class="pc-shine"></div>
+                  <div class="pc-glare"></div>
+                  <div class="pc-content pc-avatar-content">
+                    <img class="avatar" src="about-photo.jpg" alt="Manjunath avatar" loading="lazy">
+                    <div class="pc-user-info">
+                      <div class="pc-user-details">
+                        <div class="pc-mini-avatar">
+                          <img src="hero-photo.jpg" alt="Manjunath mini avatar" loading="lazy">
+                        </div>
+                        <div class="pc-user-text">
+                          <div class="pc-handle">@Manju1303</div>
+                          <div class="pc-status">Available for work</div>
+                        </div>
+                      </div>
+                      <a href="#contact" class="pc-contact-btn">Contact</a>
+                    </div>
+                  </div>
+                  <div class="pc-content">
+                    <div class="pc-details">
+                      <h3>Manjunath</h3>
+                      <p>AI & Data Science Engineer</p>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
         </div>
@@ -308,206 +329,217 @@
     </div>
   </section>
 
-  <!-- Projects Section with Scroll Stack -->
+  <!-- Projects Section - Modern Showcase Grid -->
   <section id="projects" class="section-padding">
     <div class="container">
-      <div style="margin-bottom: 2rem;" class="anim-fade-up">
-        <h2
-          style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; font-family: var(--font-neon); letter-spacing: 1px;">
-          Featured <span class="gradient-text">Projects</span></h2>
-        <p style="color: var(--text-secondary);">Highlights of my engineering & development work.</p>
+      <div class="projects-header anim-fade-up">
+        <h2 class="projects-title">
+          Featured <span class="gradient-text">Projects</span>
+        </h2>
+        <p class="projects-subtitle">Highlights of my engineering & development work.</p>
       </div>
 
-      <div class="scroll-stack-scroller" id="scrollStackScroller">
-        <div class="scroll-stack-inner">
+      <!-- Projects Grid -->
+      <div class="projects-showcase">
 
-          <!-- Project Card 1: Home Services Booking Platform -->
-          <div class="scroll-stack-card bounce-card project-card-gradient-1">
-            <div class="project-card-content">
-              <div class="project-card-icon">
-                <i data-lucide="home"></i>
-              </div>
-              <div class="project-card-info">
-                <h3 class="project-card-title">Home Services Booking Platform</h3>
-                <p class="project-card-tech">Full-Stack • Next.js 14 • Node.js • PostgreSQL</p>
-                <p class="project-card-desc">
-                  A full-stack web application for booking home services (maid, cooking, electrician, plumbing,
-                  cleaning) on
-                  an hourly basis with secure Razorpay payment integration, JWT authentication, and Prisma ORM.
-                </p>
-                <div class="project-card-tags">
-                  <span class="skill-tag">Next.js 14</span>
-                  <span class="skill-tag">TypeScript</span>
-                  <span class="skill-tag">PostgreSQL</span>
-                  <span class="skill-tag">Prisma</span>
-                  <span class="skill-tag">Razorpay</span>
-                </div>
-              </div>
-              <a href="https://github.com/Manju1303/Home-services" target="_blank" class="project-card-link">
-                <i data-lucide="github" style="width: 18px; height: 18px;"></i> View Code
+        <!-- Project 1: Home Services — Featured/Large -->
+        <div class="project-showcase-card featured anim-fade-up" data-delay="100">
+          <div class="project-thumb project-thumb-1">
+            <div class="project-thumb-pattern"></div>
+            <div class="project-thumb-icon">
+              <i data-lucide="home"></i>
+            </div>
+            <div class="project-thumb-label">Full-Stack</div>
+          </div>
+          <div class="project-details">
+            <div class="project-details-header">
+              <h3 class="project-name">Home Services Booking Platform</h3>
+              <a href="https://github.com/Manju1303/Home-services" target="_blank" class="project-github-btn"
+                aria-label="View code">
+                <i data-lucide="github"></i>
               </a>
             </div>
-          </div>
-
-          <!-- Project Card 2: Memora - AI Assistant -->
-          <div class="scroll-stack-card bounce-card project-card-gradient-2">
-            <div class="project-card-content">
-              <div class="project-card-icon">
-                <i data-lucide="brain"></i>
-              </div>
-              <div class="project-card-info">
-                <h3 class="project-card-title">Memora — AI Assistant</h3>
-                <p class="project-card-tech">AI Agent • Semantic Memory • Python</p>
-                <p class="project-card-desc">
-                  An AI Assistant with Persistent Semantic Memory. Memora remembers context across conversations using
-                  vector embeddings, enabling personalized and intelligent interactions over time.
-                </p>
-                <div class="project-card-tags">
-                  <span class="skill-tag">Python</span>
-                  <span class="skill-tag">LLM</span>
-                  <span class="skill-tag">Semantic Search</span>
-                  <span class="skill-tag">Vector DB</span>
-                  <span class="skill-tag">AI Agent</span>
-                </div>
-              </div>
-              <a href="https://github.com/Manju1303/Memora" target="_blank" class="project-card-link">
-                <i data-lucide="github" style="width: 18px; height: 18px;"></i> View Code
-              </a>
+            <p class="project-description">A full-stack web application for booking home services on an hourly basis
+              with secure Razorpay payment integration, JWT authentication, and Prisma ORM.</p>
+            <div class="project-tech-stack">
+              <span>Next.js 14</span>
+              <span>TypeScript</span>
+              <span>PostgreSQL</span>
+              <span>Prisma</span>
+              <span>Razorpay</span>
             </div>
           </div>
-
-          <!-- Project Card 3: AI Humanizer -->
-          <div class="scroll-stack-card bounce-card project-card-gradient-3">
-            <div class="project-card-content">
-              <div class="project-card-icon">
-                <i data-lucide="pen-tool"></i>
-              </div>
-              <div class="project-card-info">
-                <h3 class="project-card-title">AI Humanizer</h3>
-                <p class="project-card-tech">NLP • Content Processing • TypeScript</p>
-                <p class="project-card-desc">
-                  An intelligent text humanization engine that transforms AI-generated content into natural,
-                  human-sounding writing while preserving meaning and context accuracy.
-                </p>
-                <div class="project-card-tags">
-                  <span class="skill-tag">TypeScript</span>
-                  <span class="skill-tag">NLP</span>
-                  <span class="skill-tag">AI</span>
-                  <span class="skill-tag">Text Processing</span>
-                </div>
-              </div>
-              <a href="https://github.com/Manju1303/Ai-Humarizer" target="_blank" class="project-card-link">
-                <i data-lucide="github" style="width: 18px; height: 18px;"></i> View Code
-              </a>
-            </div>
-          </div>
-
-          <!-- Project Card 4: Personal LLM -->
-          <div class="scroll-stack-card bounce-card project-card-gradient-4">
-            <div class="project-card-content">
-              <div class="project-card-icon">
-                <i data-lucide="bot"></i>
-              </div>
-              <div class="project-card-info">
-                <h3 class="project-card-title">Personal LLM</h3>
-                <p class="project-card-tech">LLM • Local AI • Python</p>
-                <p class="project-card-desc">
-                  A personal Large Language Model setup for running AI locally. Enables private, customizable
-                  AI-powered conversations and task automation without cloud dependency.
-                </p>
-                <div class="project-card-tags">
-                  <span class="skill-tag">Python</span>
-                  <span class="skill-tag">LLM</span>
-                  <span class="skill-tag">Local AI</span>
-                  <span class="skill-tag">Automation</span>
-                </div>
-              </div>
-              <a href="https://github.com/Manju1303/personal-llm" target="_blank" class="project-card-link">
-                <i data-lucide="github" style="width: 18px; height: 18px;"></i> View Code
-              </a>
-            </div>
-          </div>
-
-          <!-- Project Card 5: Hotel Services -->
-          <div class="scroll-stack-card bounce-card project-card-gradient-5">
-            <div class="project-card-content">
-              <div class="project-card-icon">
-                <i data-lucide="building"></i>
-              </div>
-              <div class="project-card-info">
-                <h3 class="project-card-title">Hotel Services Platform</h3>
-                <p class="project-card-tech">Full-Stack • Booking System • Web App</p>
-                <p class="project-card-desc">
-                  A comprehensive hotel and accommodation booking platform covering hostels, villas, and residencies
-                  across Tamil Nadu with payment integration and professional UI.
-                </p>
-                <div class="project-card-tags">
-                  <span class="skill-tag">JavaScript</span>
-                  <span class="skill-tag">Booking</span>
-                  <span class="skill-tag">Full-Stack</span>
-                  <span class="skill-tag">Payment</span>
-                </div>
-              </div>
-              <a href="https://github.com/Manju1303/Hotel-Services" target="_blank" class="project-card-link">
-                <i data-lucide="github" style="width: 18px; height: 18px;"></i> View Code
-              </a>
-            </div>
-          </div>
-
-          <!-- Project Card 6: Fitness Tracking -->
-          <div class="scroll-stack-card bounce-card project-card-gradient-6">
-            <div class="project-card-content">
-              <div class="project-card-icon">
-                <i data-lucide="heart-pulse"></i>
-              </div>
-              <div class="project-card-info">
-                <h3 class="project-card-title">Fitness Tracking App</h3>
-                <p class="project-card-tech">Frontend • Health & Wellness • HTML</p>
-                <p class="project-card-desc">
-                  A fitness tracking web application for monitoring workouts, tracking progress, and maintaining
-                  health goals with an intuitive and responsive user interface.
-                </p>
-                <div class="project-card-tags">
-                  <span class="skill-tag">HTML</span>
-                  <span class="skill-tag">CSS</span>
-                  <span class="skill-tag">JavaScript</span>
-                  <span class="skill-tag">Fitness</span>
-                </div>
-              </div>
-              <a href="https://github.com/Manju1303/Fitness-tracking-" target="_blank" class="project-card-link">
-                <i data-lucide="github" style="width: 18px; height: 18px;"></i> View Code
-              </a>
-            </div>
-          </div>
-
-          <!-- Project Card 7: AI Portfolio -->
-          <div class="scroll-stack-card bounce-card project-card-gradient-7">
-            <div class="project-card-content">
-              <div class="project-card-icon">
-                <i data-lucide="globe"></i>
-              </div>
-              <div class="project-card-info">
-                <h3 class="project-card-title">AI Portfolio Website</h3>
-                <p class="project-card-tech">Frontend • Scroll Animations • Responsive</p>
-                <p class="project-card-desc">
-                  A premium dark-themed portfolio featuring scroll-stack card animations, glassmorphism effects,
-                  neon accents, custom cursor, and smooth reveal transitions.
-                </p>
-                <div class="project-card-tags">
-                  <span class="skill-tag">HTML5</span>
-                  <span class="skill-tag">CSS3</span>
-                  <span class="skill-tag">JavaScript</span>
-                  <span class="skill-tag">Animation</span>
-                </div>
-              </div>
-              <a href="https://github.com/Manju1303/Portfolio" target="_blank" class="project-card-link">
-                <i data-lucide="github" style="width: 18px; height: 18px;"></i> View Code
-              </a>
-            </div>
-          </div>
-
-          <div class="scroll-stack-end"></div>
         </div>
+
+        <!-- Project 2: Memora — Featured/Large -->
+        <div class="project-showcase-card featured anim-fade-up" data-delay="200">
+          <div class="project-thumb project-thumb-2">
+            <div class="project-thumb-pattern"></div>
+            <div class="project-thumb-icon">
+              <i data-lucide="brain"></i>
+            </div>
+            <div class="project-thumb-label">AI Agent</div>
+          </div>
+          <div class="project-details">
+            <div class="project-details-header">
+              <h3 class="project-name">Memora — AI Assistant</h3>
+              <a href="https://github.com/Manju1303/Memora" target="_blank" class="project-github-btn"
+                aria-label="View code">
+                <i data-lucide="github"></i>
+              </a>
+            </div>
+            <p class="project-description">An AI Assistant with Persistent Semantic Memory. Remembers context across
+              conversations using vector embeddings for personalized interactions.</p>
+            <div class="project-tech-stack">
+              <span>Python</span>
+              <span>LLM</span>
+              <span>Semantic Search</span>
+              <span>Vector DB</span>
+              <span>AI Agent</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: AI Humanizer -->
+        <div class="project-showcase-card anim-fade-up" data-delay="100">
+          <div class="project-thumb project-thumb-3">
+            <div class="project-thumb-pattern"></div>
+            <div class="project-thumb-icon">
+              <i data-lucide="pen-tool"></i>
+            </div>
+            <div class="project-thumb-label">NLP</div>
+          </div>
+          <div class="project-details">
+            <div class="project-details-header">
+              <h3 class="project-name">AI Humanizer</h3>
+              <a href="https://github.com/Manju1303/Ai-Humarizer" target="_blank" class="project-github-btn"
+                aria-label="View code">
+                <i data-lucide="github"></i>
+              </a>
+            </div>
+            <p class="project-description">An intelligent text humanization engine that transforms AI-generated content
+              into natural, human-sounding writing.</p>
+            <div class="project-tech-stack">
+              <span>TypeScript</span>
+              <span>NLP</span>
+              <span>AI</span>
+              <span>Text Processing</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: Personal LLM -->
+        <div class="project-showcase-card anim-fade-up" data-delay="200">
+          <div class="project-thumb project-thumb-4">
+            <div class="project-thumb-pattern"></div>
+            <div class="project-thumb-icon">
+              <i data-lucide="bot"></i>
+            </div>
+            <div class="project-thumb-label">Local AI</div>
+          </div>
+          <div class="project-details">
+            <div class="project-details-header">
+              <h3 class="project-name">Personal LLM</h3>
+              <a href="https://github.com/Manju1303/personal-llm" target="_blank" class="project-github-btn"
+                aria-label="View code">
+                <i data-lucide="github"></i>
+              </a>
+            </div>
+            <p class="project-description">A personal Large Language Model setup for running AI locally. Private,
+              customizable AI conversations without cloud dependency.</p>
+            <div class="project-tech-stack">
+              <span>Python</span>
+              <span>LLM</span>
+              <span>Local AI</span>
+              <span>Automation</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 5: Hotel Services -->
+        <div class="project-showcase-card anim-fade-up" data-delay="100">
+          <div class="project-thumb project-thumb-5">
+            <div class="project-thumb-pattern"></div>
+            <div class="project-thumb-icon">
+              <i data-lucide="building"></i>
+            </div>
+            <div class="project-thumb-label">Booking</div>
+          </div>
+          <div class="project-details">
+            <div class="project-details-header">
+              <h3 class="project-name">Hotel Services Platform</h3>
+              <a href="https://github.com/Manju1303/Hotel-Services" target="_blank" class="project-github-btn"
+                aria-label="View code">
+                <i data-lucide="github"></i>
+              </a>
+            </div>
+            <p class="project-description">A comprehensive accommodation booking platform covering hostels, villas, and
+              residencies across Tamil Nadu with payment integration.</p>
+            <div class="project-tech-stack">
+              <span>JavaScript</span>
+              <span>Booking</span>
+              <span>Full-Stack</span>
+              <span>Payment</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 6: Fitness Tracking -->
+        <div class="project-showcase-card anim-fade-up" data-delay="200">
+          <div class="project-thumb project-thumb-6">
+            <div class="project-thumb-pattern"></div>
+            <div class="project-thumb-icon">
+              <i data-lucide="heart-pulse"></i>
+            </div>
+            <div class="project-thumb-label">Fitness</div>
+          </div>
+          <div class="project-details">
+            <div class="project-details-header">
+              <h3 class="project-name">Fitness Tracking App</h3>
+              <a href="https://github.com/Manju1303/Fitness-tracking-" target="_blank" class="project-github-btn"
+                aria-label="View code">
+                <i data-lucide="github"></i>
+              </a>
+            </div>
+            <p class="project-description">A fitness tracking web app for monitoring workouts, tracking progress, and
+              maintaining health goals with intuitive UI.</p>
+            <div class="project-tech-stack">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+              <span>Fitness</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 7: Portfolio -->
+        <div class="project-showcase-card anim-fade-up" data-delay="100">
+          <div class="project-thumb project-thumb-7">
+            <div class="project-thumb-pattern"></div>
+            <div class="project-thumb-icon">
+              <i data-lucide="globe"></i>
+            </div>
+            <div class="project-thumb-label">Portfolio</div>
+          </div>
+          <div class="project-details">
+            <div class="project-details-header">
+              <h3 class="project-name">AI Portfolio Website</h3>
+              <a href="https://github.com/Manju1303/Portfolio" target="_blank" class="project-github-btn"
+                aria-label="View code">
+                <i data-lucide="github"></i>
+              </a>
+            </div>
+            <p class="project-description">A premium dark-themed portfolio featuring smooth animations, glassmorphism
+              effects, neon accents, and responsive design.</p>
+            <div class="project-tech-stack">
+              <span>HTML5</span>
+              <span>CSS3</span>
+              <span>JavaScript</span>
+              <span>Animation</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
