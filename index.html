@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manjunath | AI & Vibe Coder</title>
+  <meta name="description"
+    content="Manjunath - AI Engineer & Vibe Coder. Building practical, scalable AI systems, LLM-powered applications, and intelligent products.">
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,8 +31,20 @@
 
 <body>
 
+  <!-- Particle Canvas Background -->
+  <canvas id="particleCanvas"></canvas>
+
   <!-- Custom Cursor -->
   <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- Page Loader -->
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <div class="loader-text">Loading<span class="loader-dots">...</span></div>
+    </div>
+  </div>
 
   <!-- Navigation -->
   <nav>
@@ -41,18 +55,9 @@
         <ul>
           <li><a href="#home" class="nav-link">Home</a></li>
           <li><a href="#about" class="nav-link">About</a></li>
-
           <li><a href="#projects" class="nav-link">Projects</a></li>
           <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
-        <!-- <div class="social-icons">
-          <a href="https://github.com/Manju1303" target="_blank"><i data-lucide="github"></i></a>
-          <a href="https://www.linkedin.com/in/manjunath-manjunath-248594352?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-            target="_blank"><i data-lucide="linkedin"></i></a>
-          <a href="https://www.instagram.com/mjx_1303?igsh=MWo5anIxcnZ1MDBpYQ==" target="_blank"><i
-              data-lucide="instagram"></i></a>
-          <a href="#contact"><i data-lucide="mail"></i></a>
-        </div> -->
       </div>
 
       <button class="mobile-menu-btn">
@@ -76,12 +81,15 @@
     <div class="hero-bg-blob-2"></div>
 
     <div class="container hero-grid relative">
-      <div class="hero-content reveal active">
+      <div class="hero-content anim-fade-up">
         <div class="hero-role">AI ENGINEER & VIBE CODER</div>
 
-        <h1 class="hero-title">Manjunath</h1>
+        <h1 class="hero-title">
+          <span class="typewriter-text" id="heroTypewriter"></span>
+          <span class="typewriter-cursor">|</span>
+        </h1>
 
-        <p class="hero-bio">
+        <p class="hero-bio anim-fade-up" data-delay="200">
           I build practical, scalable AI systems—including LLM-powered applications
           and distributed sensor networks—by blending applied engineering with
           rapid, intuitive Vibe Coding. My focus is on creating intelligent products that
@@ -89,71 +97,109 @@
           experiences.
         </p>
 
-        <div class="hero-buttons">
-          <a href="#projects" class="btn btn-primary">VIEW MY WORK</a>
-          <a href="#contact" class="btn btn-secondary">CONTACT ME</a>
+        <div class="hero-buttons anim-fade-up" data-delay="400">
+          <a href="#projects" class="btn btn-primary magnetic-btn">VIEW MY WORK</a>
+          <a href="#contact" class="btn btn-secondary magnetic-btn">CONTACT ME</a>
         </div>
       </div>
 
-      <div class="hero-visual reveal">
+      <div class="hero-visual anim-fade-right" data-delay="300">
         <div class="hero-image-container">
+          <div class="hero-image-glow"></div>
           <div class="hero-image-wrapper">
-            <img src="profile.png" alt="Manjunath Profile">
-            <div
-              style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);">
-              <div
-                style="font-weight: 700; font-size: 1.2rem; font-family: var(--font-neon); color: #fff; text-shadow: 0 0 10px var(--primary);">
-                Manjunath</div>
-              <div style="color: var(--primary); font-size: 0.9rem;">Vibe Coder</div>
+            <img src="hero-photo.png" alt="Manjunath - AI Engineer & Vibe Coder" class="hero-profile-img">
+            <div class="hero-image-overlay">
+              <div class="hero-image-name">Manjunath</div>
+              <div class="hero-image-role">Vibe Coder</div>
             </div>
+          </div>
+          <!-- Floating tech badges -->
+          <div class="floating-badge badge-1">
+            <i data-lucide="brain"></i>
+          </div>
+          <div class="floating-badge badge-2">
+            <i data-lucide="code-2"></i>
+          </div>
+          <div class="floating-badge badge-3">
+            <i data-lucide="zap"></i>
           </div>
         </div>
       </div>
     </div>
 
-    <div
-      style="position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite; color: var(--text-secondary);">
-      <i data-lucide="arrow-down"></i>
+    <div class="scroll-indicator">
+      <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+      </div>
+      <span>Scroll Down</span>
     </div>
   </section>
 
+  <!-- About Section with Image -->
   <section id="about" class="section-padding">
     <div class="container">
-      <!-- About Section -->
-      <div class="about-content reveal">
-        <h2 class="about-title">
-          About <span style="color: var(--primary);">Me.</span></h2>
+      <!-- About Section with Side Image -->
+      <div class="about-grid">
+        <!-- Left Side: Image -->
+        <div class="about-image-side anim-fade-right">
+          <div class="about-image-container">
+            <div class="about-image-accent"></div>
+            <div class="about-image-wrapper">
+              <img src="about-photo.png" alt="Manjunath - AI & Data Science Engineer" class="about-profile-img">
+            </div>
+            <div class="about-image-dots"></div>
+            <!-- Experience badge -->
+            <div class="about-experience-badge">
+              <div class="exp-number">B.Tech</div>
+              <div class="exp-text">AI & Data Science</div>
+            </div>
+          </div>
+        </div>
 
-        <h3 class="about-subtitle">AI & Data Science Engineer</h3>
+        <!-- Right Side: Content -->
+        <div class="about-text-side">
+          <div class="about-content anim-fade-left" data-delay="100">
+            <h2 class="about-title">
+              About <span style="color: var(--primary);">Me.</span></h2>
 
-        <div class="about-body">
-          <p>
-            I am an engineering graduate with a <strong style="color: #ffffff; font-weight: 700;">B.Tech in Artificial
-              Intelligence and Data Science</strong>, driven by a passion for building intelligent and user-centric
-            technology solutions. I have a strong academic and practical foundation in Machine Learning and data-driven
-            problem solving, backed by hands-on experience in developing AI-powered applications, chatbot systems,
-            automation workflows, and analytical models.
-          </p>
-          <p>
-            My project experience spans the full development lifecycle, including problem analysis, system design, model
-            implementation, testing, deployment, and technical documentation.
-          </p>
-          <p>
-            My development stack includes Python, React, Node.js, GitHub, and Docker, with exposure to containerized
-            deployments and scalable web/AI applications. I understand essential cloud and networking concepts such as
-            VPC, subnets, DNS, and SSH, and apply secure remote-access practices in my projects.
-          </p>
-          <p>
-            My mission is to create AI-driven products that simplify technology, accelerate learning, and automate
-            digital workflows, converting complexity into guided and accessible intelligent experiences. I follow the
-            Vibe Coding approach—combining technical accuracy with creative, intuitive, and user-centric development to
-            deliver practical and accessible intelligent systems.
-          </p>
+            <h3 class="about-subtitle">AI & Data Science Engineer</h3>
+
+            <div class="about-body">
+              <p>
+                I am an engineering graduate with a <strong style="color: #ffffff; font-weight: 700;">B.Tech in
+                  Artificial
+                  Intelligence and Data Science</strong>, driven by a passion for building intelligent and user-centric
+                technology solutions. I have a strong academic and practical foundation in Machine Learning and
+                data-driven
+                problem solving, backed by hands-on experience in developing AI-powered applications, chatbot systems,
+                automation workflows, and analytical models.
+              </p>
+              <p>
+                My project experience spans the full development lifecycle, including problem analysis, system design,
+                model
+                implementation, testing, deployment, and technical documentation.
+              </p>
+              <p>
+                My development stack includes Python, React, Node.js, GitHub, and Docker, with exposure to containerized
+                deployments and scalable web/AI applications. I understand essential cloud and networking concepts such
+                as
+                VPC, subnets, DNS, and SSH, and apply secure remote-access practices in my projects.
+              </p>
+              <p>
+                My mission is to create AI-driven products that simplify technology, accelerate learning, and automate
+                digital workflows, converting complexity into guided and accessible intelligent experiences. I follow
+                the
+                Vibe Coding approach—combining technical accuracy with creative, intuitive, and user-centric development
+                to
+                deliver practical and accessible intelligent systems.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Education Block (In Flow) -->
-      <div class="education-block reveal" style="margin-bottom: 2rem;">
+      <div class="education-block anim-fade-up" data-delay="200" style="margin-bottom: 2rem; margin-top: 3rem;">
         <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
           <span style="font-size: 1.5rem;">🎓</span>
           <h2 class="education-title">Education</h2>
@@ -166,12 +212,12 @@
         </div>
       </div>
 
-      <div class="reveal" style="margin-bottom: 2rem;">
+      <div class="anim-fade-up" data-delay="100" style="margin-bottom: 2rem;">
         <h2 class="section-title">Tools Known</h2>
       </div>
 
       <!-- Skills Grid (Tools) -->
-      <div class="reveal" style="margin-bottom: 2rem;">
+      <div class="anim-fade-up" data-delay="150" style="margin-bottom: 2rem;">
         <div class="tools-grid">
           <!-- Python -->
           <div class="tool-card">
@@ -231,7 +277,7 @@
         </div>
       </div>
 
-      <div class="reveal" style="margin-bottom: 2rem;">
+      <div class="anim-fade-up" data-delay="100" style="margin-bottom: 2rem;">
         <h2
           style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem; font-family: var(--font-neon); text-transform: uppercase;">
           Experienced in <span style="color: var(--primary);">Field</span>
@@ -239,20 +285,20 @@
       </div>
 
       <div class="skill-grid" style="margin-bottom: 2rem;">
-        <div class="glass-panel" style="padding: 2rem;" class="reveal">
+        <div class="glass-panel anim-zoom-in" data-delay="100" style="padding: 2rem;">
           <i data-lucide="brain" style="color: var(--primary); margin-bottom: 1rem;"></i>
           <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">AI & Agents</h3>
           <p style="color: var(--text-secondary);">Building autonomous systems, AI Agents, and LLM-powered applications
             using modern pipelines.</p>
         </div>
-        <div class="glass-panel" style="padding: 2rem;" class="reveal">
+        <div class="glass-panel anim-zoom-in" data-delay="200" style="padding: 2rem;">
           <i data-lucide="zap" style="color: var(--secondary); margin-bottom: 1rem;"></i>
           <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">Vibe Coder</h3>
           <p style="color: var(--text-secondary);">Blending technical precision with intuitive, premium user-focused
             product design.</p>
         </div>
 
-        <div class="glass-panel" style="padding: 2rem;" class="reveal">
+        <div class="glass-panel anim-zoom-in" data-delay="300" style="padding: 2rem;">
           <i data-lucide="network" style="color: #4ade80; margin-bottom: 1rem;"></i>
           <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">Cloud & Network</h3>
           <p style="color: var(--text-secondary);">Experience with VPC, Subnets, DNS, SSH, and distributed system
@@ -262,14 +308,10 @@
     </div>
   </section>
 
-  <!-- Skills Section -->
-  <!-- Skills & Education Section -->
-
-
   <!-- Projects Section with Scroll Stack -->
   <section id="projects" class="section-padding">
     <div class="container">
-      <div style="margin-bottom: 2rem;" class="reveal">
+      <div style="margin-bottom: 2rem;" class="anim-fade-up">
         <h2
           style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; font-family: var(--font-neon); letter-spacing: 1px;">
           Featured <span class="gradient-text">Projects</span></h2>
@@ -472,13 +514,11 @@
 
   <!-- Contact Section -->
   <section id="contact" class="section-padding" style="position: relative; overflow: hidden;">
-    <div
-      style="position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, rgba(99, 102, 241, 0.1), transparent); pointer-events: none;">
-    </div>
+    <div class="contact-bg-glow"></div>
 
     <div class="container contact-grid relative">
       <!-- Left Column: Info -->
-      <div class="reveal">
+      <div class="anim-fade-right">
         <h2 class="contact-title" style="font-size: 3rem;">
           LET'S WORK<br>
           <span class="neon-purple">TOGETHER !</span>
@@ -514,35 +554,69 @@
       </div>
 
       <!-- Right Column: Form -->
-      <div class="reveal">
+      <div class="anim-fade-left" data-delay="200">
         <!-- Google Sheets Form - 100% Free & Your Control -->
         <form class="contact-form" id="contactForm">
           <div class="form-group">
             <label class="form-label">Name</label>
-            <input type="text" name="name" class="form-input" required>
+            <input type="text" name="name" class="form-input" placeholder="Your full name" required>
           </div>
 
           <div class="form-group">
             <label class="form-label">Email</label>
-            <input type="email" name="email" class="form-input" required>
+            <input type="email" name="email" class="form-input" placeholder="your@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input type="text" name="subject" class="form-input" placeholder="Project inquiry, collaboration, etc.">
           </div>
 
           <div class="form-group">
             <label class="form-label">Message</label>
-            <textarea rows="5" name="message" class="form-textarea" required></textarea>
+            <textarea rows="5" name="message" class="form-textarea" placeholder="Tell me about your project..."
+              required></textarea>
           </div>
 
-          <button type="submit" class="btn-submit-neon">SEND MESSAGE</button>
+          <button type="submit" class="btn-submit-neon" id="submitBtn">
+            <span class="btn-text">SEND MESSAGE</span>
+            <span class="btn-loading" style="display:none;">
+              <svg class="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <path
+                  d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+              </svg>
+              SENDING...
+            </span>
+          </button>
+
+          <!-- Success/Error Message -->
+          <div class="form-message" id="formMessage"></div>
         </form>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer
-    style="padding: 2rem 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; color: var(--text-secondary); font-size: 0.9rem;">
-    © 2024 Manjunath. Built with Vanilla HTML/CSS.
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">Manjunath<span style="color: var(--primary)">.</span></div>
+        <p class="footer-text">© 2024 Manjunath. Built with Vanilla HTML/CSS & ❤️</p>
+        <div class="footer-links">
+          <a href="https://github.com/Manju1303" target="_blank"><i data-lucide="github"></i></a>
+          <a href="https://www.linkedin.com/in/manjunath-manjunath-248594352" target="_blank"><i
+              data-lucide="linkedin"></i></a>
+          <a href="https://www.instagram.com/mjx_1303" target="_blank"><i data-lucide="instagram"></i></a>
+        </div>
+      </div>
+    </div>
   </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop">
+    <i data-lucide="chevron-up"></i>
+  </button>
 
   <!-- Init Icons -->
   <script>
