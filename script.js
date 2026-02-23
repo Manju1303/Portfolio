@@ -432,7 +432,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
  * ============================================
  */
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzRxQ9shgi44Ao1ORhQfKJylW5V7ySG-JxhKPFA_kHKU9j0OQL6zfi58oBOSecjm_QS8A/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzCS9d0ZyDrpwE5eO37DUYjxpAnI1lK92B4TSfx42njQYKm3n192l2mjswbe2_365D8/exec';
 
 const contactForm = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
