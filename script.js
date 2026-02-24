@@ -871,5 +871,207 @@ setTimeout(() => {
     initialUntil = performance.now() + 1200;
     start();
 })();
+// ========================================
+//   RIBBON CURSOR TRAIL (OGL)
+// ========================================
+(function initRibbons() {
+    const container = document.getElementById('ribbonsContainer');
+    if (!container || typeof OGL === 'undefined') return;
+
+    const { Renderer, Transform, Vec3, Color, Polyline } = OGL;
+
+    const COLORS = ['#06b6d4', '#ec4899', '#8b5cf6'];
+    const BASE_SPRING = 0.03;
+    const BASE_FRICTION = 0.9;
+    const BASE_THICKNESS = 30;
+    const OFFSET_FACTOR = 0.05;
+    const MAX_AGE = 500;
+    const POINT_COUNT = 50;
+    const SPEED_MULT = 0.6;
+
+    const renderer = new Renderer({ dpr: Math.min(window.devicePixelRatio, 2), alpha: true });
+    const gl = renderer.gl;
+    gl.clearColor(0, 0, 0, 0);
+
+    gl.canvas.style.position = 'absolute';
+    gl.canvas.style.top = '0';
+    gl.canvas.style.left = '0';
+    gl.canvas.style.width = '100%';
+    gl.canvas.style.height = '100%';
+    container.appendChild(gl.canvas);
+
+    const scene = new Transform();
+    const lines = [];
+
+    const vertex = `
+        precision highp float;
+        attribute vec3 position;
+        attribute vec3 next;
+        attribute vec3 prev;
+        attribute vec2 uv;
+        attribute float side;
+        uniform vec2 uResolution;
+        uniform float uDPR;
+        uniform float uThickness;
+        varying vec2 vUV;
+        vec4 getPosition() {
+            vec4 current = vec4(position, 1.0);
+            vec2 aspect = vec2(uResolution.x / uResolution.y, 1.0);
+            vec2 nextScreen = next.xy * aspect;
+            vec2 prevScreen = prev.xy * aspect;
+            vec2 tangent = normalize(nextScreen - prevScreen);
+            vec2 normal = vec2(-tangent.y, tangent.x);
+            normal /= aspect;
+            normal *= mix(1.0, 0.1, pow(abs(uv.y - 0.5) * 2.0, 2.0));
+            float dist = length(nextScreen - prevScreen);
+            normal *= smoothstep(0.0, 0.02, dist);
+            float pixelWidthRatio = 1.0 / (uResolution.y / uDPR);
+            float pixelWidth = current.w * pixelWidthRatio;
+            normal *= pixelWidth * uThickness;
+            current.xy -= normal * side;
+            return current;
+        }
+        void main() {
+            vUV = uv;
+            gl_Position = getPosition();
+        }
+    `;
+
+    const fragment = `
+        precision highp float;
+        uniform vec3 uColor;
+        uniform float uOpacity;
+        varying vec2 vUV;
+        void main() {
+            float fade = 1.0 - smoothstep(0.0, 1.0, vUV.y);
+            gl_FragColor = vec4(uColor, uOpacity * fade);
+        }
+    `;
+
+    function resize() {
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        lines.forEach(l => l.polyline.resize());
+    }
+
+    window.addEventListener('resize', resize);
+
+    const center = (COLORS.length - 1) / 2;
+    COLORS.forEach((color, i) => {
+        const spring = BASE_SPRING + (Math.random() - 0.5) * 0.05;
+        const friction = BASE_FRICTION + (Math.random() - 0.5) * 0.05;
+        const thickness = BASE_THICKNESS + (Math.random() - 0.5) * 3;
+        const mouseOffset = new Vec3(
+            (i - center) * OFFSET_FACTOR + (Math.random() - 0.5) * 0.01,
+            (Math.random() - 0.5) * 0.1,
+            0
+        );
+
+        const points = [];
+        for (let j = 0; j < POINT_COUNT; j++) points.push(new Vec3());
+
+        const polyline = new Polyline(gl, {
+            points,
+            vertex,
+            fragment,
+            uniforms: {
+                uColor: { value: new Color(color) },
+                uThickness: { value: thickness },
+                uOpacity: { value: 0.6 }
+            }
+        });
+
+        polyline.mesh.setParent(scene);
+        lines.push({ spring, friction, mouseVelocity: new Vec3(), mouseOffset, points, polyline });
+    });
+
+    resize();
+
+    const mouse = new Vec3();
+    function updateMouse(e) {
+        let x, y;
+        if (e.changedTouches && e.changedTouches.length) {
+            x = e.changedTouches[0].clientX;
+            y = e.changedTouches[0].clientY;
+        } else {
+            x = e.clientX;
+            y = e.clientY;
+        }
+        mouse.set(
+            (x / window.innerWidth) * 2 - 1,
+            (y / window.innerHeight) * -2 + 1,
+            0
+        );
+    }
+
+    document.addEventListener('mousemove', updateMouse);
+    document.addEventListener('touchstart', updateMouse, { passive: true });
+    document.addEventListener('touchmove', updateMouse, { passive: true });
+
+    const tmp = new Vec3();
+    let lastTime = performance.now();
+
+    function update() {
+        requestAnimationFrame(update);
+        const now = performance.now();
+        const dt = now - lastTime;
+        lastTime = now;
+
+        lines.forEach(line => {
+            tmp.copy(mouse).add(line.mouseOffset).sub(line.points[0]).multiply(line.spring);
+            line.mouseVelocity.add(tmp).multiply(line.friction);
+            line.points[0].add(line.mouseVelocity);
+
+            for (let i = 1; i < line.points.length; i++) {
+                const segDelay = MAX_AGE / (line.points.length - 1);
+                const alpha = Math.min(1, (dt * SPEED_MULT) / segDelay);
+                line.points[i].lerp(line.points[i - 1], alpha);
+            }
+            line.polyline.updateGeometry();
+        });
+
+        renderer.render({ scene });
+    }
+    update();
+})();
+
+// ========================================
+//   SECTION REVEAL OBSERVER
+// ========================================
+(function initSectionReveals() {
+    // Add reveal classes to sections
+    document.querySelectorAll('.section-padding').forEach(section => {
+        const container = section.querySelector('.container');
+        if (container) container.classList.add('section-reveal');
+    });
+
+    // Add reveal to specific elements
+    document.querySelectorAll('.projects-header, .about-grid, .contact-grid').forEach(el => {
+        el.classList.add('section-reveal');
+    });
+
+    // Add stagger to grids
+    document.querySelectorAll('.projects-showcase, .tools-grid, .skills-grid').forEach(el => {
+        el.classList.add('stagger-children', 'section-reveal');
+    });
+
+    // Section title reveals
+    document.querySelectorAll('.projects-title, .section-title, .contact-title').forEach(el => {
+        el.classList.add('section-title-reveal');
+    });
+
+    // Observe and reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.section-reveal, .section-title-reveal, .stagger-children').forEach(el => {
+        observer.observe(el);
+    });
+})();
 
 console.log('%c Portfolio loaded successfully! 🚀', 'color: #06b6d4; font-size: 14px; font-weight: bold;');
