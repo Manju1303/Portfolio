@@ -913,8 +913,8 @@ nav.scrolled {
 
 .about-grid {
     display: grid;
-    grid-template-columns: 1fr 1.3fr;
-    gap: 4rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
     align-items: center;
     margin-bottom: 3rem;
 }
@@ -1941,8 +1941,8 @@ nav.scrolled {
     }
 
     .about-grid {
-        grid-template-columns: 1fr 1.5fr;
-        gap: 2.5rem;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 3rem;
     }
 
     .about-image-container {
