@@ -2468,11 +2468,11 @@ section {
     -webkit-mask-size: 150%;
     -webkit-mask-position: top calc(200% - (var(--background-y) * 5)) left calc(100% - var(--background-x));
     transition: filter 0.8s ease;
-    filter: brightness(0.8) contrast(1.1) saturate(1) opacity(0.4);
+    filter: brightness(0.8) contrast(1.1) saturate(1) opacity(0.3);
     animation: holo-bg 18s linear infinite;
     animation-play-state: running;
-    mix-blend-mode: soft-light;
-    /* Changed from color-dodge to keep colors natural */
+    mix-blend-mode: normal;
+    /* Force natural colors */
 }
 
 .pc-shine,
@@ -2545,7 +2545,8 @@ section {
     background-position: var(--pointer-x) var(--pointer-y), center;
     background-blend-mode: color-dodge;
     filter: brightness(calc(2 - var(--pointer-from-center))) contrast(calc(var(--pointer-from-center) + 2)) saturate(calc(0.5 + var(--pointer-from-center)));
-    mix-blend-mode: luminosity;
+    mix-blend-mode: normal;
+    /* Disabled luminosity */
 }
 
 .pc-shine::after {
@@ -2554,8 +2555,9 @@ section {
         calc(var(--background-x) * 0.4) calc(var(--background-y) * 0.5),
         center;
     background-size: 200% 300%, 700% 700%, 100% 100%;
-    mix-blend-mode: difference;
-    filter: brightness(0.8) contrast(1.5);
+    mix-blend-mode: normal;
+    /* Disabled difference to prevent inversion */
+    filter: brightness(0.8) contrast(1.1);
 }
 
 .pc-glare {
