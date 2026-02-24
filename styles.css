@@ -1248,37 +1248,97 @@ nav.scrolled {
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.project-thumb-icon {
+/* Logo Container System */
+.project-logo-container {
     position: relative;
     z-index: 2;
-    width: 72px;
-    height: 72px;
-    border-radius: 20px;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
-.project-thumb-icon [data-lucide] {
-    width: 32px;
-    height: 32px;
+.project-main-logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+    transition: all 0.5s ease;
+}
+
+.project-main-logo i {
+    line-height: 1;
+}
+
+.project-sub-logos {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1rem;
+    opacity: 0.8;
+}
+
+.project-sub-logos i {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    transition: all 0.3s;
+}
+
+.project-sub-logos i:hover {
+    color: var(--primary);
+    transform: translateY(-3px);
+    opacity: 1;
+}
+
+.project-logo-accent {
+    position: absolute;
+    top: -10px;
+    right: -25px;
+    background: var(--primary);
+    color: #000;
+    font-weight: 900;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: var(--font-neon);
+}
+
+.project-logo-text {
+    font-family: var(--font-neon);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+}
+
+.project-logo-icon {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #fff;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Icon + title disappear on hover */
-.project-flip-card:hover .project-thumb-icon {
-    transform: scale(0);
-    opacity: 0;
+.project-logo-icon [data-lucide] {
+    width: 14px;
+    height: 14px;
 }
 
-.project-flip-card:hover .project-front-title {
-    transform: scale(0);
+/* Disappear on hover */
+.project-flip-card:hover .project-logo-container,
+.project-flip-card:hover .project-front-title,
+.project-flip-card:hover .project-thumb-label {
+    transform: scale(0.5) translateY(-20px);
     opacity: 0;
 }
 
@@ -1298,11 +1358,6 @@ nav.scrolled {
     color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.15);
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.project-flip-card:hover .project-thumb-label {
-    opacity: 0;
-    transform: translateY(-10px);
 }
 
 /* Back Face - Content that flips in */
@@ -2522,15 +2577,17 @@ section {
 
 .pc-avatar-content .avatar {
     width: 100%;
+    height: 100%;
     position: absolute;
-    left: 50%;
-    transform-origin: 50% 100%;
-    transform: translateX(calc(-50% + (var(--pointer-from-left) - 0.5) * 6px)) translateZ(0) scaleY(calc(1 + (var(--pointer-from-top) - 0.5) * 0.02)) scaleX(calc(1 + (var(--pointer-from-left) - 0.5) * 0.01));
-    bottom: -1px;
+    top: 0;
+    left: 0;
+    transform-origin: 50% 0%;
+    transform: translateX(calc((var(--pointer-from-left) - 0.5) * 6px)) translateZ(0) scaleY(calc(1 + (var(--pointer-from-top) - 0.5) * 0.02)) scaleX(calc(1 + (var(--pointer-from-left) - 0.5) * 0.01));
     backface-visibility: hidden;
     will-change: transform;
     transition: transform 120ms ease-out;
     object-fit: cover;
+    object-position: top center;
     border-radius: 0;
 }
 
