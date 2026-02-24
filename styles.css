@@ -2468,10 +2468,11 @@ section {
     -webkit-mask-size: 150%;
     -webkit-mask-position: top calc(200% - (var(--background-y) * 5)) left calc(100% - var(--background-x));
     transition: filter 0.8s ease;
-    filter: brightness(0.66) contrast(1.33) saturate(0.33) opacity(0.5);
+    filter: brightness(1) contrast(1.1) saturate(1) opacity(0.6);
     animation: holo-bg 18s linear infinite;
     animation-play-state: running;
-    mix-blend-mode: color-dodge;
+    mix-blend-mode: soft-light;
+    /* Changed from color-dodge to keep colors natural */
 }
 
 .pc-shine,
@@ -2590,7 +2591,33 @@ section {
     transition: transform 150ms ease-out;
     object-fit: contain;
     filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.6));
+    mix-blend-mode: normal !important;
+    /* Force original color */
     z-index: 2;
+}
+
+/* Attractiveness: Floating Digital Scan Line */
+.pc-avatar-content::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to bottom, transparent, rgba(6, 182, 212, 0.2), transparent);
+    animation: scanner 6s linear infinite;
+    z-index: 3;
+    pointer-events: none;
+}
+
+@keyframes scanner {
+    0% {
+        top: -100%;
+    }
+
+    100% {
+        top: 200%;
+    }
 }
 
 /* Attractive background elements for the card */
@@ -2725,15 +2752,15 @@ section {
 }
 
 .pc-details h3 {
-    font-weight: 700;
+    font-weight: 800;
     margin: 0;
     font-size: min(5svh, 2.5em);
     font-family: var(--font-neon);
     background-image: linear-gradient(to bottom, #fff, #6f6fbe);
-    background-size: 1em 1.5em;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
+    background-size: 100% 100%;
+    -webkit-text-fill-color: #fff;
+    /* Solid white for readability */
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(6, 182, 212, 0.4);
 }
 
 .pc-details p {
