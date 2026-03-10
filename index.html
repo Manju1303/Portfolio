@@ -145,41 +145,39 @@
     <div class="container">
       <!-- About Section with Side Image -->
       <div class="about-grid">
-        <!-- Left Side: Image -->
+        <!-- Left Side: Profile Card -->
         <div class="about-image-side anim-fade-right">
-          <!-- Holographic Profile Card -->
-          <div class="pc-card-wrapper" id="profileCard">
-            <div class="pc-behind"></div>
-            <div class="pc-card-shell" id="profileCardShell">
-              <section class="pc-card">
-                <div class="pc-inside">
-                  <div class="pc-shine"></div>
-                  <div class="pc-glare"></div>
-                  <div class="pc-content pc-avatar-content">
-                    <img class="avatar" src="about-photo.png" alt="Manjunath avatar" loading="lazy">
-
-                    <!-- Floating decorative tech nodes -->
-                    <div class="pc-tech-node node-1"><i data-lucide="brain"></i></div>
-                    <div class="pc-tech-node node-2"><i data-lucide="code"></i></div>
-                    <div class="pc-tech-node node-3"><i data-lucide="database"></i></div>
-
-                    <div class="pc-user-info">
-                      <div class="pc-user-details">
-                        <div class="pc-mini-avatar">
-                          <img src="hero-photo.jpg" alt="Manjunath mini avatar" loading="lazy">
-                        </div>
-                        <div class="pc-user-text">
-                          <div class="pc-handle">@Manju1303</div>
-                          <div class="pc-status">Available for work</div>
-                        </div>
-                      </div>
-                      <a href="#contact" class="pc-contact-btn">Contact</a>
-                    </div>
-                  </div>
-
-                </div>
-              </section>
+          <div class="profile-card" id="profileCard">
+            <!-- Card background glow -->
+            <div class="profile-card-glow"></div>
+            
+            <!-- Online status badge -->
+            <div class="profile-card-status">
+              <span class="status-dot"></span>
+              <span class="status-text">Online</span>
             </div>
+
+            <!-- Circular profile image -->
+            <div class="profile-card-avatar">
+              <div class="avatar-ring"></div>
+              <div class="avatar-ring-glow"></div>
+              <img src="about-photo.png" alt="Manjunath - AI Engineer" loading="lazy">
+            </div>
+
+            <!-- User info -->
+            <div class="profile-card-info">
+              <h3 class="profile-card-name">MANJUNATH</h3>
+              <p class="profile-card-title">AI Engineer & Vibe Coder</p>
+              <p class="profile-card-handle">@Manju1303</p>
+            </div>
+
+            <!-- Contact button -->
+            <a href="#contact" class="profile-card-btn">Contact Me</a>
+
+            <!-- Decorative floating tech nodes -->
+            <div class="profile-float-badge float-badge-1"><i data-lucide="brain"></i></div>
+            <div class="profile-float-badge float-badge-2"><i data-lucide="code"></i></div>
+            <div class="profile-float-badge float-badge-3"><i data-lucide="zap"></i></div>
           </div>
         </div>
 

@@ -747,130 +747,32 @@ setTimeout(() => {
 }, 500);
 
 // ========================================
-//   HOLOGRAPHIC PROFILE CARD - TILT ENGINE
+//   PROFILE CARD - TILT EFFECT
 // ========================================
 (function initProfileCard() {
-    const wrap = document.getElementById('profileCard');
-    const shell = document.getElementById('profileCardShell');
-    if (!wrap || !shell) return;
+    const card = document.getElementById('profileCard');
+    if (!card || window.innerWidth < 768) return;
 
-    const clamp = (v, min = 0, max = 100) => Math.min(Math.max(v, min), max);
-    const round = (v, p = 3) => parseFloat(v.toFixed(p));
-    const adjust = (v, fMin, fMax, tMin, tMax) => round(tMin + ((tMax - tMin) * (v - fMin)) / (fMax - fMin));
+    card.style.transformStyle = 'preserve-3d';
+    card.style.perspective = '600px';
 
-    let currentX = 0, currentY = 0;
-    let targetX = 0, targetY = 0;
-    let running = false, lastTs = 0;
-    let rafId = null;
-    let enterTimer = null;
-    let leaveRaf = null;
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -8;
+        const rotateY = ((x - centerX) / centerX) * 8;
 
-    const DEFAULT_TAU = 0.14;
-    const INITIAL_TAU = 0.6;
-    let initialUntil = 0;
-
-    function setVarsFromXY(x, y) {
-        const w = shell.clientWidth || 1;
-        const h = shell.clientHeight || 1;
-        const px = clamp((100 / w) * x);
-        const py = clamp((100 / h) * y);
-        const cx = px - 50;
-        const cy = py - 50;
-
-        const props = {
-            '--pointer-x': px + '%',
-            '--pointer-y': py + '%',
-            '--background-x': adjust(px, 0, 100, 35, 65) + '%',
-            '--background-y': adjust(py, 0, 100, 35, 65) + '%',
-            '--pointer-from-center': clamp(Math.hypot(py - 50, px - 50) / 50, 0, 1),
-            '--pointer-from-top': py / 100,
-            '--pointer-from-left': px / 100,
-            '--rotate-x': round(-(cx / 5)) + 'deg',
-            '--rotate-y': round(cy / 4) + 'deg'
-        };
-
-        for (const [k, v] of Object.entries(props)) {
-            wrap.style.setProperty(k, v);
-        }
-    }
-
-    function step(ts) {
-        if (!running) return;
-        if (lastTs === 0) lastTs = ts;
-        const dt = (ts - lastTs) / 1000;
-        lastTs = ts;
-
-        const tau = ts < initialUntil ? INITIAL_TAU : DEFAULT_TAU;
-        const k = 1 - Math.exp(-dt / tau);
-
-        currentX += (targetX - currentX) * k;
-        currentY += (targetY - currentY) * k;
-        setVarsFromXY(currentX, currentY);
-
-        const stillFar = Math.abs(targetX - currentX) > 0.05 || Math.abs(targetY - currentY) > 0.05;
-
-        if (stillFar || document.hasFocus()) {
-            rafId = requestAnimationFrame(step);
-        } else {
-            running = false;
-            lastTs = 0;
-        }
-    }
-
-    function start() {
-        if (running) return;
-        running = true;
-        lastTs = 0;
-        rafId = requestAnimationFrame(step);
-    }
-
-    function setTarget(x, y) { targetX = x; targetY = y; start(); }
-    function toCenter() { setTarget(shell.clientWidth / 2, shell.clientHeight / 2); }
-
-    function getOffsets(e) {
-        const r = shell.getBoundingClientRect();
-        return { x: e.clientX - r.left, y: e.clientY - r.top };
-    }
-
-    shell.addEventListener('pointerenter', (e) => {
-        shell.classList.add('active');
-        shell.classList.add('entering');
-        if (enterTimer) clearTimeout(enterTimer);
-        enterTimer = setTimeout(() => shell.classList.remove('entering'), 180);
-        const { x, y } = getOffsets(e);
-        setTarget(x, y);
+        card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
     });
 
-    shell.addEventListener('pointermove', (e) => {
-        const { x, y } = getOffsets(e);
-        setTarget(x, y);
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) translateY(0px)';
     });
-
-    shell.addEventListener('pointerleave', () => {
-        toCenter();
-        const checkSettle = () => {
-            const settled = Math.hypot(targetX - currentX, targetY - currentY) < 0.6;
-            if (settled) {
-                shell.classList.remove('active');
-                leaveRaf = null;
-            } else {
-                leaveRaf = requestAnimationFrame(checkSettle);
-            }
-        };
-        if (leaveRaf) cancelAnimationFrame(leaveRaf);
-        leaveRaf = requestAnimationFrame(checkSettle);
-    });
-
-    // Initial animation: start from top-right, ease to center
-    const initX = (shell.clientWidth || 300) - 70;
-    const initY = 60;
-    currentX = initX;
-    currentY = initY;
-    setVarsFromXY(currentX, currentY);
-    toCenter();
-    initialUntil = performance.now() + 1200;
-    start();
 })();
+
 // ========================================
 //   RIBBON CURSOR TRAIL (OGL)
 // ========================================
