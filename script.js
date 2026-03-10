@@ -6,21 +6,67 @@
 lucide.createIcons();
 
 // ========================================
-//   PAGE LOADER
+//   EPIC PAGE LOADER WITH PROGRESS BAR
 // ========================================
-window.addEventListener('load', () => {
+(function initEpicLoader() {
     const loader = document.getElementById('pageLoader');
-    if (loader) {
+    const bar = document.getElementById('loaderBar');
+    const particlesContainer = document.getElementById('loaderParticles');
+    if (!loader) return;
+
+    // Create floating particles in loader
+    if (particlesContainer) {
+        for (let i = 0; i < 30; i++) {
+            const p = document.createElement('div');
+            p.style.cssText = `
+                position: absolute;
+                width: ${Math.random() * 4 + 1}px;
+                height: ${Math.random() * 4 + 1}px;
+                background: ${Math.random() > 0.5 ? 'var(--primary)' : 'var(--secondary)'};
+                border-radius: 50%;
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+                opacity: ${Math.random() * 0.5 + 0.2};
+                animation: loaderFloat ${Math.random() * 3 + 2}s ease-in-out infinite alternate;
+                animation-delay: ${Math.random() * 2}s;
+                box-shadow: 0 0 ${Math.random() * 10 + 5}px currentColor;
+            `;
+            particlesContainer.appendChild(p);
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes loaderFloat {
+                from { transform: translateY(0) scale(1); opacity: 0.3; }
+                to { transform: translateY(-${30 + Math.random() * 40}px) scale(1.5); opacity: 0.8; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // Animate progress bar
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 15 + 5;
+        if (progress > 100) progress = 100;
+        if (bar) bar.style.width = progress + '%';
+        if (progress >= 100) clearInterval(interval);
+    }, 120);
+
+    window.addEventListener('load', () => {
+        if (bar) bar.style.width = '100%';
         setTimeout(() => {
             loader.classList.add('hidden');
-        }, 800);
-    }
-});
+            // Trigger hero entrance animations
+            document.body.classList.add('loaded');
+        }, 600);
+    });
+})();
 
 // ========================================
-//   PARTICLE BACKGROUND
+//   ANTIGRAVITY PARTICLE BACKGROUND
 // ========================================
-(function initParticles() {
+(function initAntigravityParticles() {
     const canvas = document.getElementById('particleCanvas');
     if (!canvas) return;
 
@@ -28,7 +74,6 @@ window.addEventListener('load', () => {
     let particles = [];
     let mouseX = 0;
     let mouseY = 0;
-    let animationId;
 
     function resize() {
         canvas.width = window.innerWidth;
@@ -38,49 +83,83 @@ window.addEventListener('load', () => {
     resize();
     window.addEventListener('resize', resize);
 
-    class Particle {
+    class AntigravityParticle {
         constructor() {
             this.reset();
         }
 
         reset() {
             this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2 + 0.5;
-            this.speedX = (Math.random() - 0.5) * 0.5;
-            this.speedY = (Math.random() - 0.5) * 0.5;
-            this.opacity = Math.random() * 0.5 + 0.1;
+            this.y = canvas.height + Math.random() * 100;
+            this.size = Math.random() * 3 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.4;
+            this.speedY = -(Math.random() * 1.2 + 0.3); // Float upward (antigravity)
+            this.opacity = Math.random() * 0.6 + 0.1;
+            this.hue = Math.random() > 0.7 ? 330 : (Math.random() > 0.5 ? 270 : 188); // cyan, purple, pink
+            this.pulse = Math.random() * Math.PI * 2;
+            this.pulseSpeed = Math.random() * 0.02 + 0.01;
+            this.wobble = Math.random() * 0.5;
+            this.wobbleSpeed = Math.random() * 0.02 + 0.005;
+            this.wobblePhase = Math.random() * Math.PI * 2;
+            this.life = 1;
         }
 
         update() {
-            this.x += this.speedX;
+            // Antigravity: float upward
             this.y += this.speedY;
+            
+            // Gentle lateral wobble
+            this.wobblePhase += this.wobbleSpeed;
+            this.x += this.speedX + Math.sin(this.wobblePhase) * this.wobble;
+            
+            // Pulse glow
+            this.pulse += this.pulseSpeed;
+            const glowFactor = 0.5 + Math.sin(this.pulse) * 0.5;
+            this.currentOpacity = this.opacity * glowFactor;
 
-            // Mouse repulsion
-            const dx = this.x - mouseX;
-            const dy = this.y - mouseY;
+            // Mouse attraction (soft pull)
+            const dx = mouseX - this.x;
+            const dy = mouseY - this.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 100) {
-                this.x += dx / dist * 1.5;
-                this.y += dy / dist * 1.5;
+            if (dist < 150) {
+                const force = (150 - dist) / 150 * 0.3;
+                this.x += dx / dist * force;
+                this.y += dy / dist * force;
             }
 
-            if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-            if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            // Fade out at top, respawn at bottom
+            if (this.y < -20) {
+                this.reset();
+            }
+            
+            // Wrap horizontally
+            if (this.x < -10) this.x = canvas.width + 10;
+            if (this.x > canvas.width + 10) this.x = -10;
         }
 
         draw() {
+            // Main particle
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(6, 182, 212, ${this.opacity})`;
+            ctx.fillStyle = `hsla(${this.hue}, 80%, 60%, ${this.currentOpacity})`;
             ctx.fill();
+
+            // Glow aura
+            if (this.size > 1.5) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${this.hue}, 80%, 60%, ${this.currentOpacity * 0.15})`;
+                ctx.fill();
+            }
         }
     }
 
     // Create particles based on screen size
-    const particleCount = Math.min(80, Math.floor(window.innerWidth / 15));
+    const particleCount = Math.min(100, Math.floor(window.innerWidth / 12));
     for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
+        const p = new AntigravityParticle();
+        p.y = Math.random() * canvas.height; // Initial spread
+        particles.push(p);
     }
 
     function drawConnections() {
@@ -90,9 +169,10 @@ window.addEventListener('load', () => {
                 const dy = particles[i].y - particles[j].y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
-                if (dist < 120) {
+                if (dist < 100) {
+                    const alpha = 0.06 * (1 - dist / 100);
                     ctx.beginPath();
-                    ctx.strokeStyle = `rgba(6, 182, 212, ${0.08 * (1 - dist / 120)})`;
+                    ctx.strokeStyle = `rgba(6, 182, 212, ${alpha})`;
                     ctx.lineWidth = 0.5;
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
@@ -104,19 +184,13 @@ window.addEventListener('load', () => {
 
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-
+        particles.forEach(p => { p.update(); p.draw(); });
         drawConnections();
-        animationId = requestAnimationFrame(animate);
+        requestAnimationFrame(animate);
     }
 
     animate();
 
-    // Track mouse for particle interaction
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
@@ -937,7 +1011,33 @@ setTimeout(() => {
 })();
 
 // ========================================
-//   SECTION REVEAL OBSERVER
+//   3D CARD TILT EFFECT FOR PROJECT CARDS
+// ========================================
+(function initProjectCardTilt() {
+    if (window.innerWidth < 768) return;
+
+    const cards = document.querySelectorAll('.project-flip-card');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -6;
+            const rotateY = ((x - centerX) / centerX) * 6;
+            
+            card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+        });
+    });
+})();
+
+// ========================================
+//   ENHANCED SECTION SCROLL REVEAL
 // ========================================
 (function initSectionReveals() {
     // Add reveal classes to sections
@@ -956,9 +1056,15 @@ setTimeout(() => {
         el.classList.add('stagger-children', 'section-reveal');
     });
 
-    // Section title reveals
-    document.querySelectorAll('.projects-title, .section-title, .contact-title').forEach(el => {
+    // Section title reveals - slide in with blur
+    document.querySelectorAll('.projects-title, .section-title, .contact-title, .about-title, .education-title').forEach(el => {
         el.classList.add('section-title-reveal');
+    });
+
+    // Individual card reveals with stagger
+    document.querySelectorAll('.glass-panel, .education-card, .tool-card').forEach((el, i) => {
+        el.classList.add('section-reveal');
+        el.setAttribute('data-reveal-delay', (i % 4) * 100);
     });
 
     // Observe and reveal
@@ -969,7 +1075,7 @@ setTimeout(() => {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
     document.querySelectorAll('.section-reveal, .section-title-reveal, .stagger-children').forEach(el => {
         observer.observe(el);

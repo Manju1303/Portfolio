@@ -36,19 +36,23 @@
   <!-- Ribbon Cursor Trail -->
   <div id="ribbonsContainer" class="ribbons-container"></div>
 
-  <!-- Particle Canvas Background -->
+  <!-- Antigravity Particle Canvas Background -->
   <canvas id="particleCanvas"></canvas>
 
   <!-- Custom Cursor -->
   <div class="cursor-dot"></div>
   <div class="cursor-ring"></div>
 
-  <!-- Page Loader -->
+  <!-- Epic Page Loader -->
   <div class="page-loader" id="pageLoader">
     <div class="loader-content">
-      <div class="loader-spinner"></div>
-      <div class="loader-text">Loading<span class="loader-dots">...</span></div>
+      <div class="loader-logo-glitch" data-text="MJ">MJ</div>
+      <div class="loader-bar-track">
+        <div class="loader-bar-fill" id="loaderBar"></div>
+      </div>
+      <div class="loader-text">INITIALIZING<span class="loader-dots">...</span></div>
     </div>
+    <div class="loader-particles" id="loaderParticles"></div>
   </div>
 
   <!-- Navigation -->
@@ -348,6 +352,7 @@
 
         <!-- Project 1: Home Services -->
         <div class="project-flip-card anim-fade-up" data-delay="100">
+          <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-1">
             <div class="project-thumb-pattern"></div>
             <svg class="project-deco-svg" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -368,8 +373,7 @@
           </div>
           <div class="project-flip-back">
             <h3 class="project-name">Home Services Booking Platform</h3>
-            <p class="project-description">A full-stack web application for booking home services on an hourly basis
-              with secure Razorpay payment integration, JWT authentication, and Prisma ORM.</p>
+            <p class="project-description">A production-ready full-stack platform enabling users to browse, book, and pay for home services (cleaning, plumbing, electrical) on an hourly basis. Features role-based dashboards for customers and service providers, real-time booking management, secure Razorpay payment gateway with webhook verification, JWT-based authentication, and a fully normalized PostgreSQL database managed via Prisma ORM.</p>
             <div class="project-tech-stack">
               <span>Next.js 14</span>
               <span>TypeScript</span>
@@ -387,6 +391,7 @@
 
         <!-- Project 2: Memora -->
         <div class="project-flip-card anim-fade-up" data-delay="200">
+          <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-2">
             <div class="project-thumb-pattern"></div>
             <svg class="project-deco-svg" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -404,8 +409,7 @@
           </div>
           <div class="project-flip-back">
             <h3 class="project-name">Memora — AI Assistant</h3>
-            <p class="project-description">An AI Assistant with Persistent Semantic Memory. Remembers context across
-              conversations using vector embeddings for personalized interactions.</p>
+            <p class="project-description">An intelligent AI assistant featuring persistent semantic memory that remembers user context across conversations. Built with a RAG pipeline using vector embeddings (ChromaDB), it retrieves relevant past interactions for deeply personalized responses. Includes document ingestion, fact extraction, background memory summarization, and multi-turn conversation support — all orchestrated through a modular Python agent architecture.</p>
             <div class="project-tech-stack">
               <span>Python</span>
               <span>LLM</span>
@@ -423,6 +427,7 @@
 
         <!-- Project 3: AI Humanizer -->
         <div class="project-flip-card anim-fade-up" data-delay="100">
+          <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-3">
             <div class="project-thumb-pattern"></div>
             <svg class="project-deco-svg" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -439,8 +444,7 @@
           </div>
           <div class="project-flip-back">
             <h3 class="project-name">AI Humanizer</h3>
-            <p class="project-description">An intelligent text humanization engine that transforms AI-generated content
-              into natural, human-sounding writing.</p>
+            <p class="project-description">A sophisticated NLP-powered text transformation engine that intelligently converts AI-generated text into natural, human-sounding prose. Uses advanced tokenization, sentence restructuring, synonym mapping, and stylistic variation algorithms to bypass AI detectors while preserving the original meaning and context of the content. Built with a modular TypeScript architecture for extensibility.</p>
             <div class="project-tech-stack">
               <span>TypeScript</span>
               <span>NLP</span>
@@ -457,6 +461,7 @@
 
         <!-- Project 4: Personal LLM -->
         <div class="project-flip-card anim-fade-up" data-delay="200">
+          <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-4">
             <div class="project-thumb-pattern"></div>
             <svg class="project-deco-svg" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -475,13 +480,13 @@
           </div>
           <div class="project-flip-back">
             <h3 class="project-name">Personal LLM</h3>
-            <p class="project-description">A personal Large Language Model setup for running AI locally. Private,
-              customizable AI conversations without cloud dependency.</p>
+            <p class="project-description">A fully self-hosted Large Language Model deployment running on a personal Linux server. Configured with Ollama for model management, enabling private and secure AI conversations with zero cloud dependency. Supports multiple open-source models (LLaMA, Mistral, CodeLlama), custom system prompts, and conversation history — ideal for developers who value privacy and local-first AI workflows.</p>
             <div class="project-tech-stack">
               <span>Python</span>
               <span>LLM</span>
               <span>Local AI</span>
-              <span>Automation</span>
+              <span>Ollama</span>
+              <span>Linux</span>
             </div>
             <div class="project-actions">
               <a href="https://github.com/Manju1303/personal-llm" target="_blank" class="project-btn primary">
@@ -493,6 +498,7 @@
 
         <!-- Project 5: Hotel Services -->
         <div class="project-flip-card anim-fade-up" data-delay="100">
+          <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-5">
             <div class="project-thumb-pattern"></div>
             <svg class="project-deco-svg" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -511,12 +517,12 @@
           </div>
           <div class="project-flip-back">
             <h3 class="project-name">Hotel Services Platform</h3>
-            <p class="project-description">A comprehensive accommodation booking platform covering hostels, villas, and
-              residencies across Tamil Nadu with payment integration.</p>
+            <p class="project-description">A comprehensive accommodation discovery and booking platform serving hostels, villas, and residential stays across Tamil Nadu. Features location-based search with interactive maps, real-time availability checking, user reviews and ratings, admin panel for property management, and integrated payment processing. Built with a responsive JavaScript front-end and a robust back-end API.</p>
             <div class="project-tech-stack">
               <span>JavaScript</span>
-              <span>Booking</span>
+              <span>Node.js</span>
               <span>Full-Stack</span>
+              <span>REST API</span>
               <span>Payment</span>
             </div>
             <div class="project-actions">
@@ -529,6 +535,7 @@
 
         <!-- Project 6: Fitness Tracking -->
         <div class="project-flip-card anim-fade-up" data-delay="200">
+          <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-6">
             <div class="project-thumb-pattern"></div>
             <svg class="project-deco-svg" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -547,13 +554,13 @@
           </div>
           <div class="project-flip-back">
             <h3 class="project-name">Fitness Tracking App</h3>
-            <p class="project-description">A fitness tracking web app for monitoring workouts, tracking progress, and
-              maintaining health goals with intuitive UI.</p>
+            <p class="project-description">A visually rich fitness tracking web application for logging workouts, monitoring daily calorie intake, tracking BMI trends, and setting personalized health milestones. Features dynamic progress charts, exercise category filters, streaks tracking, and a dark-themed dashboard UI designed for daily use. Built entirely with vanilla web technologies for maximum performance and zero dependencies.</p>
             <div class="project-tech-stack">
-              <span>HTML</span>
-              <span>CSS</span>
+              <span>HTML5</span>
+              <span>CSS3</span>
               <span>JavaScript</span>
-              <span>Fitness</span>
+              <span>Charts</span>
+              <span>LocalStorage</span>
             </div>
             <div class="project-actions">
               <a href="https://github.com/Manju1303/Fitness-tracking-" target="_blank" class="project-btn primary">
