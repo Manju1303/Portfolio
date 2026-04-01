@@ -780,82 +780,15 @@ nav.scrolled {
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
-/* Hero Image */
-.hero-image-container {
+
+/* Hero Visual (Rubik's Cube Slot) */
+.hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    width: 400px;
-    height: 400px;
-    margin: 0 auto;
-}
-
-.hero-image-glow {
-    position: absolute;
-    inset: -20px;
-    border-radius: 30px;
-    background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
-    opacity: 0.15;
-    filter: blur(30px);
-    animation: glowRotate 6s linear infinite;
-}
-
-@keyframes glowRotate {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.hero-image-wrapper {
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    overflow: hidden;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-    position: relative;
-    z-index: 2;
-}
-
-.hero-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 20%;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Hero profile image specific fit */
-.hero-profile-img {
-    object-position: center 15% !important;
-}
-
-.hero-image-wrapper:hover img {
-    transform: scale(1.08);
-}
-
-.hero-image-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 2rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
-}
-
-.hero-image-name {
-    font-weight: 700;
-    font-size: 1.2rem;
-    font-family: var(--font-neon);
-    color: #fff;
-    text-shadow: 0 0 10px var(--primary);
-}
-
-.hero-image-role {
-    color: var(--primary);
-    font-size: 0.9rem;
+    z-index: 5;
+    min-height: 480px;
 }
 
 /* Floating Badges */
@@ -2082,9 +2015,8 @@ nav.scrolled {
         font-size: 4rem;
     }
 
-    .hero-image-container {
-        width: 350px;
-        height: 350px;
+    .hero-visual {
+        min-height: 400px;
     }
 
     .about-grid {
@@ -2154,9 +2086,9 @@ nav.scrolled {
         margin-right: auto;
     }
 
-    .hero-image-container {
-        width: 280px;
-        height: 280px;
+    .hero-visual {
+        min-height: 300px;
+        margin-top: 1rem;
     }
 
     /* About Section Mobile */
@@ -2374,9 +2306,8 @@ nav.scrolled {
         font-size: 0.95rem;
     }
 
-    .hero-image-container {
-        width: 240px;
-        height: 240px;
+    .hero-visual {
+        min-height: 250px;
     }
 
     .about-image-container {
@@ -2417,9 +2348,8 @@ nav.scrolled {
 
 /* Extra Small Mobile */
 @media (max-width: 360px) {
-    .hero-image-container {
-        width: 200px;
-        height: 200px;
+    .hero-visual {
+        min-height: 220px;
     }
 
     .about-image-container {
