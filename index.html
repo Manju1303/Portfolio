@@ -113,24 +113,18 @@
       </div>
 
       <div class="hero-visual anim-fade-right" data-delay="300">
-        <div class="hero-image-container">
-          <div class="hero-image-glow"></div>
-          <div class="hero-image-wrapper">
-            <img src="hero-photo.jpg" alt="Manjunath - AI Engineer & Vibe Coder" class="hero-profile-img">
-            <div class="hero-image-overlay">
-              <div class="hero-image-name">Manjunath</div>
-              <div class="hero-image-role">Vibe Coder</div>
-            </div>
+        <div class="cube-wrapper" id="cubeWrapper">
+          <div class="cube-aura"></div>
+          <div class="cube-viewport">
+              <div id="cubeScene"></div>
           </div>
-          <!-- Floating tech badges -->
-          <div class="floating-badge badge-1">
-            <i data-lucide="brain"></i>
-          </div>
-          <div class="floating-badge badge-2">
-            <i data-lucide="code-2"></i>
-          </div>
-          <div class="floating-badge badge-3">
-            <i data-lucide="zap"></i>
+          <div class="cube-ui">
+              <div class="cube-status" id="cubeStatus">Initializing...</div>
+              <div class="cube-btns">
+                  <button class="btn btn-secondary" id="btnScramble" style="padding: 0.5rem 1.5rem; font-size: 0.8rem;">Scramble</button>
+                  <button class="btn btn-primary" id="btnSolve" style="padding: 0.5rem 1.5rem; font-size: 0.8rem;">Solve</button>
+              </div>
+              <div class="cube-hint">Drag to rotate • Click buttons to play</div>
           </div>
         </div>
       </div>
@@ -174,9 +168,6 @@
               <p class="profile-card-title">AI Engineer & Vibe Coder</p>
               <p class="profile-card-handle">@Manju1303</p>
             </div>
-
-            <!-- Contact button -->
-            <a href="#contact" class="profile-card-btn">Contact Me</a>
 
             <!-- Decorative floating tech nodes -->
             <div class="profile-float-badge float-badge-1"><i data-lucide="brain"></i></div>

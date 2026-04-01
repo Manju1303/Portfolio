@@ -192,11 +192,11 @@ ul {
     font-family: var(--font-neon);
     font-size: 5rem;
     font-weight: 900;
-    color: #fff;
+    color: var(--primary);
     position: relative;
     letter-spacing: 8px;
     margin-bottom: 2rem;
-    text-shadow: 0 0 40px rgba(6, 182, 212, 0.5);
+    text-shadow: 0 0 20px rgba(6, 182, 212, 0.8), 0 0 60px rgba(6, 182, 212, 0.4), 0 0 100px rgba(6, 182, 212, 0.2);
     animation: glitchText 3s infinite;
 }
 
@@ -1760,6 +1760,11 @@ nav.scrolled {
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+.social-links a [data-lucide] {
+    width: 22px;
+    height: 22px;
+}
+
 .social-links a:hover {
     background: var(--primary);
     color: #000;
@@ -2889,5 +2894,163 @@ section {
     .profile-card-btn {
         padding: 0.5rem 1.5rem;
         font-size: 0.75rem;
+    }
+}
+
+/* ========================================
+   3D RUBIK'S CUBE (Integrated)
+======================================== */
+:root {
+    --rc-red: #C41E3A;
+    --rc-blue: #0051A2;
+    --rc-yellow: #FFD500;
+    --rc-green: #009B48;
+    --rc-orange: #FF5800;
+    --rc-white: #FFFFFF;
+    --rc-bg: #08080f;
+    --rc-dim: #7a7a99;
+}
+
+.cube-wrapper {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.cube-aura {
+    position: absolute;
+    inset: -60px;
+    background: radial-gradient(circle at 50% 50%, var(--primary-glow) 0%, transparent 70%);
+    animation: rc-aura 4s ease-in-out infinite;
+    pointer-events: none;
+    border-radius: 50%;
+}
+
+@keyframes rc-aura {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.15); opacity: 0.8; }
+}
+
+.cube-viewport {
+    width: 300px;
+    height: 300px;
+    perspective: 1000px;
+    perspective-origin: 50% 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+}
+
+.cube-viewport:active {
+    cursor: grabbing;
+}
+
+#cubeScene {
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+    transform: rotateX(-22deg) rotateY(45deg);
+    will-change: transform;
+}
+
+.cubie {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    margin: -40px 0 0 -40px;
+    transform-style: preserve-3d;
+}
+
+.cubie-face {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    border: 3px solid #050505;
+    backface-visibility: visible;
+}
+
+.gloss {
+    position: absolute;
+    inset: 0;
+    border-radius: 7px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.shine {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 35%;
+    border-radius: 0 0 7px 7px;
+    background: rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.fc-red { background: var(--rc-red); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.2), 0 0 15px rgba(196, 30, 58, 0.4); }
+.fc-orange { background: var(--rc-orange); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.2), 0 0 15px rgba(255, 88, 0, 0.4); }
+.fc-blue { background: var(--rc-blue); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.2), 0 0 15px rgba(0, 81, 162, 0.4); }
+.fc-green { background: var(--rc-green); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.2), 0 0 15px rgba(0, 155, 72, 0.4); }
+.fc-yellow { background: var(--rc-yellow); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.2), 0 0 15px rgba(255, 213, 0, 0.4); }
+.fc-white { background: var(--rc-white); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.1), 0 0 10px rgba(255, 255, 255, 0.2); }
+
+.fc-inner {
+    background: #111 !important;
+    box-shadow: none !important;
+    border-color: transparent !important;
+    opacity: 0;
+}
+
+.cube-ui {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.cube-status {
+    font-family: var(--font-neon);
+    font-size: 0.8rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    min-height: 1.2em;
+    text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.cube-btns {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.cube-hint {
+    margin-top: 15px;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    opacity: 0.6;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .cube-viewport {
+        width: 200px;
+        height: 200px;
+    }
+    .cubie {
+        width: 54px;
+        height: 54px;
+        margin: -27px 0 0 -27px;
+    }
+    .cubie-face {
+        width: 54px;
+        height: 54px;
+        border-width: 2px;
     }
 }
