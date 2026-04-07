@@ -553,22 +553,24 @@ if (contactForm) {
         }
 
         try {
+            // Updated for maximum compatibility with Google Apps Script
             const response = await fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'text/plain;charset=utf-8' // Simple content type is safest for no-cors
                 },
                 body: JSON.stringify(formData)
             });
 
-            // With no-cors, we can't read response, so assume success if no error
-            showFormMessage('success', '✓ Message sent successfully! I\'ll get back to you soon.');
+            // Note: with no-cors, we cannot check response.ok, but if it doesn't throw, it's sent!
+            showFormMessage('success', '✓ Message sent! I will check my Google Sheet and get back to you.');
             this.reset();
+            lucide.createIcons(); // Re-sync icons if needed
 
         } catch (error) {
-            console.error('Form submission error:', error);
-            showFormMessage('error', '✗ Failed to send message. Please try again or email me directly.');
+            console.error('Contact Form Error:', error);
+            showFormMessage('error', '✗ Oops! Something went wrong. Please check your internet or email me directly.');
         }
 
         // Reset button after delay
