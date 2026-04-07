@@ -1957,6 +1957,85 @@ nav.scrolled {
 }
 
 /* ========================================
+   CONTACT SECTION STYLES
+======================================== */
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.contact-item [data-lucide] {
+    width: 20px;
+    height: 20px;
+    color: var(--primary);
+    stroke-width: 2;
+}
+
+.social-links {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+}
+
+.social-links a:hover {
+    color: white;
+    background: rgba(6, 182, 212, 0.15);
+    border-color: var(--primary);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(6, 182, 212, 0.3);
+}
+
+.social-links a svg,
+.social-links a [data-lucide] {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    stroke-width: 2;
+    transition: transform 0.3s ease;
+}
+
+.social-links a:hover [data-lucide] {
+    transform: scale(1.1);
+}
+
+.contact-bg-glow {
+    position: absolute;
+    top: 50%;
+    left: -10%;
+    width: 40%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(80px);
+}
+
+.neon-purple {
+    color: var(--accent);
+    text-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+}
+
+/* ========================================
    FOOTER
 ======================================== */
 
