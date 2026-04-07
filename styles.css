@@ -2007,15 +2007,24 @@ nav.scrolled {
 
 .social-links a svg,
 .social-links a [data-lucide] {
-    width: 20px;
-    height: 20px;
-    stroke: currentColor;
-    stroke-width: 2;
-    transition: transform 0.3s ease;
+    width: 22px;
+    height: 22px;
+    stroke: #ffffff !important; /* Force white for visibility */
+    stroke-width: 2.5px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.social-links a:hover {
+    color: var(--primary);
+    background: rgba(6, 182, 212, 0.15);
+    border-color: var(--primary);
+    transform: translateY(-8px); /* Hover jump */
+    box-shadow: 0 0 25px var(--primary-glow);
 }
 
 .social-links a:hover [data-lucide] {
-    transform: scale(1.1);
+    stroke: var(--primary) !important;
+    transform: scale(1.15);
 }
 
 .contact-bg-glow {
@@ -2091,12 +2100,19 @@ nav.scrolled {
 /* Target the SVG Lucide injects */
 .footer-links a svg,
 .footer-links a [data-lucide] {
-    width: 18px;
-    height: 18px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2;
-    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    stroke: #ffffff !important; /* Force white for visibility */
+    stroke-width: 2.5px;
+    transition: transform 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+    background: rgba(6, 182, 212, 0.2);
+    border-color: var(--primary);
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px var(--primary-glow);
 }
 
 /* ========================================
