@@ -243,7 +243,7 @@ lucide.createIcons();
     const element = document.getElementById('heroTypewriter');
     if (!element) return;
 
-    const texts = ['Manjunath', 'AI Engineer', 'Vibe Coder'];
+    const texts = ['Manjunath', 'AI Engineer', 'Vibe Coder', 'AI & Agents', 'Computer Vision'];
     let textIndex = 0;
     let charIndex = 0;
     let isDeleting = false;

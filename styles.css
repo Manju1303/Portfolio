@@ -1597,6 +1597,14 @@ nav.scrolled {
     background: linear-gradient(135deg, #0a1628, #1c2951, #2c3e7a);
 }
 
+.project-thumb-12 {
+    background: linear-gradient(135deg, #0f172a, #334155, #64748b);
+}
+
+.project-thumb-13 {
+    background: linear-gradient(135deg, #1e1b4b, #312e81, #4338ca);
+}
+
 /* Project Type Tags */
 .project-type-tags {
     display: flex;
@@ -1650,6 +1658,15 @@ nav.scrolled {
     background: rgba(52, 211, 153, 0.15);
     color: #6ee7b7;
     border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.project-name {
+    margin-bottom: 0.5rem;
+    font-size: 1.15rem;
+    font-family: var(--font-neon);
+    color: white;
+    word-wrap: break-word; /* Fix for long titles */
+    overflow-wrap: break-word;
 }
 
 /* Project Feature Bullet List */
