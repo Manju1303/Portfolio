@@ -9,6 +9,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Serve static files from project root
+app.use(express.static('.'));
+
 // Configure Nodemailer transporter with Gmail App Password
 const transporter = nodemailer.createTransport({
     service: 'gmail',

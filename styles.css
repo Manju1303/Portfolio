@@ -1581,6 +1581,103 @@ nav.scrolled {
     background: linear-gradient(135deg, #1e1b4b, #6d28d9, #c084fc);
 }
 
+.project-thumb-8 {
+    background: linear-gradient(135deg, #0a0a1a, #0f3460, #16213e);
+}
+
+.project-thumb-9 {
+    background: linear-gradient(135deg, #0d1b2a, #1b4332, #2d6a4f);
+}
+
+.project-thumb-10 {
+    background: linear-gradient(135deg, #1a0a2e, #44006f, #7b2d8b);
+}
+
+.project-thumb-11 {
+    background: linear-gradient(135deg, #0a1628, #1c2951, #2c3e7a);
+}
+
+/* Project Type Tags */
+.project-type-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+}
+
+.project-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.tag-ai {
+    background: rgba(139, 92, 246, 0.2);
+    color: #c084fc;
+    border: 1px solid rgba(139, 92, 246, 0.35);
+}
+
+.tag-cv {
+    background: rgba(236, 72, 153, 0.2);
+    color: #f472b6;
+    border: 1px solid rgba(236, 72, 153, 0.35);
+}
+
+.tag-ocr {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.tag-web {
+    background: rgba(6, 182, 212, 0.15);
+    color: var(--primary);
+    border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.tag-data {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.tag-sensor {
+    background: rgba(52, 211, 153, 0.15);
+    color: #6ee7b7;
+    border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+/* Project Feature Bullet List */
+.project-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.75rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.project-features li {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.project-features li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-size: 0.7rem;
+}
+
 /* Dot Pattern Overlay */
 .project-thumb-pattern {
     position: absolute;
