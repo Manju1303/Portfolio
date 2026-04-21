@@ -552,6 +552,8 @@ nav.scrolled {
     border: none;
     color: white;
     cursor: pointer;
+    padding: 10px;
+    margin-right: -10px;
 }
 
 @media (max-width: 768px) {
@@ -680,7 +682,7 @@ nav.scrolled {
 }
 
 .hero-title {
-    font-size: 5rem;
+    font-size: clamp(2.5rem, 8vw, 5rem);
     font-weight: 800;
     margin-bottom: 1.5rem;
     font-family: var(--font-main);
@@ -1135,10 +1137,12 @@ nav.scrolled {
     font-size: 3rem;
 }
 
-.tool-card [data-lucide] {
+.tool-card [data-lucide],
+.tool-card svg {
     width: 48px;
     height: 48px;
-    color: #ccc;
+    stroke: #ccc;
+    stroke-width: 1.5;
 }
 
 .tool-card span {
@@ -1770,13 +1774,12 @@ nav.scrolled {
     color: #d946ef;
     text-shadow: 0 0 10px rgba(217, 70, 239, 0.5);
 }
-
+/* --- Contact Section Styles --- */
 .contact-item {
     display: flex;
     align-items: center;
     gap: 1rem;
-    color: white;
-    font-weight: 500;
+    padding: 0.5rem 0;
     transition: transform 0.3s;
 }
 
@@ -1784,14 +1787,16 @@ nav.scrolled {
     transform: translateX(5px);
 }
 
-.contact-item i {
-    color: #d946ef;
+.contact-item [data-lucide] {
+    stroke: var(--primary);
     width: 20px;
+    height: 20px;
 }
 
 .social-links {
     display: flex;
     gap: 1rem;
+    margin-top: 1rem;
 }
 
 .social-links a {
@@ -1801,32 +1806,31 @@ nav.scrolled {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: #ffffff;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-decoration: none;
 }
 
-/* Target the SVG Lucide injects (replaces <i>) */
-.social-links a svg,
-.social-links a [data-lucide] {
+.social-links a [data-lucide],
+.social-links a svg {
     width: 22px;
     height: 22px;
-    stroke: currentColor;
-    fill: none;
+    stroke: #ffffff;
     stroke-width: 2;
-    flex-shrink: 0;
+    transition: all 0.3s ease;
 }
 
 .social-links a:hover {
     background: var(--primary);
     color: #000;
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(6, 182, 212, 0.4);
+    box-shadow: 0 10px 25px var(--primary-glow);
     border-color: var(--primary);
 }
 
+.social-links a:hover [data-lucide],
 .social-links a:hover svg {
     stroke: #000;
 }
@@ -1975,57 +1979,7 @@ nav.scrolled {
     stroke-width: 2;
 }
 
-.social-links {
-    display: flex;
-    gap: 1.2rem;
-    margin-top: 1.5rem;
-}
-
-.social-links a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--text-secondary);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    text-decoration: none;
-    position: relative;
-    z-index: 1;
-}
-
-.social-links a:hover {
-    color: white;
-    background: rgba(6, 182, 212, 0.15);
-    border-color: var(--primary);
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(6, 182, 212, 0.3);
-}
-
-.social-links a svg,
-.social-links a [data-lucide] {
-    width: 22px;
-    height: 22px;
-    stroke: #ffffff !important; /* Force white for visibility */
-    stroke-width: 2.5px;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.social-links a:hover {
-    color: var(--primary);
-    background: rgba(6, 182, 212, 0.15);
-    border-color: var(--primary);
-    transform: translateY(-8px); /* Hover jump */
-    box-shadow: 0 0 25px var(--primary-glow);
-}
-
-.social-links a:hover [data-lucide] {
-    stroke: var(--primary) !important;
-    transform: scale(1.15);
-}
+/* Redundant social-links block removed and consolidated above */
 
 .contact-bg-glow {
     position: absolute;
@@ -2311,6 +2265,8 @@ nav.scrolled {
 
     .hero-bio {
         font-size: 1rem;
+        width: 100%;
+        max-width: 100%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -2440,7 +2396,8 @@ nav.scrolled {
     }
 
     .project-flip-card {
-        aspect-ratio: 16/9;
+        aspect-ratio: auto;
+        min-height: 320px;
     }
 
     .project-thumb-icon {
@@ -2663,8 +2620,8 @@ section {
 
 .profile-card {
     position: relative;
-    width: 340px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 340px;
     padding: 2.5rem 2rem 2rem;
     border-radius: 24px;
     background: linear-gradient(165deg, rgba(15, 25, 35, 0.95) 0%, rgba(8, 15, 25, 0.98) 50%, rgba(5, 10, 18, 0.99) 100%);
