@@ -929,98 +929,7 @@ nav.scrolled {
     overflow: hidden;
 }
 
-.about-image-container {
-    position: relative;
-    max-width: 380px;
-    margin: 0 auto;
-}
 
-.about-image-accent {
-    position: absolute;
-    top: -15px;
-    left: -15px;
-    width: 100%;
-    height: 100%;
-    border: 3px solid var(--primary);
-    border-radius: 20px;
-    opacity: 0.4;
-    transition: all 0.4s;
-}
-
-.about-image-container:hover .about-image-accent {
-    top: -10px;
-    left: -10px;
-    opacity: 0.7;
-}
-
-.about-image-wrapper {
-    width: 100%;
-    aspect-ratio: 3/4;
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
-    z-index: 2;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
-    border: 2px solid rgba(255, 255, 255, 0.08);
-}
-
-.about-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 15%;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s;
-}
-
-/* About section profile image - focus on face */
-.about-profile-img {
-    object-position: center 10% !important;
-}
-
-.about-image-wrapper:hover img {
-    transform: scale(1.05);
-}
-
-.about-image-dots {
-    position: absolute;
-    bottom: -25px;
-    right: -25px;
-    width: 80px;
-    height: 80px;
-    background-image: radial-gradient(circle, var(--primary) 1.5px, transparent 1.5px);
-    background-size: 12px 12px;
-    opacity: 0.4;
-    z-index: 1;
-}
-
-.about-experience-badge {
-    position: absolute;
-    bottom: 30px;
-    right: -30px;
-    z-index: 3;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: #000;
-    padding: 1rem 1.5rem;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
-    animation: floatBadge 4s ease-in-out infinite;
-}
-
-.exp-number {
-    font-family: var(--font-neon);
-    font-size: 1.2rem;
-    font-weight: 900;
-    line-height: 1;
-}
-
-.exp-text {
-    font-size: 0.7rem;
-    font-weight: 600;
-    margin-top: 0.25rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
 
 /* About Text Side */
 .about-text-side {
@@ -2498,10 +2407,6 @@ nav.scrolled {
         min-height: 250px;
     }
 
-    .about-image-container {
-        max-width: 240px;
-    }
-
     .contact-title {
         font-size: 2rem;
     }
@@ -2509,28 +2414,6 @@ nav.scrolled {
     .btn {
         padding: 0.7rem 1.5rem;
         font-size: 0.75rem;
-    }
-
-    .scroll-stack-card {
-        border-radius: 14px;
-        margin-bottom: 40px;
-    }
-
-    .project-card-content {
-        padding: 1.25rem;
-    }
-
-    .project-card-title {
-        font-size: 1.1rem;
-    }
-
-    .project-card-tech {
-        font-size: 0.75rem;
-    }
-
-    .project-card-desc {
-        font-size: 0.8rem;
-        line-height: 1.6;
     }
 }
 
@@ -3170,5 +3053,149 @@ section {
         width: 54px;
         height: 54px;
         border-width: 2px;
+    }
+}
+
+/* ========================================
+   PREMIUM 3D VISUAL EFFECT UPGRADES
+   ======================================== */
+
+/* Profile card inner 3D depth */
+.profile-card-status,
+.profile-card-avatar,
+.profile-card-info,
+.profile-card-btn,
+.profile-float-badge {
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.profile-card:hover .profile-card-avatar {
+    transform: translateZ(50px);
+}
+
+.profile-card:hover .profile-card-status {
+    transform: translateZ(30px);
+}
+
+.profile-card:hover .profile-card-info {
+    transform: translateZ(40px);
+}
+
+.profile-card:hover .profile-card-btn {
+    transform: translateZ(35px);
+}
+
+.profile-card:hover .float-badge-1 {
+    transform: translateZ(60px) translateY(-12px);
+}
+
+.profile-card:hover .float-badge-2 {
+    transform: translateZ(55px) translateY(-12px);
+}
+
+.profile-card:hover .float-badge-3 {
+    transform: translateZ(50px) translateY(-12px);
+}
+
+/* Project Card 3D Depth */
+.project-flip-front {
+    transform-style: preserve-3d;
+}
+
+.project-flip-back {
+    transform-style: preserve-3d;
+}
+
+/* Transition for front/back inner elements */
+.project-logo-container,
+.project-front-title,
+.project-thumb-label,
+.project-name,
+.project-features,
+.project-tech-stack,
+.project-actions {
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease;
+}
+
+/* Tilt Z-depth on front elements when mouse moves */
+.project-flip-card:not(:hover) .project-logo-container {
+    transform: translateZ(40px);
+}
+
+.project-flip-card:not(:hover) .project-front-title {
+    transform: translateZ(30px);
+}
+
+.project-flip-card:not(:hover) .project-thumb-label {
+    transform: translateZ(20px);
+}
+
+/* Pop out back elements on flip */
+.project-flip-card:hover .project-name {
+    transform: translateZ(40px);
+}
+
+.project-flip-card:hover .project-features {
+    transform: translateZ(30px);
+}
+
+.project-flip-card:hover .project-tech-stack {
+    transform: translateZ(25px);
+}
+
+.project-flip-card:hover .project-actions {
+    transform: translateZ(35px);
+}
+
+/* Floating 3D Geometric Background Shapes in Hero */
+.hero-shape {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.35;
+    transition: transform 0.3s ease-out;
+}
+
+.hero-shape-1 {
+    top: 20%;
+    left: 5%;
+    width: 140px;
+    height: 140px;
+    animation: floatShape1 16s ease-in-out infinite alternate;
+}
+
+.hero-shape-2 {
+    bottom: 25%;
+    right: 5%;
+    width: 110px;
+    height: 110px;
+    animation: floatShape2 18s ease-in-out infinite alternate;
+}
+
+@keyframes floatShape1 {
+    0% {
+        transform: rotateX(20deg) rotateY(-30deg) translate3d(0, 0, 0) rotate(0deg);
+        filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.4));
+    }
+    100% {
+        transform: rotateX(45deg) rotateY(-10deg) translate3d(30px, -40px, 80px) rotate(180deg);
+        filter: drop-shadow(0 0 45px rgba(139, 92, 246, 0.8));
+    }
+}
+
+@keyframes floatShape2 {
+    0% {
+        transform: rotateX(-35deg) rotateY(25deg) translate3d(0, 0, 0) rotate(0deg);
+        filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.4));
+    }
+    100% {
+        transform: rotateX(-15deg) rotateY(45deg) translate3d(-40px, 30px, -60px) rotate(-120deg);
+        filter: drop-shadow(0 0 35px rgba(6, 182, 212, 0.7));
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-shape {
+        display: none; /* Hide complex 3D floating vectors on mobile for performance */
     }
 }

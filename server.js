@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
@@ -12,12 +13,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files from project root
 app.use(express.static('.'));
 
-// Configure Nodemailer transporter with Gmail App Password
+// Configure Nodemailer transporter with Gmail App Password from environment variables
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'manjunathkaids23@jkkmct.edu.in', // Your email
-        pass: 'htlz issn wgge jdrk' // App Password for "Portfolio"
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     }
 });
 

@@ -89,6 +89,31 @@
     <div class="hero-bg-blob-1"></div>
     <div class="hero-bg-blob-2"></div>
 
+    <!-- 3D Geometric Floating Background Elements -->
+    <div class="hero-shape hero-shape-1">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+        <circle cx="50" cy="50" r="32" stroke="url(#glowGradient1)" stroke-width="7" stroke-linecap="round" />
+        <defs>
+          <linearGradient id="glowGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.9" />
+            <stop offset="50%" stop-color="var(--accent)" stop-opacity="0.4" />
+            <stop offset="100%" stop-color="var(--secondary)" stop-opacity="0.9" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="hero-shape hero-shape-2">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+        <rect x="22" y="22" width="56" height="56" rx="12" stroke="url(#glowGradient2)" stroke-width="6" transform="rotate(45 50 50)" />
+        <defs>
+          <linearGradient id="glowGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="var(--secondary)" stop-opacity="0.8" />
+            <stop offset="100%" stop-color="var(--primary)" stop-opacity="0.3" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
     <div class="container hero-grid relative">
       <div class="hero-content anim-fade-up">
         <div class="hero-role">AI ENGINEER & VIBE CODER</div>
@@ -376,8 +401,8 @@
               <span>Speech APIs</span>
             </div>
             <div class="project-actions">
-              <a href="#" class="project-btn primary"><i data-lucide="play"></i> Live Demo</a>
-              <a href="#" class="project-btn secondary"><i data-lucide="github"></i> Source Code</a>
+              <span class="project-btn primary" style="opacity: 0.6; cursor: not-allowed;"><i data-lucide="clock"></i> Coming Soon</span>
+              <a href="https://github.com/Manju1303" target="_blank" class="project-btn secondary"><i data-lucide="github"></i> Source Code</a>
             </div>
           </div>
         </div>
@@ -902,7 +927,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-logo">Manjunath<span style="color: var(--primary)">.</span></div>
-        <p class="footer-text">© 2024 Manjunath. Built with Vanilla HTML/CSS & ❤️</p>
+        <p class="footer-text">© <span id="copyrightYear">2026</span> Manjunath. Built with Vanilla HTML/CSS & ❤️</p>
         <div class="footer-links">
           <a href="https://github.com/Manju1303" target="_blank" aria-label="GitHub">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
@@ -931,10 +956,21 @@
       if (window.lucide) {
         lucide.createIcons();
       }
+      // Dynamic Copyright Year
+      const yearEl = document.getElementById('copyrightYear');
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
     });
     // Fallback for already-loaded pages
-    if (document.readyState !== 'loading' && window.lucide) {
-      lucide.createIcons();
+    if (document.readyState !== 'loading') {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+      const yearEl = document.getElementById('copyrightYear');
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
     }
   </script>
 </body>

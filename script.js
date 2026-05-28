@@ -91,14 +91,18 @@ lucide.createIcons();
         reset() {
             this.x = Math.random() * canvas.width;
             this.y = canvas.height + Math.random() * 100;
-            this.size = Math.random() * 3 + 0.5;
-            this.speedX = (Math.random() - 0.5) * 0.4;
-            this.speedY = -(Math.random() * 1.2 + 0.3); // Float upward (antigravity)
-            this.opacity = Math.random() * 0.6 + 0.1;
+            
+            // 3D Depth Level (z): 0.1 (far background) to 1.0 (close foreground)
+            this.z = Math.random() * 0.9 + 0.1;
+            
+            this.size = this.z * 3.5 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.4 * this.z;
+            this.speedY = -(Math.random() * 0.8 + 0.3) * (this.z * 1.2 + 0.4); // float faster if closer
+            this.opacity = (Math.random() * 0.5 + 0.15) * this.z; // opacity based on depth
             this.hue = Math.random() > 0.7 ? 330 : (Math.random() > 0.5 ? 270 : 188); // cyan, purple, pink
             this.pulse = Math.random() * Math.PI * 2;
-            this.pulseSpeed = Math.random() * 0.02 + 0.01;
-            this.wobble = Math.random() * 0.5;
+            this.pulseSpeed = (Math.random() * 0.02 + 0.01) * this.z;
+            this.wobble = Math.random() * 0.5 * this.z;
             this.wobbleSpeed = Math.random() * 0.02 + 0.005;
             this.wobblePhase = Math.random() * Math.PI * 2;
             this.life = 1;
@@ -117,12 +121,12 @@ lucide.createIcons();
             const glowFactor = 0.5 + Math.sin(this.pulse) * 0.5;
             this.currentOpacity = this.opacity * glowFactor;
 
-            // Mouse attraction (soft pull)
+            // Mouse attraction (soft pull - stronger for closer particles)
             const dx = mouseX - this.x;
             const dy = mouseY - this.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < 150) {
-                const force = (150 - dist) / 150 * 0.3;
+                const force = (150 - dist) / 150 * 0.4 * this.z;
                 this.x += dx / dist * force;
                 this.y += dy / dist * force;
             }
@@ -506,8 +510,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
  * ============================================
  */
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzCS9d0ZyDrpwE5eO37DUYjxpAnI1lK92B4TSfx42njQYKm3n192I2mjswbe2_365D8/exec';
-
 const contactForm = document.getElementById('contactForm');
 const formMessage = document.getElementById('formMessage');
 
@@ -553,20 +555,23 @@ if (contactForm) {
         }
 
         try {
-            // Updated for maximum compatibility with Google Apps Script
-            const response = await fetch(GOOGLE_SCRIPT_URL, {
+            const response = await fetch('/send', {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: {
-                    'Content-Type': 'text/plain;charset=utf-8' // Simple content type is safest for no-cors
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             });
 
-            // Note: with no-cors, we cannot check response.ok, but if it doesn't throw, it's sent!
-            showFormMessage('success', '✓ Message sent! I will check my Google Sheet and get back to you.');
-            this.reset();
-            lucide.createIcons(); // Re-sync icons if needed
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                showFormMessage('success', '✓ Message sent! I will get back to you soon.');
+                this.reset();
+                lucide.createIcons(); // Re-sync icons if needed
+            } else {
+                showFormMessage('error', `✗ Failed: ${data.message || 'Please try again.'}`);
+            }
 
         } catch (error) {
             console.error('Contact Form Error:', error);
@@ -597,158 +602,7 @@ if (contactForm) {
     });
 }
 
-// ========================================
-//   SCROLL STACK ANIMATION ENGINE
-// ========================================
 
-(function initScrollStack() {
-    const CONFIG = {
-        itemScale: 0.03,
-        itemStackDistance: 30,
-        stackPosition: '20%',
-        scaleEndPosition: '10%',
-        baseScale: 0.85,
-        blurAmount: 1.5
-    };
-
-    const cards = document.querySelectorAll('.scroll-stack-card');
-    const endElement = document.querySelector('.scroll-stack-end');
-
-    if (!cards.length || !endElement) return;
-
-    // Bounce Card: trigger animation on viewport entry
-    const bounceCards = document.querySelectorAll('.bounce-card');
-    bounceCards.forEach(card => {
-        card.style.animationPlayState = 'paused';
-    });
-
-    const bounceObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animationPlayState = 'running';
-                bounceObserver.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -30px 0px'
-    });
-
-    bounceCards.forEach(card => bounceObserver.observe(card));
-
-    // Scroll Stack Logic
-    const lastTransforms = new Map();
-    let ticking = false;
-
-    function parsePercentage(value, containerHeight) {
-        if (typeof value === 'string' && value.includes('%')) {
-            return (parseFloat(value) / 100) * containerHeight;
-        }
-        return parseFloat(value);
-    }
-
-    function calculateProgress(scrollTop, start, end) {
-        if (scrollTop < start) return 0;
-        if (scrollTop > end) return 1;
-        return (scrollTop - start) / (end - start);
-    }
-
-    function getElementOffset(element) {
-        const rect = element.getBoundingClientRect();
-        return rect.top + window.scrollY;
-    }
-
-    function updateCardTransforms() {
-        const scrollTop = window.scrollY;
-        const containerHeight = window.innerHeight;
-        const stackPositionPx = parsePercentage(CONFIG.stackPosition, containerHeight);
-        const scaleEndPositionPx = parsePercentage(CONFIG.scaleEndPosition, containerHeight);
-        const endElementTop = getElementOffset(endElement);
-
-        cards.forEach((card, i) => {
-            const cardTop = getElementOffset(card);
-            const triggerStart = cardTop - stackPositionPx - CONFIG.itemStackDistance * i;
-            const triggerEnd = cardTop - scaleEndPositionPx;
-            const pinStart = cardTop - stackPositionPx - CONFIG.itemStackDistance * i;
-            const pinEnd = endElementTop - containerHeight / 2;
-
-            // Scale calculation
-            const scaleProgress = calculateProgress(scrollTop, triggerStart, triggerEnd);
-            const targetScale = CONFIG.baseScale + i * CONFIG.itemScale;
-            const scale = 1 - scaleProgress * (1 - targetScale);
-
-            // Blur calculation
-            let blur = 0;
-            if (CONFIG.blurAmount) {
-                let topCardIndex = 0;
-                cards.forEach((c, j) => {
-                    const jCardTop = getElementOffset(c);
-                    const jTriggerStart = jCardTop - stackPositionPx - CONFIG.itemStackDistance * j;
-                    if (scrollTop >= jTriggerStart) {
-                        topCardIndex = j;
-                    }
-                });
-
-                if (i < topCardIndex) {
-                    const depthInStack = topCardIndex - i;
-                    blur = Math.max(0, depthInStack * CONFIG.blurAmount);
-                }
-            }
-
-            // Pin/translate calculation
-            let translateY = 0;
-            const isPinned = scrollTop >= pinStart && scrollTop <= pinEnd;
-
-            if (isPinned) {
-                translateY = scrollTop - cardTop + stackPositionPx + CONFIG.itemStackDistance * i;
-            } else if (scrollTop > pinEnd) {
-                translateY = pinEnd - cardTop + stackPositionPx + CONFIG.itemStackDistance * i;
-            }
-
-            // Round values
-            const newTransform = {
-                translateY: Math.round(translateY * 100) / 100,
-                scale: Math.round(scale * 1000) / 1000,
-                blur: Math.round(blur * 100) / 100
-            };
-
-            // Only apply if changed
-            const lastTransform = lastTransforms.get(i);
-            const hasChanged =
-                !lastTransform ||
-                Math.abs(lastTransform.translateY - newTransform.translateY) > 0.1 ||
-                Math.abs(lastTransform.scale - newTransform.scale) > 0.001 ||
-                Math.abs(lastTransform.blur - newTransform.blur) > 0.1;
-
-            if (hasChanged) {
-                const transform = `translate3d(0, ${newTransform.translateY}px, 0) scale(${newTransform.scale})`;
-                const filter = newTransform.blur > 0 ? `blur(${newTransform.blur}px)` : '';
-
-                card.style.transform = transform;
-                card.style.filter = filter;
-
-                lastTransforms.set(i, newTransform);
-            }
-        });
-
-        ticking = false;
-    }
-
-    function onScroll() {
-        if (!ticking) {
-            requestAnimationFrame(updateCardTransforms);
-            ticking = true;
-        }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    updateCardTransforms();
-
-    // Re-init Lucide icons
-    setTimeout(() => {
-        lucide.createIcons();
-    }, 100);
-})();
 
 // ========================================
 //   MAGNETIC BUTTON EFFECT
