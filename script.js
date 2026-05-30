@@ -422,120 +422,47 @@ if (mobileBtn && mobileNav) {
 // ========================================
 //   ACTIVE NAV LINK HIGHLIGHT
 // ========================================
-// ========================================
-//   3D Z-SCROLL TUNNEL CONTROLLER
-// ========================================
-(function init3DScrollTunnel() {
-    const container = document.getElementById('container3d');
-    const sections = Array.from(document.querySelectorAll('#container3d > section, #container3d > footer'));
+(function initActiveNavLink() {
+    const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
-    
-    if (!container || !sections.length) return;
 
-    // Define Z offsets (depth stack) for each section
-    const zOffsets = [0, -2000, -4000, -6000, -7200];
-    const totalDepth = -zOffsets[zOffsets.length - 1]; // 7200
+    if (!sections.length || !navLinks.length) return;
 
-    // Set initial Z translations
-    sections.forEach((sec, i) => {
-        sec.style.transform = `translate3d(0, 0, ${zOffsets[i]}px)`;
-    });
-
-    let currentCameraZ = 0;
-    let targetCameraZ = 0;
-
-    // Scroll listener to calculate target camera Z depth
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.scrollY;
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        if (maxScroll <= 0) return;
-        const progress = scrollTop / maxScroll;
-        targetCameraZ = progress * totalDepth;
-    }, { passive: true });
-
-    // Smooth animation render loop using requestAnimationFrame
-    function animate() {
-        // Easing interpolation
-        currentCameraZ += (targetCameraZ - currentCameraZ) * 0.08;
-        if (Math.abs(targetCameraZ - currentCameraZ) < 0.01) {
-            currentCameraZ = targetCameraZ;
-        }
-
-        // Translate the camera/container in 3D Z space
-        container.style.transform = `translate3d(0, 0, ${currentCameraZ}px)`;
-
-        // Calculate opacity and visibility for each section based on relative distance to camera
-        sections.forEach((sec, i) => {
-            const distance = zOffsets[i] + currentCameraZ;
-            let opacity = 0;
-
-            if (distance <= 0) {
-                // Section is in the background approaching the camera
-                opacity = Math.max(0, 1 + distance / 1200); // Fade in over 1200px
-            } else {
-                // Section has zoomed past the camera
-                opacity = Math.max(0, 1 - distance / 350); // Fade out quickly over 350px
-            }
-
-            sec.style.opacity = opacity;
-
-            // Enable mouse events and render visibility state
-            if (opacity > 0.05) {
-                sec.style.pointerEvents = 'auto';
-                sec.style.visibility = 'visible';
-            } else {
-                sec.style.pointerEvents = 'none';
-                sec.style.visibility = 'hidden';
-            }
-        });
-
-        // Dynamic Nav Link Highlighting based on closest section
-        let closestIndex = 0;
-        let minDiff = Infinity;
-        sections.forEach((sec, i) => {
-            const distance = Math.abs(zOffsets[i] + currentCameraZ);
-            if (distance < minDiff && sec.tagName !== 'FOOTER') {
-                minDiff = distance;
-                closestIndex = i;
-            }
-        });
-
-        const activeId = sections[closestIndex].getAttribute('id');
-        navLinks.forEach(link => {
-            link.style.color = '';
-            if (link.getAttribute('href') === `#${activeId}`) {
-                link.style.color = '#06b6d4';
-            }
-        });
-
-        requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    // Intercept anchor clicks and smooth-scroll to correct Z-depth
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const href = this.getAttribute('href');
-            let targetIndex = -1;
-
-            if (href === '#home') targetIndex = 0;
-            else if (href === '#about') targetIndex = 1;
-            else if (href === '#projects') targetIndex = 2;
-            else if (href === '#contact') targetIndex = 3;
-
-            if (targetIndex !== -1) {
-                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                const targetScroll = (targetIndex / (sections.length - 2)) * maxScroll;
-                window.scrollTo({
-                    top: targetScroll,
-                    behavior: 'smooth'
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(link => {
+                    link.style.color = '';
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.style.color = '#06b6d4';
+                    }
                 });
             }
         });
+    }, {
+        threshold: 0.3,
+        rootMargin: '-80px 0px -50% 0px'
     });
+
+    sections.forEach(section => observer.observe(section));
 })();
+
+// ========================================
+//   SMOOTH ANCHOR SCROLLING
+// ========================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
 
 // ========================================
 //   GOOGLE SHEETS CONTACT FORM - FULLY FUNCTIONAL
