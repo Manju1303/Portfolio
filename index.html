@@ -17,6 +17,13 @@
   <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
   <!-- Icons (Lucide via UNPKG for static) -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- Lenis for Smooth Scroll -->
+  <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
   <!-- OGL for Ribbon Cursor Trail -->
   <script src="https://unpkg.com/ogl@1.0.3/dist/ogl.umd.js"></script>
   <!-- Styles -->
@@ -33,11 +40,14 @@
 
 <body>
 
+  <!-- Grain Overlay for texture -->
+  <div class="grain-overlay"></div>
+
   <!-- Ribbon Cursor Trail -->
   <div id="ribbonsContainer" class="ribbons-container"></div>
 
-  <!-- Antigravity Particle Canvas Background -->
-  <canvas id="particleCanvas"></canvas>
+  <!-- Three.js WebGL Background Canvas -->
+  <canvas id="webglCanvas"></canvas>
 
   <!-- Custom Cursor -->
   <div class="cursor-dot"></div>
@@ -241,17 +251,32 @@
         </div>
       </div>
 
-      <!-- Education Block (In Flow) -->
-      <div class="education-block anim-fade-up" data-delay="200" style="margin-bottom: 2rem; margin-top: 3rem;">
-        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-          <span style="font-size: 1.5rem;">🎓</span>
-          <h2 class="education-title">Education</h2>
+      <!-- Education & Cognitive 3D Network Row -->
+      <div class="about-flex-row" style="display: flex; gap: 2rem; margin-top: 3rem; margin-bottom: 3rem; flex-wrap: wrap; width: 100%;">
+        <!-- Education Block -->
+        <div class="education-block anim-fade-up" data-delay="200" style="flex: 1; min-width: 280px; margin-bottom: 0;">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+            <span style="font-size: 1.5rem;">🎓</span>
+            <h2 class="education-title">Education</h2>
+          </div>
+          <div class="education-card">
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">B.Tech Artificial Intelligence and
+              Data Science</h3>
+            <p style="color: var(--text-secondary); font-weight: 500;">JKKMCT</p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">2023 - Present</p>
+          </div>
         </div>
-        <div class="education-card">
-          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">B.Tech Artificial Intelligence and
-            Data Science</h3>
-          <p style="color: var(--text-secondary); font-weight: 500;">JKKMCT</p>
-          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">2023 - Present</p>
+
+        <!-- 3D Globe / Cognitive Network Visualizer Block -->
+        <div class="globe-block anim-fade-up" data-delay="300" style="flex: 1; min-width: 280px; display: flex; flex-direction: column; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: var(--radius); padding: 1.5rem; position: relative;">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; width: 100%;">
+            <span style="font-size: 1.5rem;">🌐</span>
+            <h2 class="globe-title" style="font-family: var(--font-neon); font-size: 1.25rem; text-transform: uppercase; color: var(--primary);">Cognitive Network</h2>
+          </div>
+          <div class="about-3d-wrap" style="width: 100%; height: 180px; position: relative; border-radius: 8px; overflow: hidden; background: rgba(0,0,0,0.3); border: 1px solid rgba(6, 182, 212, 0.1);">
+            <canvas id="about-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
+          </div>
+          <div style="font-size: 0.8rem; color: var(--text-secondary); text-align: center; margin-top: 0.75rem; font-family: var(--font-main);">Interactive 3D Neural Node Visualizer</div>
         </div>
       </div>
 
@@ -880,7 +905,7 @@
 
       <!-- Right Column: Form -->
       <div class="anim-fade-left" data-delay="200">
-        <!-- Google Sheets Form - 100% Free & Your Control -->
+        <!-- FormSubmit Contact Form - 100% Free & Unlimited Submissions -->
         <form class="contact-form" id="contactForm">
           <div class="form-group">
             <label class="form-label">Name</label>

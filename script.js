@@ -6,6 +6,27 @@
 lucide.createIcons();
 
 // ========================================
+//   LENIS SMOOTH SCROLL
+// ========================================
+let lenis;
+(function initLenis() {
+    const isMobile = window.innerWidth <= 768;
+    lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        smoothTouch: false,
+        touchMultiplier: isMobile ? 0 : 2
+    });
+
+    function rafLenis(t) {
+        lenis.raf(t);
+        requestAnimationFrame(rafLenis);
+    }
+    requestAnimationFrame(rafLenis);
+})();
+
+// ========================================
 //   EPIC PAGE LOADER WITH PROGRESS BAR
 // ========================================
 (function initEpicLoader() {
@@ -64,141 +85,197 @@ lucide.createIcons();
 })();
 
 // ========================================
-//   ANTIGRAVITY PARTICLE BACKGROUND
+//   THREE.JS WEBGL BACKGROUND & GSAP SCROLL ZOOM
 // ========================================
-(function initAntigravityParticles() {
-    const canvas = document.getElementById('particleCanvas');
-    if (!canvas) return;
+(function initThreeJSBackground() {
+    try {
+        const canvas = document.getElementById('webglCanvas');
+        if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let mouseX = 0;
-    let mouseY = 0;
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
 
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 6;
 
-    resize();
-    window.addEventListener('resize', resize);
+        // Lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+        scene.add(ambientLight);
+        
+        const pointLight1 = new THREE.PointLight(0x06b6d4, 2);
+        pointLight1.position.set(5, 5, 5);
+        scene.add(pointLight1);
+        
+        const pointLight2 = new THREE.PointLight(0x8b5cf6, 2);
+        pointLight2.position.set(-5, -5, 5);
+        scene.add(pointLight2);
 
-    class AntigravityParticle {
-        constructor() {
-            this.reset();
+        // Central Wireframe Knot Mesh
+        const mainGeometry = new THREE.TorusKnotGeometry(1.2, 0.35, 120, 16);
+        const mainMaterial = new THREE.MeshPhongMaterial({
+            color: 0xffffff,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.12,
+            shininess: 120
+        });
+        const mainMesh = new THREE.Mesh(mainGeometry, mainMaterial);
+        scene.add(mainMesh);
+
+        // Antigravity 3D Particle System
+        const count = 1200;
+        const positions = new Float32Array(count * 3);
+        const speeds = new Float32Array(count);
+        const colors = new Float32Array(count * 3);
+        
+        const palette = [
+            new THREE.Color(0x06b6d4), // Cyan
+            new THREE.Color(0xec4899), // Pink
+            new THREE.Color(0x8b5cf6)  // Purple
+        ];
+        
+        for (let i = 0; i < count; i++) {
+            positions[i * 3] = (Math.random() - 0.5) * 22; // X
+            positions[i * 3 + 1] = (Math.random() - 0.5) * 22; // Y
+            positions[i * 3 + 2] = (Math.random() - 0.5) * 12 - 4; // Z
+            
+            speeds[i] = Math.random() * 0.015 + 0.005; // Y float speed
+            
+            const col = palette[Math.floor(Math.random() * palette.length)];
+            colors[i * 3] = col.r;
+            colors[i * 3 + 1] = col.g;
+            colors[i * 3 + 2] = col.b;
+        }
+        
+        const particlesGeometry = new THREE.BufferGeometry();
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.055,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.55,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+        });
+        
+        const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particles);
+
+        // Floating 3D Octahedrons
+        const floatersGroup = new THREE.Group();
+        scene.add(floatersGroup);
+        const floaters = [];
+        for (let i = 0; i < 20; i++) {
+            const size = Math.random() * 0.22 + 0.05;
+            const geom = new THREE.OctahedronGeometry(size, 0);
+            const mat = new THREE.MeshPhongMaterial({
+                color: Math.random() > 0.5 ? 0x06b6d4 : 0x8b5cf6,
+                transparent: true,
+                opacity: 0.25,
+                wireframe: Math.random() > 0.4
+            });
+            const b = new THREE.Mesh(geom, mat);
+            b.position.set(
+                (Math.random() - 0.5) * 14,
+                (Math.random() - 0.5) * 14,
+                (Math.random() - 0.5) * 10 - 3
+            );
+            floatersGroup.add(b);
+            floaters.push({
+                mesh: b,
+                speedY: Math.random() * 0.004 + 0.002,
+                rotSpeed: Math.random() * 0.01 + 0.003,
+                wobbleSpeed: Math.random() * 0.015 + 0.005,
+                wobbleRange: Math.random() * 0.15 + 0.05,
+                baseX: b.position.x
+            });
         }
 
-        reset() {
-            this.x = Math.random() * canvas.width;
-            this.y = canvas.height + Math.random() * 100;
-            
-            // 3D Depth Level (z): 0.1 (far background) to 1.0 (close foreground)
-            this.z = Math.random() * 0.9 + 0.1;
-            
-            this.size = this.z * 3.5 + 0.5;
-            this.speedX = (Math.random() - 0.5) * 0.4 * this.z;
-            this.speedY = -(Math.random() * 0.8 + 0.3) * (this.z * 1.2 + 0.4); // float faster if closer
-            this.opacity = (Math.random() * 0.5 + 0.15) * this.z; // opacity based on depth
-            this.hue = Math.random() > 0.7 ? 330 : (Math.random() > 0.5 ? 270 : 188); // cyan, purple, pink
-            this.pulse = Math.random() * Math.PI * 2;
-            this.pulseSpeed = (Math.random() * 0.02 + 0.01) * this.z;
-            this.wobble = Math.random() * 0.5 * this.z;
-            this.wobbleSpeed = Math.random() * 0.02 + 0.005;
-            this.wobblePhase = Math.random() * Math.PI * 2;
-            this.life = 1;
-        }
+        // Resize Handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
 
-        update() {
-            // Antigravity: float upward
-            this.y += this.speedY;
-            
-            // Gentle lateral wobble
-            this.wobblePhase += this.wobbleSpeed;
-            this.x += this.speedX + Math.sin(this.wobblePhase) * this.wobble;
-            
-            // Pulse glow
-            this.pulse += this.pulseSpeed;
-            const glowFactor = 0.5 + Math.sin(this.pulse) * 0.5;
-            this.currentOpacity = this.opacity * glowFactor;
+        // Mouse Movement for Camera Parallax
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX - window.innerWidth / 2) / 120;
+            mouseY = (e.clientY - window.innerHeight / 2) / 120;
+        }, { passive: true });
 
-            // Mouse attraction (soft pull - stronger for closer particles)
-            const dx = mouseX - this.x;
-            const dy = mouseY - this.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 150) {
-                const force = (150 - dist) / 150 * 0.4 * this.z;
-                this.x += dx / dist * force;
-                this.y += dy / dist * force;
+        // GSAP ScrollTrigger for Camera Zoom and Hero fly-out
+        gsap.registerPlugin(ScrollTrigger);
+
+        const isMobileDevice = window.innerWidth <= 768;
+
+        const heroTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1.2
             }
+        });
 
-            // Fade out at top, respawn at bottom
-            if (this.y < -20) {
-                this.reset();
-            }
-            
-            // Wrap horizontally
-            if (this.x < -10) this.x = canvas.width + 10;
-            if (this.x > canvas.width + 10) this.x = -10;
-        }
+        // Fade out / Blur / Fly up hero text elements
+        heroTl.to('.hero-role', { scale: 1.2, opacity: 0, filter: 'blur(8px)', y: -80, duration: 1 }, 0);
+        heroTl.to('.hero-title', { scale: 1.3, opacity: 0, filter: 'blur(12px)', y: -120, duration: 1 }, 0.1);
+        heroTl.to('.hero-bio', { scale: 1.15, opacity: 0, filter: 'blur(8px)', y: -60, duration: 1 }, 0.2);
+        heroTl.to('.hero-buttons', { scale: 1.05, opacity: 0, filter: 'blur(4px)', y: -40, duration: 1 }, 0.3);
 
-        draw() {
-            // Main particle
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = `hsla(${this.hue}, 80%, 60%, ${this.currentOpacity})`;
-            ctx.fill();
+        // Zoom the camera through the scene and rotate the TorusKnot
+        heroTl.to(mainMesh.scale, { x: 5, y: 5, z: 5, duration: 1.5 }, 0);
+        heroTl.to(mainMesh.rotation, { x: Math.PI * 1.2, y: Math.PI * 1.2, duration: 1.5 }, 0);
+        heroTl.to(camera.position, { z: 1.2, duration: 1.5 }, 0);
 
-            // Glow aura
-            if (this.size > 1.5) {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
-                ctx.fillStyle = `hsla(${this.hue}, 80%, 60%, ${this.currentOpacity * 0.15})`;
-                ctx.fill();
-            }
-        }
-    }
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
 
-    // Create particles based on screen size
-    const particleCount = Math.min(100, Math.floor(window.innerWidth / 12));
-    for (let i = 0; i < particleCount; i++) {
-        const p = new AntigravityParticle();
-        p.y = Math.random() * canvas.height; // Initial spread
-        particles.push(p);
-    }
+            // Rotate main mesh
+            mainMesh.rotation.x += 0.003;
+            mainMesh.rotation.y += 0.003;
 
-    function drawConnections() {
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
+            // Animate floaters
+            floaters.forEach(f => {
+                f.mesh.rotation.x += f.rotSpeed;
+                f.mesh.rotation.y += f.rotSpeed;
+                f.mesh.position.y += f.speedY;
+                if (f.mesh.position.y > 8) f.mesh.position.y = -8;
+                f.mesh.position.x = f.baseX + Math.sin(Date.now() * 0.001 * f.wobbleSpeed * 100) * f.wobbleRange;
+            });
 
-                if (dist < 100) {
-                    const alpha = 0.06 * (1 - dist / 100);
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(6, 182, 212, ${alpha})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
+            // Float particles upward
+            const posArr = particlesGeometry.attributes.position.array;
+            for (let i = 0; i < count; i++) {
+                posArr[i * 3 + 1] += speeds[i];
+                if (posArr[i * 3 + 1] > 11) {
+                    posArr[i * 3 + 1] = -11;
+                    posArr[i * 3] = (Math.random() - 0.5) * 22;
+                    posArr[i * 3 + 2] = (Math.random() - 0.5) * 12 - 4;
                 }
             }
+            particlesGeometry.attributes.position.needsUpdate = true;
+            particles.rotation.y += 0.0004;
+
+            // Smooth camera tilt based on mouse
+            camera.position.x += (mouseX - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
         }
+
+        animate();
+    } catch (e) {
+        console.warn("Three.js Background WebGL Initialization failed:", e);
     }
-
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => { p.update(); p.draw(); });
-        drawConnections();
-        requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
 })();
 
 // ========================================
@@ -415,7 +492,11 @@ if (mobileBtn && mobileNav) {
     }, { passive: true });
 
     btn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (typeof lenis !== 'undefined') {
+            lenis.scrollTo(0);
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     });
 })();
 
@@ -455,7 +536,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
+        if (target && typeof lenis !== 'undefined') {
+            lenis.scrollTo(target);
+        } else if (target) {
             target.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
@@ -465,48 +548,24 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ========================================
-//   GOOGLE SHEETS CONTACT FORM - FULLY FUNCTIONAL
+//   FORMSUBMIT CONTACT FORM - FULLY FUNCTIONAL
 // ========================================
 
 /*
  * ============================================
- * GOOGLE SHEETS SETUP INSTRUCTIONS
+ * FORMSUBMIT SETUP INSTRUCTIONS
  * ============================================
  * 
- * To make this contact form work with Google Sheets:
+ * To make this contact form work with FormSubmit:
  * 
- * 1. Go to https://sheets.google.com and create a new spreadsheet
- * 2. Name it "Portfolio Contacts"
- * 3. Add these headers in Row 1: Date | Name | Email | Subject | Message
- * 4. Go to Extensions → Apps Script
- * 5. Delete existing code and paste this:
+ * 1. Your email is configured as: manjunathkaids23@jkkmct.edu.in
+ * 2. Submit the form once via the website interface.
+ * 3. FormSubmit will send an activation email to your email address.
+ * 4. Click the activation link in that email to start receiving forms.
  * 
- *    function doPost(e) {
- *      var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
- *      var data = JSON.parse(e.postData.contents);
- *      sheet.appendRow([
- *        new Date().toLocaleString(),
- *        data.name,
- *        data.email,
- *        data.subject || 'No subject',
- *        data.message
- *      ]);
- *      return ContentService.createTextOutput(JSON.stringify({
- *        success: true
- *      })).setMimeType(ContentService.MimeType.JSON);
- *    }
- * 
- * 6. Click Deploy → New deployment
- * 7. Select type: Web app
- * 8. Execute as: Me
- * 9. Who has access: Anyone
- * 10. Click Deploy and copy the URL
- * 11. Replace GOOGLE_SCRIPT_URL below with your URL
- * 
- * TO USE A DIFFERENT SHEET:
- * - Create a new Google Sheet with same headers
- * - Create a new Apps Script with the same code
- * - Deploy it and paste the new URL below
+ * CUSTOMIZING FORMSUBMIT:
+ * - You can use fields like _captcha, _subject, _honey, and _cc.
+ * - Current setup uses _captcha: 'false' for clean AJAX submissions.
  * ============================================
  */
 
@@ -555,20 +614,28 @@ if (contactForm) {
         }
 
         try {
-            const response = await fetch('/send', {
+            const response = await fetch('https://formsubmit.co/ajax/manjunathkaids23@jkkmct.edu.in', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    _subject: formData.subject ? `Portfolio Contact: ${formData.subject}` : 'New Portfolio Contact Message',
+                    message: formData.message,
+                    _captcha: 'false'
+                })
             });
 
             const data = await response.json();
 
-            if (response.ok && data.success) {
+            if (response.ok && (data.success === 'true' || data.success === true)) {
                 showFormMessage('success', '✓ Message sent! I will get back to you soon.');
                 this.reset();
                 lucide.createIcons(); // Re-sync icons if needed
+                spawnConfetti();
             } else {
                 showFormMessage('error', `✗ Failed: ${data.message || 'Please try again.'}`);
             }
@@ -1170,8 +1237,15 @@ console.log('%c Portfolio loaded successfully! 🚀', 'color: #06b6d4; font-size
         document.addEventListener('mousemove', e => moveDrag(e.clientX, e.clientY));
         document.addEventListener('mouseup', endDrag);
 
-        cubeVP.addEventListener('touchstart', e => startDrag(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
-        document.addEventListener('touchmove', e => moveDrag(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+        cubeVP.addEventListener('touchstart', e => {
+            startDrag(e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: false });
+        document.addEventListener('touchmove', e => {
+            if (dragging) {
+                e.preventDefault(); // Stop mobile scroll while dragging
+                moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: false });
         document.addEventListener('touchend', endDrag);
     }
 
@@ -1190,4 +1264,169 @@ console.log('%c Portfolio loaded successfully! 🚀', 'color: #06b6d4; font-size
         await new Promise(r => setTimeout(r, 600));
         await solve(360);
     });
+})();
+
+// ========================================
+//   CONFETTI GENERATOR FOR FORM SUCCESS
+// ========================================
+function spawnConfetti() {
+    const container = document.createElement('div');
+    container.style.cssText = 'position:fixed;inset:0;z-index:99999;pointer-events:none;overflow:hidden;';
+    document.body.appendChild(container);
+    
+    const colors = ['#06b6d4', '#ec4899', '#8b5cf6', '#4ade80', '#f59e0b'];
+    const count = 100;
+    
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        const size = Math.random() * 8 + 4;
+        p.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+            left: ${Math.random() * 100}vw;
+            top: -20px;
+            opacity: ${Math.random() * 0.8 + 0.2};
+            transform: rotate(${Math.random() * 360}deg);
+            transition: all ${Math.random() * 2 + 1.5}s cubic-bezier(0.1, 0.8, 0.3, 1);
+        `;
+        container.appendChild(p);
+        
+        // Let it fall
+        setTimeout(() => {
+            p.style.transform = `translate(${(Math.random() - 0.5) * 300}px, ${window.innerHeight + 50}px) rotate(${Math.random() * 720}deg)`;
+            p.style.opacity = '0';
+        }, 50);
+    }
+    
+    setTimeout(() => {
+        container.remove();
+    }, 4000);
+}
+
+// ========================================
+//   ABOUT SECTION MINI 3D GLOBE
+// ========================================
+(function initAboutSectionGlobe() {
+    try {
+        const canvas = document.getElementById('about-canvas');
+        if (!canvas) return;
+
+        const wrap = canvas.parentElement;
+        if (!wrap) return;
+
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(50, wrap.clientWidth / wrap.clientHeight, 0.1, 100);
+        camera.position.z = 4.5;
+
+        // Lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.45);
+        scene.add(ambientLight);
+
+        const light1 = new THREE.PointLight(0x06b6d4, 3);
+        light1.position.set(3, 3, 3);
+        scene.add(light1);
+
+        const light2 = new THREE.PointLight(0x8b5cf6, 2.5);
+        light2.position.set(-3, -3, 3);
+        scene.add(light2);
+
+        // 1. Wireframe Outer Sphere
+        const sphereGeom = new THREE.SphereGeometry(1.4, 26, 26);
+        const sphereMat = new THREE.MeshPhongMaterial({
+            color: 0x06b6d4,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.4,
+            shininess: 80
+        });
+        const globe = new THREE.Mesh(sphereGeom, sphereMat);
+        scene.add(globe);
+
+        // 2. Inner Tech Core (Icosahedron)
+        const coreGeom = new THREE.IcosahedronGeometry(0.9, 1);
+        const coreMat = new THREE.MeshPhongMaterial({
+            color: 0x8b5cf6,
+            transparent: true,
+            opacity: 0.18,
+            flatShading: true
+        });
+        const core = new THREE.Mesh(coreGeom, coreMat);
+        scene.add(core);
+
+        // 3. Orbital Path Rings
+        const ringGeom = new THREE.RingGeometry(1.6, 1.62, 64);
+        const ringMat = new THREE.MeshBasicMaterial({
+            color: 0xec4899,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.35
+        });
+        
+        const ring1 = new THREE.Mesh(ringGeom, ringMat);
+        ring1.rotation.x = Math.PI / 2;
+        scene.add(ring1);
+
+        const ring2 = new THREE.Mesh(ringGeom, ringMat);
+        ring2.rotation.y = Math.PI / 4;
+        scene.add(ring2);
+
+        // 4. Star Particles
+        const starCount = 350;
+        const starPositions = new Float32Array(starCount * 3);
+        for (let i = 0; i < starCount * 3; i++) {
+            starPositions[i] = (Math.random() - 0.5) * 8;
+        }
+        const starGeom = new THREE.BufferGeometry();
+        starGeom.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+        
+        const starMat = new THREE.PointsMaterial({
+            size: 0.045,
+            color: 0x06b6d4,
+            transparent: true,
+            opacity: 0.5,
+            blending: THREE.AdditiveBlending
+        });
+        const stars = new THREE.Points(starGeom, starMat);
+        scene.add(stars);
+
+        // Resize Observer for the visualizer panel
+        function resize() {
+            const w = wrap.clientWidth;
+            const h = wrap.clientHeight;
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+            renderer.setSize(w, h);
+        }
+
+        const resizeObserver = new ResizeObserver(() => {
+            resize();
+        });
+        resizeObserver.observe(wrap);
+
+        // Animation Loop
+        function animateGlobe() {
+            requestAnimationFrame(animateGlobe);
+
+            globe.rotation.y += 0.007;
+            globe.rotation.x += 0.003;
+            core.rotation.y -= 0.005;
+            
+            ring1.rotation.z += 0.008;
+            ring2.rotation.z -= 0.006;
+            
+            stars.rotation.y += 0.0003;
+
+            renderer.render(scene, camera);
+        }
+        animateGlobe();
+    } catch (e) {
+        console.warn("About section mini globe WebGL Initialization failed:", e);
+    }
 })();
