@@ -1,6 +1,6 @@
 # Portfolio Evaluation & Comprehensive Analysis Report
 
-**Developer Profile:** Manjunath — B.Tech AI & Data Science | AI Engineer & Vibe Coder  
+**Developer Profile:** Manjunath — B.Tech AI & Data Science | AI Engineer & Agentic Coder  
 **Repository:** [Manju1303/Portfolio](https://github.com/Manju1303)  
 **Date:** August 5, 2026  
 **Status:** Upgraded with Trendy Modern Features & Issue Resolutions

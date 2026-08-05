@@ -324,7 +324,7 @@ let lenis;
     const element = document.getElementById('heroTypewriter');
     if (!element) return;
 
-    const texts = ['Manjunath', 'AI Engineer', 'Vibe Coder', 'AI & Agents', 'Computer Vision'];
+    const texts = ['Manjunath', 'AI Engineer', 'Agentic Coder', 'AI & Agents', 'Computer Vision'];
     let textIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
