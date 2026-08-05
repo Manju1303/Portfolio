@@ -1430,3 +1430,267 @@ function spawnConfetti() {
         console.warn("About section mini globe WebGL Initialization failed:", e);
     }
 })();
+
+// ========================================
+//   TOAST NOTIFICATION ENGINE
+// ========================================
+function showToast(message, icon = 'info') {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+
+    const icons = {
+        info: '<i data-lucide="info" style="color:#06b6d4;"></i>',
+        success: '<i data-lucide="check-circle" style="color:#4ade80;"></i>',
+        alert: '<i data-lucide="alert-triangle" style="color:#f59e0b;"></i>'
+    };
+
+    toast.innerHTML = `${icons[icon] || icons.info} <span>${message}</span>`;
+    container.appendChild(toast);
+
+    if (window.lucide) window.lucide.createIcons();
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+    }, 3500);
+}
+
+// ========================================
+//   INTERACTIVE PROJECT CATEGORY FILTERING
+// ========================================
+(function initProjectFilters() {
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const projectCards = document.querySelectorAll('.project-flip-card');
+
+    if (!filterTabs.length || !projectCards.length) return;
+
+    filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            filterTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            const filter = tab.getAttribute('data-filter');
+
+            projectCards.forEach(card => {
+                const categories = (card.getAttribute('data-category') || '').split(' ');
+                
+                if (filter === 'all' || categories.includes(filter)) {
+                    card.classList.remove('filter-hidden');
+                    card.style.animation = 'stagger-fade-in 0.4s ease forwards';
+                } else {
+                    card.classList.add('filter-hidden');
+                }
+            });
+
+            playSound('click');
+        });
+    });
+})();
+
+// ========================================
+//   AUDIO SOUND FX ENGINE (Web Audio API)
+// ========================================
+let soundEnabled = false;
+let audioCtx = null;
+
+function playSound(type = 'click') {
+    if (!soundEnabled) return;
+    try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+
+        if (type === 'click') {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(800, now);
+            osc.frequency.exponentialRampToValueAtTime(400, now + 0.05);
+            gain.gain.setValueAtTime(0.12, now);
+            gain.gain.linearRampToValueAtTime(0.01, now + 0.05);
+            osc.start(now);
+            osc.stop(now + 0.05);
+        } else if (type === 'open') {
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(300, now);
+            osc.frequency.exponentialRampToValueAtTime(900, now + 0.08);
+            gain.gain.setValueAtTime(0.1, now);
+            gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+            osc.start(now);
+            osc.stop(now + 0.08);
+        }
+    } catch (e) {
+        // Silent catch for audio context restrictions
+    }
+}
+
+(function initSoundToggle() {
+    const btn = document.getElementById('soundToggleBtn');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        btn.classList.toggle('active', soundEnabled);
+        
+        const icon = soundEnabled ? 'volume-2' : 'volume-x';
+        btn.innerHTML = `<i data-lucide="${icon}"></i>`;
+        if (window.lucide) window.lucide.createIcons();
+
+        if (soundEnabled) {
+            playSound('open');
+            showToast('UI Sound Effects Enabled 🔊', 'success');
+        } else {
+            showToast('UI Sound Effects Muted 🔇', 'info');
+        }
+    });
+
+    // Sound hover effects on interactive elements
+    document.querySelectorAll('a, button, .project-flip-card, .tool-card').forEach(el => {
+        el.addEventListener('mouseenter', () => playSound('click'));
+    });
+})();
+
+// ========================================
+//   CYBER COMMAND PALETTE LOGIC
+// ========================================
+(function initCommandPalette() {
+    const palette = document.getElementById('cmdPalette');
+    const input = document.getElementById('cmdInput');
+    const results = document.getElementById('cmdResults');
+    const openBtn = document.getElementById('cmdPaletteBtn');
+
+    if (!palette || !input || !results) return;
+
+    function openPalette() {
+        palette.classList.add('active');
+        input.focus();
+        input.value = '';
+        filterCommands('');
+        playSound('open');
+    }
+
+    function closePalette() {
+        palette.classList.remove('active');
+    }
+
+    if (openBtn) {
+        openBtn.addEventListener('click', openPalette);
+    }
+
+    // Keyboard trigger Ctrl+K or Cmd+K
+    document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            if (palette.classList.contains('active')) closePalette();
+            else openPalette();
+        } else if (e.key === 'Escape' && palette.classList.contains('active')) {
+            closePalette();
+        }
+    });
+
+    // Overlay click close
+    palette.addEventListener('click', (e) => {
+        if (e.target === palette) closePalette();
+    });
+
+    // Search filtering
+    input.addEventListener('input', (e) => {
+        filterCommands(e.target.value.toLowerCase().trim());
+    });
+
+    function filterCommands(query) {
+        const items = results.querySelectorAll('.cmd-item');
+        let hasMatch = false;
+
+        items.forEach((item, i) => {
+            const cmd = item.getAttribute('data-cmd') || '';
+            const text = item.textContent.toLowerCase();
+            
+            if (!query || cmd.includes(query) || text.includes(query)) {
+                item.style.display = 'flex';
+                if (!hasMatch) {
+                    items.forEach(it => it.classList.remove('active'));
+                    item.classList.add('active');
+                    hasMatch = true;
+                }
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    // Action Execution
+    results.addEventListener('click', (e) => {
+        const item = e.target.closest('.cmd-item');
+        if (item) executeCommand(item.getAttribute('data-cmd'));
+    });
+
+    input.addEventListener('keydown', (e) => {
+        const items = Array.from(results.querySelectorAll('.cmd-item')).filter(it => it.style.display !== 'none');
+        const activeIdx = items.findIndex(it => it.classList.contains('active'));
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const nextIdx = (activeIdx + 1) % items.length;
+            items.forEach(it => it.classList.remove('active'));
+            if (items[nextIdx]) items[nextIdx].classList.add('active');
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            const prevIdx = (activeIdx - 1 + items.length) % items.length;
+            items.forEach(it => it.classList.remove('active'));
+            if (items[prevIdx]) items[prevIdx].classList.add('active');
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            const activeItem = items[activeIdx] || items[0];
+            if (activeItem) executeCommand(activeItem.getAttribute('data-cmd'));
+        }
+    });
+
+    function executeCommand(cmd) {
+        closePalette();
+        playSound('click');
+
+        switch (cmd) {
+            case 'goto home':
+                window.location.hash = '#home';
+                showToast('Navigated to Home', 'info');
+                break;
+            case 'goto about':
+                window.location.hash = '#about';
+                showToast('Navigated to About Section', 'info');
+                break;
+            case 'goto projects':
+                window.location.hash = '#projects';
+                showToast('Navigated to Projects Showcase', 'info');
+                break;
+            case 'goto contact':
+                window.location.hash = '#contact';
+                showToast('Navigated to Contact Section', 'info');
+                break;
+            case 'copy email':
+                navigator.clipboard.writeText('manjunathkaids23@jkkmct.edu.in');
+                showToast('Email copied to clipboard! 📋', 'success');
+                break;
+            case 'open github':
+                window.open('https://github.com/Manju1303', '_blank');
+                showToast('Opening GitHub profile...', 'info');
+                break;
+            case 'toggle sound':
+                document.getElementById('soundToggleBtn')?.click();
+                break;
+            default:
+                showToast(`Executed: ${cmd}`, 'info');
+        }
+    }
+})();
+

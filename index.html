@@ -36,6 +36,36 @@
       height: 24px;
     }
   </style>
+
+  <!-- Person JSON-LD Schema for SEO & Recruiters -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Manjunath",
+    "jobTitle": "AI Engineer & Data Science Professional",
+    "alumniOf": "JKKMCT",
+    "degree": "B.Tech in Artificial Intelligence and Data Science",
+    "url": "https://github.com/Manju1303",
+    "sameAs": [
+      "https://github.com/Manju1303",
+      "https://www.linkedin.com/in/manjunath-manjunath-248594352",
+      "https://www.instagram.com/mjx_1303"
+    ],
+    "knowsAbout": [
+      "Artificial Intelligence",
+      "Machine Learning",
+      "Deep Learning",
+      "Computer Vision",
+      "Natural Language Processing",
+      "Large Language Models",
+      "Full-Stack Web Development",
+      "Python",
+      "React",
+      "Docker"
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -77,6 +107,16 @@
           <li><a href="#projects" class="nav-link">Projects</a></li>
           <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
+      </div>
+
+      <div class="nav-controls">
+        <button class="nav-cmd-btn" id="cmdPaletteBtn" title="Open Command Palette (Ctrl+K)">
+          <i data-lucide="terminal"></i>
+          <span class="cmd-shortcut">Ctrl+K</span>
+        </button>
+        <button class="sound-toggle-btn" id="soundToggleBtn" title="Toggle Sound FX">
+          <i data-lucide="volume-x"></i>
+        </button>
       </div>
 
       <button class="mobile-menu-btn">
@@ -194,7 +234,7 @@
             <div class="profile-card-avatar">
               <div class="avatar-ring"></div>
               <div class="avatar-ring-glow"></div>
-              <img src="about-photo.png" alt="Manjunath - AI Engineer" loading="lazy">
+              <img src="about-image.jpeg" alt="Manjunath - AI Engineer & Data Science Professional" loading="lazy">
             </div>
 
             <!-- User info -->
@@ -221,30 +261,35 @@
 
             <div class="about-body">
               <p>
-                I am an engineering graduate with a <strong style="color: #ffffff; font-weight: 700;">B.Tech in
-                  Artificial
-                  Intelligence and Data Science</strong>, driven by a passion for building intelligent and user-centric
-                technology solutions. I have a strong academic and practical foundation in Machine Learning and
-                data-driven
-                problem solving, backed by hands-on experience in developing AI-powered applications, chatbot systems,
-                automation workflows, and analytical models.
+                I am an engineering graduate with a <strong style="color: #ffffff; font-weight: 700;">B.Tech in Artificial Intelligence and Data Science</strong>, specializing in architecting scalable AI applications, LLM-powered systems, and intelligent digital products. I combine rigorous machine learning foundations with full-stack web engineering to transform complex algorithms into production-ready software.
+              </p>
+
+              <!-- ATS Core Competencies & Keywords Grid -->
+              <div class="ats-competencies" style="margin: 1.5rem 0; padding: 1.25rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px;">
+                <h4 style="color: var(--primary); font-size: 1.05rem; margin-bottom: 0.85rem; font-family: var(--font-neon); display: flex; align-items: center; gap: 0.5rem;">
+                  <i data-lucide="shield-check" style="width: 1.1rem; height: 1.1rem;"></i> Core ATS Technical Competencies
+                </h4>
+                <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.65rem; font-size: 0.9rem;">
+                  <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: var(--text-main);">
+                    <span style="color: var(--primary); font-weight: bold;">▹</span> <strong>AI & LLM Architecture:</strong> RAG Systems, Vector DBs (ChromaDB), Semantic Search, Prompt Engineering
+                  </li>
+                  <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: var(--text-main);">
+                    <span style="color: var(--primary); font-weight: bold;">▹</span> <strong>Computer Vision & ML:</strong> MediaPipe, OpenCV, Real-time Pose & Landmark Estimation, Predictive Analytics
+                  </li>
+                  <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: var(--text-main);">
+                    <span style="color: var(--primary); font-weight: bold;">▹</span> <strong>Full-Stack Development:</strong> Python, React.js, Node.js, Express, JavaScript (ES6+), HTML5/CSS3
+                  </li>
+                  <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: var(--text-main);">
+                    <span style="color: var(--primary); font-weight: bold;">▹</span> <strong>DevOps & Cloud:</strong> Docker Containerization, Git/GitHub, Linux/Ubuntu CLI, VPC, Subnets, SSH
+                  </li>
+                </ul>
+              </div>
+
+              <p>
+                My development experience spans the end-to-end AI software lifecycle — from problem formulation, dataset preparation, and RAG retrieval pipelines to interactive UI creation, API deployment, containerization, and technical documentation.
               </p>
               <p>
-                My project experience spans the full development lifecycle, including problem analysis, system design,
-                model
-                implementation, testing, deployment, and technical documentation.
-              </p>
-              <p>
-                My development stack includes Python, React, Node.js, GitHub, and Docker, with exposure to containerized
-                deployments and scalable web/AI applications. I understand essential cloud and networking concepts such
-                as
-                VPC, subnets, DNS, and SSH, and apply secure remote-access practices in my projects.
-              </p>
-              <p>
-                My mission is to engineer AI-driven products that simplify technology, accelerate learning, and automate
-                complex digital workflows, converting technical intricacy into guided, accessible intelligent experiences. 
-                I combine rigorous technical precision with creative, user-centric development to deliver robust and 
-                scalable intelligent systems that solve real-world problems.
+                My mission is to engineer user-centric, high-performance AI solutions that automate complex workflows and empower users through accessible intelligent interfaces.
               </p>
             </div>
           </div>
@@ -384,13 +429,22 @@
           Featured <span class="gradient-text">Projects</span>
         </h2>
         <p class="projects-subtitle">Highlights of my engineering & development work.</p>
+
+        <!-- Trendy Project Filter Tabs -->
+        <div class="project-filter-tabs" id="projectFilters">
+          <button class="filter-tab active" data-filter="all">All Projects <span class="filter-count">12</span></button>
+          <button class="filter-tab" data-filter="ai">AI & LLMs <span class="filter-count">5</span></button>
+          <button class="filter-tab" data-filter="cv">Computer Vision <span class="filter-count">3</span></button>
+          <button class="filter-tab" data-filter="web">Full-Stack <span class="filter-count">3</span></button>
+          <button class="filter-tab" data-filter="health">Health & Sensors <span class="filter-count">3</span></button>
+        </div>
       </div>
 
       <!-- Projects Grid -->
-      <div class="projects-showcase">
+      <div class="projects-showcase" id="projectsShowcase">
 
         <!-- [TOP] Project 1: AURORA (AI Avatar Assistant) -->
-        <div class="project-flip-card anim-fade-up" data-delay="100">
+        <div class="project-flip-card anim-fade-up" data-delay="100" data-category="ai">
           <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-12">
             <div class="project-thumb-pattern"></div>
@@ -433,7 +487,7 @@
         </div>
 
         <!-- [TOP] Project 2: Memora (AI Agent) -->
-        <div class="project-flip-card anim-fade-up" data-delay="200">
+        <div class="project-flip-card anim-fade-up" data-delay="200" data-category="ai">
           <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-2">
             <div class="project-thumb-pattern"></div>
@@ -471,7 +525,7 @@
         </div>
 
         <!-- [MIDDLE] Project 3: HealthGuard AI (NABH) -->
-        <div class="project-flip-card anim-fade-up" data-delay="100">
+        <div class="project-flip-card anim-fade-up" data-delay="100" data-category="ai health">
           <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-7">
             <div class="project-thumb-pattern"></div>
@@ -511,7 +565,7 @@
         </div>
 
         <!-- [MIDDLE] Project 4: Air Canva (CV) -->
-        <div class="project-flip-card anim-fade-up" data-delay="200">
+        <div class="project-flip-card anim-fade-up" data-delay="200" data-category="cv">
           <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-8">
             <div class="project-thumb-pattern"></div>
@@ -552,7 +606,7 @@
         </div>
 
         <!-- [MIDDLE] Project 5: Theft Detection System (New CV) -->
-        <div class="project-flip-card anim-fade-up" data-delay="100">
+        <div class="project-flip-card anim-fade-up" data-delay="100" data-category="cv ai">
           <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-13">
             <div class="project-thumb-pattern"></div>
@@ -594,7 +648,7 @@
         </div>
 
         <!-- [MIDDLE] Project 6: Lucid OCR -->
-        <div class="project-flip-card anim-fade-up" data-delay="200">
+        <div class="project-flip-card anim-fade-up" data-delay="200" data-category="ai cv">
           <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-9">
             <div class="project-thumb-pattern"></div>
@@ -631,7 +685,7 @@
         </div>
 
         <!-- [MIDDLE] Project 7: Step Count (Sensor) -->
-        <div class="project-flip-card anim-fade-up" data-delay="100">
+        <div class="project-flip-card anim-fade-up" data-delay="100" data-category="health web">
           <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-10">
             <div class="project-thumb-pattern"></div>
@@ -671,7 +725,7 @@
         </div>
 
         <!-- [MIDDLE] Project 8: Visualization Charts -->
-        <div class="project-flip-card anim-fade-up" data-delay="200">
+        <div class="project-flip-card anim-fade-up" data-delay="200" data-category="web">
           <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-11">
             <div class="project-thumb-pattern"></div>
@@ -711,7 +765,7 @@
         </div>
 
         <!-- [BOTTOM] Project 9: Home Services -->
-        <div class="project-flip-card anim-fade-up" data-delay="100">
+        <div class="project-flip-card anim-fade-up" data-delay="100" data-category="web">
           <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-1">
             <div class="project-logo-container">
@@ -746,7 +800,7 @@
         </div>
 
         <!-- [BOTTOM] Project 10: AI Humanizer -->
-        <div class="project-flip-card anim-fade-up" data-delay="200">
+        <div class="project-flip-card anim-fade-up" data-delay="200" data-category="ai">
           <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-3">
             <div class="project-logo-container">
@@ -782,7 +836,7 @@
         </div>
 
         <!-- [BOTTOM] Project 11: Personal LLM -->
-        <div class="project-flip-card anim-fade-up" data-delay="100">
+        <div class="project-flip-card anim-fade-up" data-delay="100" data-category="ai">
           <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-4">
             <div class="project-logo-container">
@@ -818,7 +872,7 @@
         </div>
 
         <!-- [BOTTOM] Project 12: Fitness Tracker -->
-        <div class="project-flip-card anim-fade-up" data-delay="200">
+        <div class="project-flip-card anim-fade-up" data-delay="200" data-category="health web">
           <div class="electric-border"></div>
           <div class="project-flip-front project-thumb-6">
             <div class="project-logo-container">
@@ -972,6 +1026,33 @@
   <button class="back-to-top" id="backToTop">
     <i data-lucide="chevron-up"></i>
   </button>
+
+  <!-- Cyber Command Palette Modal -->
+  <div class="cmd-palette-overlay" id="cmdPalette">
+    <div class="cmd-palette-box">
+      <div class="cmd-palette-header">
+        <i data-lucide="terminal" style="color: var(--primary);"></i>
+        <input type="text" id="cmdInput" placeholder="Type a command (e.g. goto about, projects, contact, email, github)..." autocomplete="off">
+        <span class="cmd-esc">ESC</span>
+      </div>
+      <div class="cmd-palette-results" id="cmdResults">
+        <div class="cmd-item active" data-cmd="goto home"><i data-lucide="home"></i> Go to Home <span>Navigation</span></div>
+        <div class="cmd-item" data-cmd="goto about"><i data-lucide="user"></i> Go to About Section <span>Navigation</span></div>
+        <div class="cmd-item" data-cmd="goto projects"><i data-lucide="briefcase"></i> View Featured Projects <span>Navigation</span></div>
+        <div class="cmd-item" data-cmd="goto contact"><i data-lucide="mail"></i> Contact Manjunath <span>Navigation</span></div>
+        <div class="cmd-item" data-cmd="copy email"><i data-lucide="copy"></i> Copy Email Address <span>Action</span></div>
+        <div class="cmd-item" data-cmd="open github"><i data-lucide="github"></i> Open GitHub Profile <span>External</span></div>
+        <div class="cmd-item" data-cmd="toggle sound"><i data-lucide="volume-2"></i> Toggle UI Sound Effects <span>Setting</span></div>
+      </div>
+      <div class="cmd-palette-footer">
+        <span>Use <strong>↑</strong> <strong>↓</strong> to navigate, <strong>↵</strong> to run command</span>
+        <span>Cyber Terminal v2.0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reusable Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
 
   <!-- Scripts -->
   <script src="script.js"></script>
