@@ -1007,265 +1007,6 @@ setTimeout(() => {
 
 console.log('%c Portfolio loaded successfully! 🚀', 'color: #06b6d4; font-size: 14px; font-weight: bold;');
 
-/* ========================================
-   3D RUBIK'S CUBE (Integrated)
-======================================== */
-(function initRubiksCube() {
-    const isMobile = window.innerWidth <= 768;
-    const STEP_PX = isMobile ? 54 : 80;
-    const HALF_PX = STEP_PX / 2;
-
-    const FC = {
-        front: { bg: '#009B48', cls: 'fc-green' },
-        back: { bg: '#0051A2', cls: 'fc-blue' },
-        right: { bg: '#C41E3A', cls: 'fc-red' },
-        left: { bg: '#FF5800', cls: 'fc-orange' },
-        top: { bg: '#FFFFFF', cls: 'fc-white' },
-        bottom: { bg: '#FFD500', cls: 'fc-yellow' },
-        inner: { bg: '#111', cls: 'fc-inner' },
-    };
-
-    const FACE_DEFS = [
-        { key: 'front', t: (h) => `translateZ(${h}px)` },
-        { key: 'back', t: (h) => `rotateY(180deg) translateZ(${h}px)` },
-        { key: 'right', t: (h) => `rotateY(90deg) translateZ(${h}px)` },
-        { key: 'left', t: (h) => `rotateY(-90deg) translateZ(${h}px)` },
-        { key: 'top', t: (h) => `rotateX(90deg) translateZ(${h}px)` },
-        { key: 'bottom', t: (h) => `rotateX(-90deg) translateZ(${h}px)` },
-    ];
-
-    const cubeScene = document.getElementById('cubeScene');
-    const cubies = [];
-    if (!cubeScene) return;
-
-    function makeCubie(lx, ly, lz) {
-        const el = document.createElement('div');
-        el.className = 'cubie';
-        const currentStep = window.innerWidth <= 768 ? 54 : 80;
-        const currentHalf = currentStep / 2;
-        
-        FACE_DEFS.forEach(fd => {
-            let fc = FC.inner;
-            if (fd.key === 'front' && lz === 1) fc = FC.front;
-            if (fd.key === 'back' && lz === -1) fc = FC.back;
-            if (fd.key === 'right' && lx === 1) fc = FC.right;
-            if (fd.key === 'left' && lx === -1) fc = FC.left;
-            if (fd.key === 'top' && ly === 1) fc = FC.top;
-            if (fd.key === 'bottom' && ly === -1) fc = FC.bottom;
-
-            const face = document.createElement('div');
-            face.className = 'cubie-face ' + fc.cls;
-            face.style.transform = fd.t(currentHalf) + (fc === FC.inner ? ' scale(0.98)' : '');
-            
-            if (fc !== FC.inner) {
-                face.innerHTML = '<div class="gloss"></div><div class="shine"></div>';
-            }
-            el.appendChild(face);
-        });
-        const m = new DOMMatrix().translate(lx * currentStep, -ly * currentStep, lz * currentStep);
-        el.style.transform = m.toString();
-        return { el, m };
-    }
-
-    function buildCube() {
-        cubeScene.innerHTML = '';
-        cubies.length = 0;
-        for (let y = 1; y >= -1; y--) {
-            for (let x = -1; x <= 1; x++) {
-                for (let z = 1; z >= -1; z--) {
-                    const c = makeCubie(x, y, z);
-                    cubeScene.appendChild(c.el);
-                    cubies.push(c);
-                }
-            }
-        }
-    }
-
-    function snap(m) {
-        const step = window.innerWidth <= 768 ? 54 : 80;
-        m.m41 = Math.round(m.m41 / step) * step;
-        m.m42 = Math.round(m.m42 / step) * step;
-        m.m43 = Math.round(m.m43 / step) * step;
-        ['m11', 'm12', 'm13', 'm21', 'm22', 'm23', 'm31', 'm32', 'm33'].forEach(f => {
-            if (Math.abs(m[f]) < 0.1) m[f] = 0;
-            else m[f] = Math.sign(m[f]);
-        });
-    }
-
-    function rotateLayer(axis, slice, angle, ms) {
-        return new Promise(resolve => {
-            const step = window.innerWidth <= 768 ? 54 : 80;
-            const layer = cubies.filter(c => {
-                const x = Math.round(c.m.m41 / step);
-                const y = Math.round(-c.m.m42 / step);
-                const z = Math.round(c.m.m43 / step);
-                const val = (axis === 'x') ? x : (axis === 'y' ? y : z);
-                return val === slice;
-            });
-
-            if (layer.length === 0) { resolve(); return; }
-
-            const pivot = document.createElement('div');
-            pivot.style.cssText = 'position:absolute;width:0;height:0;transform-style:preserve-3d;';
-            cubeScene.appendChild(pivot);
-            layer.forEach(c => pivot.appendChild(c.el));
-            pivot.getBoundingClientRect();
-
-            if (ms > 0) pivot.style.transition = `transform ${ms}ms cubic-bezier(0.34, 1.25, 0.64, 1)`;
-            pivot.style.transform = axis === 'y' ? `rotateY(${angle}deg)` : axis === 'x' ? `rotateX(${angle}deg)` : `rotateZ(${angle}deg)`;
-
-            setTimeout(() => {
-                const rotStr = axis === 'y' ? `rotateY(${angle}deg)` : axis === 'x' ? `rotateX(${angle}deg)` : `rotateZ(${angle}deg)`;
-                const rotM = new DOMMatrix(rotStr);
-                layer.forEach(c => {
-                    c.m = rotM.multiply(c.m);
-                    snap(c.m);
-                    cubeScene.appendChild(c.el);
-                    c.el.style.transition = 'none';
-                    c.el.style.transform = c.m.toString();
-                    void c.el.offsetHeight;
-                });
-                pivot.remove();
-                resolve();
-            }, ms + 50);
-        });
-    }
-
-    const MOVES = [
-        { axis: 'y', slice: 1, angle: 90 }, { axis: 'y', slice: 1, angle: -90 },
-        { axis: 'y', slice: 0, angle: 90 }, { axis: 'y', slice: 0, angle: -90 },
-        { axis: 'y', slice: -1, angle: 90 }, { axis: 'y', slice: -1, angle: -90 },
-        { axis: 'x', slice: 1, angle: 90 }, { axis: 'x', slice: 1, angle: -90 },
-        { axis: 'x', slice: 0, angle: 90 }, { axis: 'x', slice: 0, angle: -90 },
-        { axis: 'x', slice: -1, angle: 90 }, { axis: 'x', slice: -1, angle: -90 },
-        { axis: 'z', slice: 1, angle: 90 }, { axis: 'z', slice: 1, angle: -90 },
-        { axis: 'z', slice: -1, angle: 90 }, { axis: 'z', slice: -1, angle: -90 },
-    ];
-
-    let history = [];
-    let busy = false;
-    let manualMode = false;
-    let manualTimer;
-
-    function setStatus(txt) {
-        const el = document.getElementById('cubeStatus');
-        if (el) el.textContent = txt;
-    }
-
-    function setBtnsDisabled(v) {
-        const b1 = document.getElementById('btnScramble');
-        const b2 = document.getElementById('btnSolve');
-        if (b1) b1.disabled = v;
-        if (b2) b2.disabled = v;
-    }
-
-    async function scramble(n = 12, ms = 150) {
-        if (busy) return;
-        busy = true; setBtnsDisabled(true);
-        setStatus('Scrambling...');
-        history = [];
-        for (let i = 0; i < n; i++) {
-            let m;
-            do { m = MOVES[Math.floor(Math.random() * MOVES.length)]; }
-            while (history.length && history[history.length - 1].axis === m.axis && history[history.length - 1].slice === m.slice);
-            history.push(m);
-            await rotateLayer(m.axis, m.slice, m.angle, ms);
-            await new Promise(r => setTimeout(r, 20));
-        }
-        busy = false; setBtnsDisabled(false);
-        setStatus('Ready for challenge');
-    }
-
-    async function solve(ms = 300) {
-        if (busy || !history.length) return;
-        busy = true; setBtnsDisabled(true);
-        setStatus('Solving...');
-        const moves = [...history].reverse().map(m => ({ ...m, angle: -m.angle }));
-        for (const m of moves) {
-            await rotateLayer(m.axis, m.slice, m.angle, ms);
-            await new Promise(r => setTimeout(r, 30));
-        }
-        history = [];
-        busy = false; setBtnsDisabled(false);
-        setStatus('Solved! ✓');
-    }
-
-    let rotX = -22, rotY = 45;
-    let velX = 0, velY = 0;
-    let dragging = false, lx = 0, ly = 0;
-    let lastDx = 0, lastDy = 0;
-
-    function animRot() {
-        if (!dragging) {
-            velY *= 0.94; velX *= 0.94;
-            if (!manualMode && !busy) {
-                velY += (0.2 - velY) * 0.02;
-                velX += (0 - velX) * 0.02;
-            }
-            rotY += velY;
-            rotX += velX;
-            rotX = Math.max(-60, Math.min(60, rotX));
-        }
-        cubeScene.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-        requestAnimationFrame(animRot);
-    }
-
-    const cubeVP = document.querySelector('.cube-viewport');
-    if (cubeVP) {
-        const startDrag = (x, y) => {
-            dragging = true; lx = x; ly = y;
-            velX = 0; velY = 0; manualMode = true;
-            clearTimeout(manualTimer);
-        };
-        const moveDrag = (x, y) => {
-            if (!dragging) return;
-            lastDx = (x - lx) * 0.5;
-            lastDy = (y - ly) * 0.5;
-            rotY += lastDx; rotX -= lastDy;
-            rotX = Math.max(-60, Math.min(60, rotX));
-            lx = x; ly = y;
-        };
-        const endDrag = () => {
-            if (!dragging) return;
-            dragging = false;
-            velY = lastDx * 0.8;
-            velX = -lastDy * 0.8;
-            manualTimer = setTimeout(() => { manualMode = false; }, 8000);
-        };
-
-        cubeVP.addEventListener('mousedown', e => { startDrag(e.clientX, e.clientY); e.preventDefault(); });
-        document.addEventListener('mousemove', e => moveDrag(e.clientX, e.clientY));
-        document.addEventListener('mouseup', endDrag);
-
-        cubeVP.addEventListener('touchstart', e => {
-            startDrag(e.touches[0].clientX, e.touches[0].clientY);
-        }, { passive: false });
-        document.addEventListener('touchmove', e => {
-            if (dragging) {
-                e.preventDefault(); // Stop mobile scroll while dragging
-                moveDrag(e.touches[0].clientX, e.touches[0].clientY);
-            }
-        }, { passive: false });
-        document.addEventListener('touchend', endDrag);
-    }
-
-    buildCube();
-    animRot();
-
-    document.getElementById('btnScramble').addEventListener('click', () => scramble(12, 180));
-    document.getElementById('btnSolve').addEventListener('click', () => solve(350));
-
-    window.addEventListener('load', async () => {
-        // Run Lucide here to catch any late icons
-        if (window.lucide) window.lucide.createIcons();
-        
-        await new Promise(r => setTimeout(r, 2000));
-        await scramble(6, 120);
-        await new Promise(r => setTimeout(r, 600));
-        await solve(360);
-    });
-})();
-
 // ========================================
 //   CONFETTI GENERATOR FOR FORM SUCCESS
 // ========================================
@@ -1487,76 +1228,17 @@ function showToast(message, icon = 'info') {
                 }
             });
 
-            playSound('click');
+            projectCards.forEach(card => {
+                const categories = (card.getAttribute('data-category') || '').split(' ');
+                
+                if (filter === 'all' || categories.includes(filter)) {
+                    card.classList.remove('filter-hidden');
+                    card.style.animation = 'stagger-fade-in 0.4s ease forwards';
+                } else {
+                    card.classList.add('filter-hidden');
+                }
+            });
         });
-    });
-})();
-
-// ========================================
-//   AUDIO SOUND FX ENGINE (Web Audio API)
-// ========================================
-let soundEnabled = false;
-let audioCtx = null;
-
-function playSound(type = 'click') {
-    if (!soundEnabled) return;
-    try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        const now = audioCtx.currentTime;
-
-        if (type === 'click') {
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(800, now);
-            osc.frequency.exponentialRampToValueAtTime(400, now + 0.05);
-            gain.gain.setValueAtTime(0.12, now);
-            gain.gain.linearRampToValueAtTime(0.01, now + 0.05);
-            osc.start(now);
-            osc.stop(now + 0.05);
-        } else if (type === 'open') {
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(300, now);
-            osc.frequency.exponentialRampToValueAtTime(900, now + 0.08);
-            gain.gain.setValueAtTime(0.1, now);
-            gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
-            osc.start(now);
-            osc.stop(now + 0.08);
-        }
-    } catch (e) {
-        // Silent catch for audio context restrictions
-    }
-}
-
-(function initSoundToggle() {
-    const btn = document.getElementById('soundToggleBtn');
-    if (!btn) return;
-
-    btn.addEventListener('click', () => {
-        soundEnabled = !soundEnabled;
-        btn.classList.toggle('active', soundEnabled);
-        
-        const icon = soundEnabled ? 'volume-2' : 'volume-x';
-        btn.innerHTML = `<i data-lucide="${icon}"></i>`;
-        if (window.lucide) window.lucide.createIcons();
-
-        if (soundEnabled) {
-            playSound('open');
-            showToast('UI Sound Effects Enabled 🔊', 'success');
-        } else {
-            showToast('UI Sound Effects Muted 🔇', 'info');
-        }
-    });
-
-    // Sound hover effects on interactive elements
-    document.querySelectorAll('a, button, .project-flip-card, .tool-card').forEach(el => {
-        el.addEventListener('mouseenter', () => playSound('click'));
     });
 })();
 
@@ -1576,7 +1258,6 @@ function playSound(type = 'click') {
         input.focus();
         input.value = '';
         filterCommands('');
-        playSound('open');
     }
 
     function closePalette() {
@@ -1658,7 +1339,6 @@ function playSound(type = 'click') {
 
     function executeCommand(cmd) {
         closePalette();
-        playSound('click');
 
         switch (cmd) {
             case 'goto home':
@@ -1684,9 +1364,6 @@ function playSound(type = 'click') {
             case 'open github':
                 window.open('https://github.com/Manju1303', '_blank');
                 showToast('Opening GitHub profile...', 'info');
-                break;
-            case 'toggle sound':
-                document.getElementById('soundToggleBtn')?.click();
                 break;
             default:
                 showToast(`Executed: ${cmd}`, 'info');
