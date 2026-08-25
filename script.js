@@ -234,8 +234,15 @@ let lenis;
         heroTl.to(mainMesh.rotation, { x: Math.PI * 1.2, y: Math.PI * 1.2, duration: 1.5 }, 0);
         heroTl.to(camera.position, { z: 1.2, duration: 1.5 }, 0);
 
-        // Animation Loop
+        // Animation Loop with Visibility Protection
+        let isTabActive = true;
+        document.addEventListener('visibilitychange', () => {
+            isTabActive = !document.hidden;
+            if (isTabActive) animate();
+        });
+
         function animate() {
+            if (!isTabActive) return;
             requestAnimationFrame(animate);
 
             // Rotate main mesh
@@ -1202,7 +1209,7 @@ function showToast(message, icon = 'info') {
 }
 
 // ========================================
-//   INTERACTIVE PROJECT CATEGORY FILTERING
+//   INTERACTIVE PROJECT CATEGORY FILTERING & DYNAMIC COUNTS
 // ========================================
 (function initProjectFilters() {
     const filterTabs = document.querySelectorAll('.filter-tab');
@@ -1210,23 +1217,33 @@ function showToast(message, icon = 'info') {
 
     if (!filterTabs.length || !projectCards.length) return;
 
+    // Dynamically calculate and set filter counts on load
+    function updateFilterCounts() {
+        filterTabs.forEach(tab => {
+            const filter = tab.getAttribute('data-filter');
+            const countBadge = tab.querySelector('.filter-count');
+            if (!countBadge) return;
+
+            if (filter === 'all') {
+                countBadge.textContent = projectCards.length;
+            } else {
+                const matchCount = Array.from(projectCards).filter(card => {
+                    const cats = (card.getAttribute('data-category') || '').split(' ');
+                    return cats.includes(filter);
+                }).length;
+                countBadge.textContent = matchCount;
+            }
+        });
+    }
+
+    updateFilterCounts();
+
     filterTabs.forEach(tab => {
         tab.addEventListener('click', () => {
             filterTabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
 
             const filter = tab.getAttribute('data-filter');
-
-            projectCards.forEach(card => {
-                const categories = (card.getAttribute('data-category') || '').split(' ');
-                
-                if (filter === 'all' || categories.includes(filter)) {
-                    card.classList.remove('filter-hidden');
-                    card.style.animation = 'stagger-fade-in 0.4s ease forwards';
-                } else {
-                    card.classList.add('filter-hidden');
-                }
-            });
 
             projectCards.forEach(card => {
                 const categories = (card.getAttribute('data-category') || '').split(' ');
@@ -1344,6 +1361,15 @@ function showToast(message, icon = 'info') {
             case 'goto home':
                 window.location.hash = '#home';
                 showToast('Navigated to Home', 'info');
+                break;
+            case 'download resume':
+                const link = document.createElement('a');
+                link.href = 'Manjunath resume.pdf';
+                link.download = 'Manjunath_Resume.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                showToast('Downloading Manjunath\'s Resume PDF... 📄', 'success');
                 break;
             case 'goto about':
                 window.location.hash = '#about';

@@ -6,9 +6,50 @@ const cors = require('cors');
 const app = express();
 const PORT = 3000;
 
+// Security Policies & Headers Middleware
+app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    next();
+});
+
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '10kb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10kb' }));
+
+// Simple In-Memory Rate Limiting for Contact Submissions
+const rateLimitMap = new Map();
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const MAX_REQUESTS_PER_WINDOW = 5;
+
+const rateLimiter = (req, res, next) => {
+    const ip = req.ip || req.connection.remoteAddress;
+    const now = Date.now();
+
+    if (!rateLimitMap.has(ip)) {
+        rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+        return next();
+    }
+
+    const record = rateLimitMap.get(ip);
+    if (now > record.resetTime) {
+        record.count = 1;
+        record.resetTime = now + RATE_LIMIT_WINDOW_MS;
+        return next();
+    }
+
+    if (record.count >= MAX_REQUESTS_PER_WINDOW) {
+        return res.status(429).json({
+            success: false,
+            message: 'Too many contact requests from this IP. Please try again in 15 minutes.'
+        });
+    }
+
+    record.count++;
+    next();
+};
 
 // Serve static files from project root
 app.use(express.static('.'));
@@ -22,7 +63,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-app.post('/send', async (req, res) => {
+app.post('/send', rateLimiter, async (req, res) => {
     const { name, email, message } = req.body;
     console.log('Form Submission Received:', { name, email, message });
 
