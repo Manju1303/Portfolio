@@ -2600,7 +2600,7 @@ section {
     position: relative;
     width: 100%;
     max-width: 360px;
-    height: 420px;
+    height: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2651,7 +2651,7 @@ section {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -55%);
+    transform: translate(-50%, -50%);
     width: 340px;
     height: 340px;
     max-width: 92vw;
@@ -2669,15 +2669,15 @@ section {
 }
 
 @keyframes spinHalo {
-    from { transform: translate(-50%, -55%) rotate(0deg); }
-    to { transform: translate(-50%, -55%) rotate(360deg); }
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .halo-ring-glow {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -55%);
+    transform: translate(-50%, -50%);
     width: 360px;
     height: 360px;
     max-width: 95vw;
@@ -2691,8 +2691,8 @@ section {
 }
 
 @keyframes pulseHalo {
-    0% { opacity: 0.6; transform: translate(-50%, -55%) scale(0.95); }
-    100% { opacity: 1; transform: translate(-50%, -55%) scale(1.1); }
+    0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.95); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
 }
 
 /* Photo Status Badge at bottom */
