@@ -999,22 +999,27 @@ nav.scrolled {
    ABOUT SECTION - SIDE-BY-SIDE LAYOUT
 ======================================== */
 
+#about {
+    padding: 3rem 0 4rem;
+}
+
 .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-    margin-bottom: 3rem;
+    gap: 3.5rem;
+    align-items: start;
+    margin-bottom: 2.5rem;
 }
 
 /* About Image Side */
 .about-image-side {
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
+    padding-top: 0.5rem;
 }
 
 
