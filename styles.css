@@ -2598,8 +2598,9 @@ section {
 
 .about-photo-showcase {
     position: relative;
-    width: 320px;
-    height: 380px;
+    width: 100%;
+    max-width: 360px;
+    height: 420px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2610,8 +2611,10 @@ section {
 
 .photo-frame-wrap {
     position: relative;
-    width: 270px;
-    height: 270px;
+    width: 300px;
+    height: 300px;
+    max-width: 85vw;
+    max-height: 85vw;
     border-radius: 50%;
     overflow: hidden;
     z-index: 2;
@@ -2649,8 +2652,10 @@ section {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -55%);
-    width: 300px;
-    height: 300px;
+    width: 340px;
+    height: 340px;
+    max-width: 92vw;
+    max-height: 92vw;
     border-radius: 50%;
     border: 2px solid transparent;
     background: conic-gradient(from 0deg, var(--primary), var(--secondary), var(--accent), var(--primary)) border-box;
@@ -2673,8 +2678,10 @@ section {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -55%);
-    width: 320px;
-    height: 320px;
+    width: 360px;
+    height: 360px;
+    max-width: 95vw;
+    max-height: 95vw;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(6, 182, 212, 0.35) 0%, rgba(236, 72, 153, 0.15) 50%, transparent 70%);
     filter: blur(25px);
