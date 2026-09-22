@@ -1240,6 +1240,16 @@ function showToast(message, icon = 'info') {
                 window.location.hash = '#contact';
                 showToast('Navigated to Contact Section', 'info');
                 break;
+            case 'download resume':
+                const link = document.createElement('a');
+                link.href = 'Manjunath resume.pdf';
+                link.download = 'Manjunath resume.pdf';
+                link.target = '_blank';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                showToast('Downloading Resume PDF... 📄', 'success');
+                break;
             case 'copy email':
                 navigator.clipboard.writeText('manjunathkaids23@jkkmct.edu.in');
                 showToast('Email copied to clipboard! 📋', 'success');
