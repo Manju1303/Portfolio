@@ -1606,6 +1606,10 @@ nav.scrolled {
     background: linear-gradient(135deg, #1e1b4b, #312e81, #4338ca);
 }
 
+.project-thumb-14 {
+    background: linear-gradient(135deg, #042f2e, #0f766e, #06b6d4);
+}
+
 /* Project Type Tags */
 .project-type-tags {
     display: flex;
