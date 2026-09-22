@@ -820,6 +820,56 @@ nav.scrolled {
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
+.btn-resume {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2));
+    color: #ffffff;
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.btn-resume:hover {
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    color: #000000;
+    border-color: var(--primary);
+    box-shadow: 0 0 35px rgba(139, 92, 246, 0.7), 0 0 70px rgba(6, 182, 212, 0.4);
+}
+
+.resume-download-card {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(6, 182, 212, 0.08));
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: var(--radius);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.resume-download-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.15);
+    transform: translateY(-2px);
+}
+
+.resume-card-info h4 {
+    font-family: var(--font-neon);
+    color: var(--text-primary);
+    font-size: 1.15rem;
+    margin-bottom: 0.35rem;
+}
+
+.resume-card-info p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+
 
 /* Hero Visual (Rubik's Cube Slot) */
 .hero-visual {
