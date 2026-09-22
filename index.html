@@ -7,9 +7,6 @@
   <title>Manjunath | AI & Agentic Coder</title>
   <meta name="description"
     content="Manjunath - AI Engineer & Agentic Coder. Building practical, scalable AI systems, LLM-powered applications, and intelligent products.">
-  <!-- Security Headers Policy -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data: blob:; script-src 'self' https: 'unsafe-inline' 'unsafe-eval'; style-src 'self' https: 'unsafe-inline'; font-src 'self' https: data:;">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,16 +16,16 @@
   <!-- Devicon -->
   <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
   <!-- Icons (Lucide via UNPKG for static) -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@latest" defer></script>
   <!-- Three.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
   <!-- GSAP & ScrollTrigger -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
   <!-- Lenis for Smooth Scroll -->
-  <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js" defer></script>
   <!-- OGL for Ribbon Cursor Trail -->
-  <script src="https://unpkg.com/ogl@1.0.3/dist/ogl.umd.js"></script>
+  <script src="https://unpkg.com/ogl@1.0.3/dist/ogl.umd.js" defer></script>
   <!-- Styles -->
   <link rel="stylesheet" href="styles.css">
 
@@ -74,20 +71,20 @@
 <body>
 
   <!-- Grain Overlay for texture -->
-  <div class="grain-overlay" aria-hidden="true"></div>
+  <div class="grain-overlay"></div>
 
   <!-- Ribbon Cursor Trail -->
-  <div id="ribbonsContainer" class="ribbons-container" aria-hidden="true"></div>
+  <div id="ribbonsContainer" class="ribbons-container"></div>
 
   <!-- Three.js WebGL Background Canvas -->
-  <canvas id="webglCanvas" aria-hidden="true"></canvas>
+  <canvas id="webglCanvas"></canvas>
 
   <!-- Custom Cursor -->
-  <div class="cursor-dot" aria-hidden="true"></div>
-  <div class="cursor-ring" aria-hidden="true"></div>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
 
   <!-- Epic Page Loader -->
-  <div class="page-loader" id="pageLoader" aria-hidden="true">
+  <div class="page-loader" id="pageLoader">
     <div class="loader-content">
       <div class="loader-logo-glitch" data-text="MJ">MJ</div>
       <div class="loader-bar-track">
@@ -99,9 +96,9 @@
   </div>
 
   <!-- Navigation -->
-  <nav role="navigation" aria-label="Main Navigation">
+  <nav>
     <div class="container nav-content">
-      <a href="#" class="logo" aria-label="Manjunath Homepage">Manjunath<span style="color: var(--primary)">.</span></a>
+      <a href="#" class="logo">Manjunath<span style="color: var(--primary)">.</span></a>
 
       <div class="desktop-menu">
         <ul>
@@ -113,13 +110,13 @@
       </div>
 
       <div class="nav-controls">
-        <button class="nav-cmd-btn" id="cmdPaletteBtn" title="Open Command Palette (Ctrl+K)" aria-label="Open Command Palette (Ctrl+K)">
+        <button class="nav-cmd-btn" id="cmdPaletteBtn" title="Open Command Palette (Ctrl+K)">
           <i data-lucide="terminal"></i>
           <span class="cmd-shortcut">Ctrl+K</span>
         </button>
       </div>
 
-      <button class="mobile-menu-btn" aria-label="Toggle Mobile Menu">
+      <button class="mobile-menu-btn">
         <i data-lucide="menu"></i>
       </button>
     </div>
@@ -154,7 +151,8 @@
     </div>
     <div class="hero-shape hero-shape-2">
       <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
-        <rect x="22" y="22" width="56" height="56" rx="12" stroke="url(#glowGradient2)" stroke-width="6" transform="rotate(45 50 50)" />
+        <rect x="22" y="22" width="56" height="56" rx="12" stroke="url(#glowGradient2)" stroke-width="6"
+          transform="rotate(45 50 50)" />
         <defs>
           <linearGradient id="glowGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="var(--secondary)" stop-opacity="0.8" />
@@ -184,9 +182,6 @@
         <div class="hero-buttons anim-fade-up" data-delay="400">
           <a href="#projects" class="btn btn-primary magnetic-btn">VIEW MY WORK</a>
           <a href="#contact" class="btn btn-secondary magnetic-btn">CONTACT ME</a>
-          <a href="Manjunath resume.pdf" download="Manjunath_Resume.pdf" class="btn btn-resume magnetic-btn" title="Download Official Resume PDF">
-            <i data-lucide="download"></i> RESUME
-          </a>
         </div>
       </div>
     </div>
@@ -204,17 +199,36 @@
     <div class="container">
       <!-- About Section with Side Image -->
       <div class="about-grid">
-        <!-- Left Side: Glowing Halo Portrait Showcase -->
+        <!-- Left Side: Profile Card -->
         <div class="about-image-side anim-fade-right">
-          <div class="about-photo-showcase" id="profileCard">
-            <!-- Glowing Halo Backdrop Rings -->
-            <div class="halo-ring-outer"></div>
-            <div class="halo-ring-glow"></div>
-            
-            <!-- Large Circular Photo Frame -->
-            <div class="photo-frame-wrap">
+          <div class="profile-card" id="profileCard">
+            <!-- Card background glow -->
+            <div class="profile-card-glow"></div>
+
+            <!-- Online status badge -->
+            <div class="profile-card-status">
+              <span class="status-dot"></span>
+              <span class="status-text">Online</span>
+            </div>
+
+            <!-- Circular profile image -->
+            <div class="profile-card-avatar">
+              <div class="avatar-ring"></div>
+              <div class="avatar-ring-glow"></div>
               <img src="about-image.jpeg" alt="Manjunath - AI Engineer & Data Science Professional" loading="lazy">
             </div>
+
+            <!-- User info -->
+            <div class="profile-card-info">
+              <h3 class="profile-card-name">MANJUNATH</h3>
+              <p class="profile-card-title">AI Engineer & Agentic Coder</p>
+              <p class="profile-card-handle">@Manju1303</p>
+            </div>
+
+            <!-- Decorative floating tech nodes -->
+            <div class="profile-float-badge float-badge-1"><i data-lucide="brain"></i></div>
+            <div class="profile-float-badge float-badge-2"><i data-lucide="code"></i></div>
+            <div class="profile-float-badge float-badge-3"><i data-lucide="zap"></i></div>
           </div>
         </div>
 
@@ -228,71 +242,69 @@
 
             <div class="about-body">
               <p>
-                I am an engineering graduate with a <strong style="color: #ffffff; font-weight: 700;">B.Tech in Artificial Intelligence and Data Science</strong>, specializing in architecting scalable AI applications, LLM-powered systems, and intelligent digital products. I combine rigorous machine learning foundations with full-stack web engineering to transform complex algorithms into production-ready software.
+                I am an engineering graduate with a <strong style="color: #ffffff; font-weight: 700;">B.Tech in
+                  Artificial Intelligence and Data Science</strong>, specializing in architecting scalable AI
+                applications, LLM-powered systems, and intelligent digital products. I combine rigorous machine learning
+                foundations with full-stack web engineering to transform complex algorithms into production-ready
+                software.
               </p>
 
               <!-- Core Competencies & Keywords Grid -->
-              <div class="ats-competencies" style="margin: 1.5rem 0; padding: 1.25rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px;">
-                <h4 style="color: var(--primary); font-size: 1.05rem; margin-bottom: 0.85rem; font-family: var(--font-neon); display: flex; align-items: center; gap: 0.5rem;">
+              <div class="ats-competencies"
+                style="margin: 1.5rem 0; padding: 1.25rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px;">
+                <h4
+                  style="color: var(--primary); font-size: 1.05rem; margin-bottom: 0.85rem; font-family: var(--font-neon); display: flex; align-items: center; gap: 0.5rem;">
                   <i data-lucide="shield-check" style="width: 1.1rem; height: 1.1rem;"></i> Core Technical Competencies
                 </h4>
-                <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.65rem; font-size: 0.9rem;">
+                <ul
+                  style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.65rem; font-size: 0.9rem;">
                   <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: var(--text-main);">
-                    <span style="color: var(--primary); font-weight: bold;">▹</span> <strong>AI & LLM Architecture:</strong> RAG Systems, Vector DBs (ChromaDB), Semantic Search, Prompt Engineering
+                    <span style="color: var(--primary); font-weight: bold;">▹</span> <strong>AI & LLM
+                      Architecture:</strong> RAG Systems, Vector DBs (ChromaDB), Semantic Search, Prompt Engineering
                   </li>
                   <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: var(--text-main);">
-                    <span style="color: var(--primary); font-weight: bold;">▹</span> <strong>Computer Vision & ML:</strong> MediaPipe, OpenCV, Real-time Pose & Landmark Estimation, Predictive Analytics
+                    <span style="color: var(--primary); font-weight: bold;">▹</span> <strong>Computer Vision &
+                      ML:</strong> MediaPipe, OpenCV, Real-time Pose & Landmark Estimation, Predictive Analytics
                   </li>
                   <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: var(--text-main);">
-                    <span style="color: var(--primary); font-weight: bold;">▹</span> <strong>Full-Stack Development:</strong> Python, React.js, Node.js, Express, JavaScript (ES6+), HTML5/CSS3
+                    <span style="color: var(--primary); font-weight: bold;">▹</span> <strong>Full-Stack
+                      Development:</strong> Python, React.js, Node.js, Express, JavaScript (ES6+), HTML5/CSS3
                   </li>
                   <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: var(--text-main);">
-                    <span style="color: var(--primary); font-weight: bold;">▹</span> <strong>DevOps & Cloud:</strong> Docker Containerization, Git/GitHub, Linux/Ubuntu CLI, VPC, Subnets, SSH
+                    <span style="color: var(--primary); font-weight: bold;">▹</span> <strong>DevOps & Cloud:</strong>
+                    Docker Containerization, Git/GitHub, Linux/Ubuntu CLI, VPC, Subnets, SSH
                   </li>
                 </ul>
               </div>
 
               <p>
-                My development experience spans the end-to-end AI software lifecycle — from problem formulation, dataset preparation, and RAG retrieval pipelines to interactive UI creation, API deployment, containerization, and technical documentation.
+                My development experience spans the end-to-end AI software lifecycle — from problem formulation, dataset
+                preparation, and RAG retrieval pipelines to interactive UI creation, API deployment, containerization,
+                and technical documentation.
               </p>
               <p>
-                My mission is to engineer user-centric, high-performance AI solutions that automate complex workflows and empower users through accessible intelligent interfaces.
+                My mission is to engineer user-centric, high-performance AI solutions that automate complex workflows
+                and empower users through accessible intelligent interfaces.
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Education & Cognitive 3D Network Row -->
-      <div class="about-flex-row" style="display: flex; gap: 2rem; margin-top: 3rem; margin-bottom: 3rem; flex-wrap: wrap; width: 100%;">
-        <!-- Education Block -->
-        <div class="education-block anim-fade-up" data-delay="200" style="flex: 1; min-width: 280px; margin-bottom: 0;">
-          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-            <span style="font-size: 1.5rem;">🎓</span>
-            <h2 class="education-title">Education</h2>
-          </div>
-          <div class="education-card">
-            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">B.Tech Artificial Intelligence and
-              Data Science</h3>
-            <p style="color: var(--text-secondary); font-weight: 500;">JKKMCT</p>
-            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">2023 - Present</p>
-          </div>
+      <!-- Education Section -->
+      <div class="education-block anim-fade-up" data-delay="200" style="margin-top: 3rem; margin-bottom: 3rem; width: 100%;">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+          <span style="font-size: 1.5rem;">🎓</span>
+          <h2 class="education-title">Education</h2>
         </div>
-
-        <!-- 3D Globe / Cognitive Network Visualizer Block -->
-        <div class="globe-block anim-fade-up" data-delay="300" style="flex: 1; min-width: 280px; display: flex; flex-direction: column; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: var(--radius); padding: 1.5rem; position: relative;">
-          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; width: 100%;">
-            <span style="font-size: 1.5rem;">🌐</span>
-            <h2 class="globe-title" style="font-family: var(--font-neon); font-size: 1.25rem; text-transform: uppercase; color: var(--primary);">Cognitive Network</h2>
-          </div>
-          <div class="about-3d-wrap" style="width: 100%; height: 180px; position: relative; border-radius: 8px; overflow: hidden; background: rgba(0,0,0,0.3); border: 1px solid rgba(6, 182, 212, 0.1);">
-            <canvas id="about-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
-          </div>
-          <div style="font-size: 0.8rem; color: var(--text-secondary); text-align: center; margin-top: 0.75rem; font-family: var(--font-main);">Interactive 3D Neural Node Visualizer</div>
+        <div class="education-card">
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">B.Tech Artificial Intelligence and Data Science</h3>
+          <p style="color: var(--text-secondary); font-weight: 500;">JKKMCT</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.25rem;">2023 - Present</p>
         </div>
       </div>
 
-      <div class="anim-fade-up" data-delay="100" style="margin-bottom: 2rem;">
+      <div class="anim-fade-up" id="skills" data-delay="100" style="margin-bottom: 2rem;">
         <h2 class="section-title">Tools Known</h2>
       </div>
 
@@ -447,8 +459,10 @@
               <span>Speech APIs</span>
             </div>
             <div class="project-actions">
-              <span class="project-btn primary" style="opacity: 0.6; cursor: not-allowed;"><i data-lucide="clock"></i> Coming Soon</span>
-              <a href="https://github.com/Manju1303" target="_blank" class="project-btn secondary"><i data-lucide="github"></i> Source Code</a>
+              <span class="project-btn primary" style="opacity: 0.6; cursor: not-allowed;"><i data-lucide="clock"></i>
+                Coming Soon</span>
+              <a href="https://github.com/Manju1303" target="_blank" class="project-btn secondary"><i
+                  data-lucide="github"></i> Source Code</a>
             </div>
           </div>
         </div>
@@ -608,8 +622,10 @@
               <span>Security</span>
             </div>
             <div class="project-actions">
-              <a href="side-face-detection.html" target="_blank" class="project-btn primary"><i data-lucide="play"></i> Live Demo</a>
-              <a href="https://github.com/Manju1303" target="_blank" class="project-btn secondary"><i data-lucide="github"></i> Source Code</a>
+              <a href="side-face-detection.html" target="_blank" class="project-btn primary"><i data-lucide="play"></i>
+                Live Demo</a>
+              <a href="https://github.com/Manju1303" target="_blank" class="project-btn secondary"><i
+                  data-lucide="github"></i> Source Code</a>
             </div>
           </div>
         </div>
@@ -750,7 +766,8 @@
             <h3 class="project-name">Home Services</h3>
             <ul class="project-features">
               <li>Full-stack service marketplace featuring secure transaction processing and real-time scheduling</li>
-              <li>Dual-sided enterprise portal with granular RBAC (Role-Based Access Control) and provider management</li>
+              <li>Dual-sided enterprise portal with granular RBAC (Role-Based Access Control) and provider management
+              </li>
               <li>Highly available data architecture utilizing PostgreSQL with type-safe Prisma ORM integration</li>
             </ul>
             <div class="project-tech-stack">
@@ -786,8 +803,10 @@
             <h3 class="project-name">AI Humanizer</h3>
             <ul class="project-features">
               <li>Proprietary NLP engine utilizing advanced linguistic modeling to neutralize AI-generated syntax</li>
-              <li>Dynamic semantic restructuring to achieve human-like stylistic variation while maintaining core intent</li>
-              <li>Context-aware content transformation designed to optimize readability and bypass automated detection</li>
+              <li>Dynamic semantic restructuring to achieve human-like stylistic variation while maintaining core intent
+              </li>
+              <li>Context-aware content transformation designed to optimize readability and bypass automated detection
+              </li>
             </ul>
             <div class="project-tech-stack">
               <span>TypeScript</span>
@@ -821,7 +840,8 @@
             </div>
             <h3 class="project-name">Personal LLM</h3>
             <ul class="project-features">
-              <li>On-premise deployment of large-scale language models (LLaMA) via high-performance Linux infrastructure</li>
+              <li>On-premise deployment of large-scale language models (LLaMA) via high-performance Linux infrastructure
+              </li>
               <li>Privacy-first AI environment ensuring zero-data-leakage through localized semantic processing</li>
               <li>Modular LLM orchestration layer for advanced model tuning and bespoke system prompt engineering</li>
             </ul>
@@ -911,26 +931,30 @@
           </div>
         </div>
 
-        <!-- Resume Download Card -->
-        <div class="resume-download-card">
-          <div class="resume-card-info">
-            <h4>Official Resume</h4>
-            <p>B.Tech AI & Data Science Resume (PDF)</p>
-          </div>
-          <a href="Manjunath resume.pdf" download="Manjunath_Resume.pdf" class="btn btn-resume">
-            <i data-lucide="download"></i> Download PDF
-          </a>
-        </div>
-
         <div class="social-links">
           <a href="https://github.com/Manju1303" target="_blank" aria-label="GitHub">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+              <path d="M9 18c-4.51 2-5-2-7-2" />
+            </svg>
           </a>
           <a href="https://www.linkedin.com/in/manjunath-manjunath-248594352" target="_blank" aria-label="LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+              <rect width="4" height="12" x="2" y="9" />
+              <circle cx="4" cy="4" r="2" />
+            </svg>
           </a>
           <a href="https://www.instagram.com/mjx_1303" target="_blank" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+            </svg>
           </a>
         </div>
       </div>
@@ -987,13 +1011,28 @@
         <p class="footer-text">© <span id="copyrightYear">2026</span> Manjunath. Built with Vanilla HTML/CSS & ❤️</p>
         <div class="footer-links">
           <a href="https://github.com/Manju1303" target="_blank" aria-label="GitHub">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+              <path d="M9 18c-4.51 2-5-2-7-2" />
+            </svg>
           </a>
           <a href="https://www.linkedin.com/in/manjunath-manjunath-248594352" target="_blank" aria-label="LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+              <rect width="4" height="12" x="2" y="9" />
+              <circle cx="4" cy="4" r="2" />
+            </svg>
           </a>
           <a href="https://www.instagram.com/mjx_1303" target="_blank" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+            </svg>
           </a>
         </div>
       </div>
@@ -1006,21 +1045,27 @@
   </button>
 
   <!-- Cyber Command Palette Modal -->
-  <div class="cmd-palette-overlay" id="cmdPalette" role="dialog" aria-modal="true" aria-label="Cyber Command Palette">
+  <div class="cmd-palette-overlay" id="cmdPalette">
     <div class="cmd-palette-box">
       <div class="cmd-palette-header">
         <i data-lucide="terminal" style="color: var(--primary);"></i>
-        <input type="text" id="cmdInput" placeholder="Type a command (e.g. goto about, resume, projects, contact, email)..." autocomplete="off" aria-label="Command palette query input">
+        <input type="text" id="cmdInput"
+          placeholder="Type a command (e.g. goto about, projects, contact, email, github)..." autocomplete="off">
         <span class="cmd-esc">ESC</span>
       </div>
       <div class="cmd-palette-results" id="cmdResults">
-        <div class="cmd-item active" data-cmd="goto home"><i data-lucide="home"></i> Go to Home <span>Navigation</span></div>
-        <div class="cmd-item" data-cmd="download resume"><i data-lucide="file-text"></i> Download Resume PDF <span>Document</span></div>
-        <div class="cmd-item" data-cmd="goto about"><i data-lucide="user"></i> Go to About Section <span>Navigation</span></div>
-        <div class="cmd-item" data-cmd="goto projects"><i data-lucide="briefcase"></i> View Featured Projects <span>Navigation</span></div>
-        <div class="cmd-item" data-cmd="goto contact"><i data-lucide="mail"></i> Contact Manjunath <span>Navigation</span></div>
-        <div class="cmd-item" data-cmd="copy email"><i data-lucide="copy"></i> Copy Email Address <span>Action</span></div>
-        <div class="cmd-item" data-cmd="open github"><i data-lucide="github"></i> Open GitHub Profile <span>External</span></div>
+        <div class="cmd-item active" data-cmd="goto home"><i data-lucide="home"></i> Go to Home <span>Navigation</span>
+        </div>
+        <div class="cmd-item" data-cmd="goto about"><i data-lucide="user"></i> Go to About Section
+          <span>Navigation</span></div>
+        <div class="cmd-item" data-cmd="goto projects"><i data-lucide="briefcase"></i> View Featured Projects
+          <span>Navigation</span></div>
+        <div class="cmd-item" data-cmd="goto contact"><i data-lucide="mail"></i> Contact Manjunath
+          <span>Navigation</span></div>
+        <div class="cmd-item" data-cmd="copy email"><i data-lucide="copy"></i> Copy Email Address <span>Action</span>
+        </div>
+        <div class="cmd-item" data-cmd="open github"><i data-lucide="github"></i> Open GitHub Profile
+          <span>External</span></div>
       </div>
       <div class="cmd-palette-footer">
         <span>Use <strong>↑</strong> <strong>↓</strong> to navigate, <strong>↵</strong> to run command</span>
@@ -1033,7 +1078,7 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- Scripts -->
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
   <!-- Init Lucide Icons last, after entire DOM+scripts are ready -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {

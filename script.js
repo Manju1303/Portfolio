@@ -234,16 +234,15 @@ let lenis;
         heroTl.to(mainMesh.rotation, { x: Math.PI * 1.2, y: Math.PI * 1.2, duration: 1.5 }, 0);
         heroTl.to(camera.position, { z: 1.2, duration: 1.5 }, 0);
 
-        // Animation Loop with Visibility Protection
+        // Animation Loop with Page Visibility Optimization
         let isTabActive = true;
         document.addEventListener('visibilitychange', () => {
             isTabActive = !document.hidden;
-            if (isTabActive) animate();
         });
 
         function animate() {
-            if (!isTabActive) return;
             requestAnimationFrame(animate);
+            if (!isTabActive) return;
 
             // Rotate main mesh
             mainMesh.rotation.x += 0.003;
@@ -1054,130 +1053,7 @@ function spawnConfetti() {
     }, 4000);
 }
 
-// ========================================
-//   ABOUT SECTION MINI 3D GLOBE
-// ========================================
-(function initAboutSectionGlobe() {
-    try {
-        const canvas = document.getElementById('about-canvas');
-        if (!canvas) return;
 
-        const wrap = canvas.parentElement;
-        if (!wrap) return;
-
-        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.setSize(wrap.clientWidth, wrap.clientHeight);
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(50, wrap.clientWidth / wrap.clientHeight, 0.1, 100);
-        camera.position.z = 4.5;
-
-        // Lights
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.45);
-        scene.add(ambientLight);
-
-        const light1 = new THREE.PointLight(0x06b6d4, 3);
-        light1.position.set(3, 3, 3);
-        scene.add(light1);
-
-        const light2 = new THREE.PointLight(0x8b5cf6, 2.5);
-        light2.position.set(-3, -3, 3);
-        scene.add(light2);
-
-        // 1. Wireframe Outer Sphere
-        const sphereGeom = new THREE.SphereGeometry(1.4, 26, 26);
-        const sphereMat = new THREE.MeshPhongMaterial({
-            color: 0x06b6d4,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.4,
-            shininess: 80
-        });
-        const globe = new THREE.Mesh(sphereGeom, sphereMat);
-        scene.add(globe);
-
-        // 2. Inner Tech Core (Icosahedron)
-        const coreGeom = new THREE.IcosahedronGeometry(0.9, 1);
-        const coreMat = new THREE.MeshPhongMaterial({
-            color: 0x8b5cf6,
-            transparent: true,
-            opacity: 0.18,
-            flatShading: true
-        });
-        const core = new THREE.Mesh(coreGeom, coreMat);
-        scene.add(core);
-
-        // 3. Orbital Path Rings
-        const ringGeom = new THREE.RingGeometry(1.6, 1.62, 64);
-        const ringMat = new THREE.MeshBasicMaterial({
-            color: 0xec4899,
-            side: THREE.DoubleSide,
-            transparent: true,
-            opacity: 0.35
-        });
-        
-        const ring1 = new THREE.Mesh(ringGeom, ringMat);
-        ring1.rotation.x = Math.PI / 2;
-        scene.add(ring1);
-
-        const ring2 = new THREE.Mesh(ringGeom, ringMat);
-        ring2.rotation.y = Math.PI / 4;
-        scene.add(ring2);
-
-        // 4. Star Particles
-        const starCount = 350;
-        const starPositions = new Float32Array(starCount * 3);
-        for (let i = 0; i < starCount * 3; i++) {
-            starPositions[i] = (Math.random() - 0.5) * 8;
-        }
-        const starGeom = new THREE.BufferGeometry();
-        starGeom.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-        
-        const starMat = new THREE.PointsMaterial({
-            size: 0.045,
-            color: 0x06b6d4,
-            transparent: true,
-            opacity: 0.5,
-            blending: THREE.AdditiveBlending
-        });
-        const stars = new THREE.Points(starGeom, starMat);
-        scene.add(stars);
-
-        // Resize Observer for the visualizer panel
-        function resize() {
-            const w = wrap.clientWidth;
-            const h = wrap.clientHeight;
-            camera.aspect = w / h;
-            camera.updateProjectionMatrix();
-            renderer.setSize(w, h);
-        }
-
-        const resizeObserver = new ResizeObserver(() => {
-            resize();
-        });
-        resizeObserver.observe(wrap);
-
-        // Animation Loop
-        function animateGlobe() {
-            requestAnimationFrame(animateGlobe);
-
-            globe.rotation.y += 0.007;
-            globe.rotation.x += 0.003;
-            core.rotation.y -= 0.005;
-            
-            ring1.rotation.z += 0.008;
-            ring2.rotation.z -= 0.006;
-            
-            stars.rotation.y += 0.0003;
-
-            renderer.render(scene, camera);
-        }
-        animateGlobe();
-    } catch (e) {
-        console.warn("About section mini globe WebGL Initialization failed:", e);
-    }
-})();
 
 // ========================================
 //   TOAST NOTIFICATION ENGINE
@@ -1209,7 +1085,7 @@ function showToast(message, icon = 'info') {
 }
 
 // ========================================
-//   INTERACTIVE PROJECT CATEGORY FILTERING & DYNAMIC COUNTS
+//   INTERACTIVE PROJECT CATEGORY FILTERING
 // ========================================
 (function initProjectFilters() {
     const filterTabs = document.querySelectorAll('.filter-tab');
@@ -1217,33 +1093,23 @@ function showToast(message, icon = 'info') {
 
     if (!filterTabs.length || !projectCards.length) return;
 
-    // Dynamically calculate and set filter counts on load
-    function updateFilterCounts() {
-        filterTabs.forEach(tab => {
-            const filter = tab.getAttribute('data-filter');
-            const countBadge = tab.querySelector('.filter-count');
-            if (!countBadge) return;
-
-            if (filter === 'all') {
-                countBadge.textContent = projectCards.length;
-            } else {
-                const matchCount = Array.from(projectCards).filter(card => {
-                    const cats = (card.getAttribute('data-category') || '').split(' ');
-                    return cats.includes(filter);
-                }).length;
-                countBadge.textContent = matchCount;
-            }
-        });
-    }
-
-    updateFilterCounts();
-
     filterTabs.forEach(tab => {
         tab.addEventListener('click', () => {
             filterTabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
 
             const filter = tab.getAttribute('data-filter');
+
+            projectCards.forEach(card => {
+                const categories = (card.getAttribute('data-category') || '').split(' ');
+                
+                if (filter === 'all' || categories.includes(filter)) {
+                    card.classList.remove('filter-hidden');
+                    card.style.animation = 'stagger-fade-in 0.4s ease forwards';
+                } else {
+                    card.classList.add('filter-hidden');
+                }
+            });
 
             projectCards.forEach(card => {
                 const categories = (card.getAttribute('data-category') || '').split(' ');
@@ -1361,15 +1227,6 @@ function showToast(message, icon = 'info') {
             case 'goto home':
                 window.location.hash = '#home';
                 showToast('Navigated to Home', 'info');
-                break;
-            case 'download resume':
-                const link = document.createElement('a');
-                link.href = 'Manjunath resume.pdf';
-                link.download = 'Manjunath_Resume.pdf';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                showToast('Downloading Manjunath\'s Resume PDF... 📄', 'success');
                 break;
             case 'goto about':
                 window.location.hash = '#about';
