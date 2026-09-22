@@ -416,16 +416,139 @@
 
         <!-- Trendy Project Filter Tabs -->
         <div class="project-filter-tabs" id="projectFilters">
-          <button class="filter-tab active" data-filter="all">All Projects <span class="filter-count">12</span></button>
-          <button class="filter-tab" data-filter="ai">AI & LLMs <span class="filter-count">5</span></button>
-          <button class="filter-tab" data-filter="cv">Computer Vision <span class="filter-count">3</span></button>
-          <button class="filter-tab" data-filter="web">Full-Stack <span class="filter-count">3</span></button>
+          <button class="filter-tab active" data-filter="all">All Projects <span class="filter-count">15</span></button>
+          <button class="filter-tab" data-filter="ai">AI & LLMs <span class="filter-count">7</span></button>
+          <button class="filter-tab" data-filter="cv">Computer Vision <span class="filter-count">4</span></button>
+          <button class="filter-tab" data-filter="web">Full-Stack <span class="filter-count">4</span></button>
           <button class="filter-tab" data-filter="health">Health & Sensors <span class="filter-count">3</span></button>
         </div>
       </div>
 
       <!-- Projects Grid -->
       <div class="projects-showcase" id="projectsShowcase">
+
+        <!-- Project: AuthentiCite -->
+        <div class="project-flip-card anim-fade-up" data-delay="100" data-category="ai web">
+          <div class="electric-border"></div>
+          <div class="project-flip-front project-thumb-14">
+            <div class="project-thumb-pattern"></div>
+            <div class="project-logo-container">
+              <div class="project-main-logo">
+                <i data-lucide="file-check" style="width: 4rem; height: 4rem; color: #fff;"></i>
+              </div>
+              <div class="project-logo-accent">AI</div>
+            </div>
+            <div class="project-thumb-label">AI Citation · Authenticity</div>
+            <h3 class="project-front-title">AuthentiCite</h3>
+          </div>
+          <div class="project-flip-back">
+            <div class="project-type-tags">
+              <span class="project-tag tag-ai">AI & NLP</span>
+              <span class="project-tag tag-web">Web App</span>
+            </div>
+            <h3 class="project-name">AuthentiCite</h3>
+            <ul class="project-features">
+              <li>Real-time AI content authenticity verification & automated academic citation tracking</li>
+              <li>Deep linguistic pattern analysis and source attribution algorithms</li>
+              <li>Instant plagiarism scoring with structured reference generation</li>
+            </ul>
+            <div class="project-tech-stack">
+              <span>Python</span>
+              <span>FastAPI</span>
+              <span>NLP</span>
+              <span>Vercel</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://authenti-cite.vercel.app" target="_blank" class="project-btn primary">
+                <i data-lucide="external-link"></i> Live Demo
+              </a>
+              <a href="https://github.com/Manju1303/AuthentiCite" target="_blank" class="project-btn secondary">
+                <i data-lucide="github"></i> Source Code
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project: Incident Detection AI -->
+        <div class="project-flip-card anim-fade-up" data-delay="150" data-category="cv ai">
+          <div class="electric-border"></div>
+          <div class="project-flip-front project-thumb-13">
+            <div class="project-thumb-pattern"></div>
+            <div class="project-logo-container">
+              <div class="project-main-logo">
+                <i data-lucide="shield-alert" style="width: 4rem; height: 4rem; color: #fff;"></i>
+              </div>
+              <div class="project-logo-accent">Security</div>
+            </div>
+            <div class="project-thumb-label">Computer Vision · Security</div>
+            <h3 class="project-front-title">Incident Detection</h3>
+          </div>
+          <div class="project-flip-back">
+            <div class="project-type-tags">
+              <span class="project-tag tag-cv">Comp. Vision</span>
+              <span class="project-tag tag-ai">AI Security</span>
+            </div>
+            <h3 class="project-name">Incident Detection AI</h3>
+            <ul class="project-features">
+              <li>Autonomous real-time video stream analysis for security incident & anomaly detection</li>
+              <li>Custom CV models tracking spatial motion, perimeter breaches, and safety threats</li>
+              <li>Automated real-time alert trigger system with event logging dashboard</li>
+            </ul>
+            <div class="project-tech-stack">
+              <span>Python</span>
+              <span>OpenCV</span>
+              <span>YOLO / PyTorch</span>
+              <span>MediaPipe</span>
+            </div>
+            <div class="project-actions">
+              <a href="side-face-detection.html" target="_blank" class="project-btn primary">
+                <i data-lucide="play"></i> Live Demo
+              </a>
+              <a href="https://github.com/Manju1303" target="_blank" class="project-btn secondary">
+                <i data-lucide="github"></i> Source Code
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project: Smart ERP Platform -->
+        <div class="project-flip-card anim-fade-up" data-delay="200" data-category="web ai">
+          <div class="electric-border"></div>
+          <div class="project-flip-front project-thumb-1">
+            <div class="project-thumb-pattern"></div>
+            <div class="project-logo-container">
+              <div class="project-main-logo">
+                <i data-lucide="layers" style="width: 4rem; height: 4rem; color: #fff;"></i>
+              </div>
+              <div class="project-logo-accent">ERP</div>
+            </div>
+            <div class="project-thumb-label">Enterprise Platform</div>
+            <h3 class="project-front-title">Smart ERP</h3>
+          </div>
+          <div class="project-flip-back">
+            <div class="project-type-tags">
+              <span class="project-tag tag-web">Full-Stack</span>
+              <span class="project-tag tag-ai">AI Analytics</span>
+            </div>
+            <h3 class="project-name">Smart ERP Platform</h3>
+            <ul class="project-features">
+              <li>Modular Enterprise Resource Planning system managing workflow automation & inventory</li>
+              <li>AI-powered predictive analytics dashboard for resource allocation and demand forecasting</li>
+              <li>Multi-tenant architecture with granular Role-Based Access Control (RBAC)</li>
+            </ul>
+            <div class="project-tech-stack">
+              <span>Next.js</span>
+              <span>Python</span>
+              <span>PostgreSQL</span>
+              <span>TailwindCSS</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://github.com/Manju1303" target="_blank" class="project-btn primary">
+                <i data-lucide="github"></i> Source Code
+              </a>
+            </div>
+          </div>
+        </div>
 
         <!-- [TOP] Project 1: AURORA (AI Avatar Assistant) -->
         <div class="project-flip-card anim-fade-up" data-delay="100" data-category="ai">
